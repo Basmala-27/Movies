@@ -35,6 +35,7 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(
+    modifier: Modifier = Modifier,
     onTimeOut: ()-> Unit
 
     ) {
@@ -119,6 +120,6 @@ fun SplashScreen(
 )
 @Composable
 private fun PreviewSplashScreen() {
-    SplashScreen(onTimeOut = {})
+    SplashScreen(onTomeOut = {})
 
 }

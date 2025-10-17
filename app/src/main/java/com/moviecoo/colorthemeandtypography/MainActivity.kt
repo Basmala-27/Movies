@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.moviecoo.colorthemeandtypography.ui.Screens.SplashScreen
+import com.moviecoo.colorthemeandtypography.ui.screens.splashScreen.SplashScreen
 import com.moviecoo.colorthemeandtypography.ui.theme.ColorThemeandTypographyTheme
 
 class MainActivity : ComponentActivity() {
@@ -14,7 +14,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             ColorThemeandTypographyTheme {
                 SplashScreen(
-                    onTomeOut = {
+                    onTimeOut = {
                         val intent = Intent(this, MainActivity::class.java)
                         startActivity(intent)
                         finish()
