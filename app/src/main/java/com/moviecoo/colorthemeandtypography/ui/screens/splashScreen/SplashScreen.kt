@@ -120,6 +120,6 @@ fun SplashScreen(
 )
 @Composable
 private fun PreviewSplashScreen() {
-    SplashScreen(onTomeOut = {})
+    SplashScreen(onTimeOut = {})
 
 }

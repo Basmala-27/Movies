@@ -58,4 +58,8 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("androidx.compose.animation:animation:1.7.4")
+
+    implementation(libs.coil.compose)
+    implementation(libs.coil)
+    implementation("io.coil-kt:coil-compose:2.6.0")
 }
