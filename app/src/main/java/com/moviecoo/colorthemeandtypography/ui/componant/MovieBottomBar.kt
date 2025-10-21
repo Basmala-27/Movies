@@ -1,6 +1,7 @@
 package com.moviecoo.colorthemeandtypography.ui.componant
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
@@ -38,7 +39,7 @@ fun MovieBottomBar(home: Boolean = false , search: Boolean =false , watchlist: B
         NavigationBarItem(
             selected = false,
             onClick = { /* Navigate Watchlist */ },
-            icon = { Icon(Icons.Default.Search, contentDescription = "Watchlist", tint = isSelected(watchlist)) },
+            icon = { Icon(Icons.Default.FavoriteBorder, contentDescription = "Watchlist", tint = isSelected(watchlist)) },
             label = { Text("Watchlist", color = isSelected(watchlist)) }
         )
 
