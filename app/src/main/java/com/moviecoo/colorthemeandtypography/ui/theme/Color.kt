@@ -38,5 +38,5 @@ val EstimateColor = Color(0xFFFF8700)
 // Notification Number color
 val NotificationNumber = Color(0xFFEC5F59)
 
-
+val OrangeAccent = Color(0xFFF09A32)
 
