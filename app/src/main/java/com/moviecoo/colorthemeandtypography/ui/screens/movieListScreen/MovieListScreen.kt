@@ -3,9 +3,6 @@ package com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen
 
 import androidx.compose.foundation.Image
 import com.moviecoo.colorthemeandtypography.R
-
-
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
@@ -22,36 +19,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.moviecoo.colorthemeandtypography.ui.componant.MovieBottomBar
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.componant.AppScreenHeader
+import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.data.Movies
 import com.moviecoo.colorthemeandtypography.ui.theme.ColorThemeandTypographyTheme
 import com.moviecoo.colorthemeandtypography.ui.theme.OnPrimary
 import com.moviecoo.colorthemeandtypography.ui.theme.OrangeAccent
 import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 import com.moviecoo.colorthemeandtypography.ui.theme.Secondary
-
-
-data class Movie(
-    val title: String,
-    val year: Int,
-    val durationMin: Int,
-    val genre: String,
-    val rating: Double,
-    val image: Int
-)
-
-
-
-
-
 
 
 
@@ -60,9 +41,7 @@ data class Movie(
 @Composable
 fun MovieAppScreen() {
     Scaffold(
-
-        bottomBar = { MovieBottomBar() }
-
+        bottomBar = { MovieBottomBar(home = true) }
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -77,8 +56,7 @@ fun MovieAppScreen() {
 
             FeaturedMovieCard(
                 title = "Quantum Paradox",
-                details = "Sci-Fi • 2021 • 136m",
-                color = Color(0xFF454545)
+                details = "Sci-Fi • 2021 • 136m"
             )
             Spacer(modifier = Modifier.height(24.dp))
 
@@ -95,21 +73,20 @@ fun MovieAppScreen() {
 
 
 @Composable
-fun FeaturedMovieCard(title: String, details: String, color: Color) {
+fun FeaturedMovieCard(title: String, details: String) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .height(220.dp)
             .padding(horizontal = 16.dp)
-            .clip(RoundedCornerShape(12.dp)),
-        colors = CardDefaults.cardColors(containerColor = color) // Using color placeholder
+            .clip(RoundedCornerShape(12.dp))
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
 
             Box(
                 modifier = Modifier
                     .matchParentSize()
-                    .background(color)
+
             ){
                 Image(painter = painterResource(R.drawable.movie), contentDescription = "Movie Image" , contentScale = ContentScale.FillBounds, modifier = Modifier.fillMaxSize())
             }
@@ -121,7 +98,7 @@ fun FeaturedMovieCard(title: String, details: String, color: Color) {
                     
             )
 
-            // Content
+
             Column(
                 modifier = Modifier
                     .align(Alignment.BottomStart)
@@ -159,7 +136,7 @@ fun FeaturedMovieCard(title: String, details: String, color: Color) {
 }
 
 @Composable
-fun MovieSection(title: String, movies: List<Movie>, showRating: Boolean) {
+fun MovieSection(title: String, movies: List<Movies>, showRating: Boolean) {
 
     Row(
         modifier = Modifier
@@ -186,7 +163,7 @@ fun MovieSection(title: String, movies: List<Movie>, showRating: Boolean) {
 }
 
 @Composable
-fun MovieListItem(movie: Movie, showRating: Boolean) {
+fun MovieListItem(movie: Movies, showRating: Boolean) {
     Column(modifier = Modifier.width(160.dp)) {
 
         Card(
