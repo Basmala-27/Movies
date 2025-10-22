@@ -15,6 +15,11 @@
             android:name=".ui.screens.signInSignUpScreen.signInScreen.SignInScreen"
             android:exported="false" />
         <activity
+            android:name="com.moviecoo.colorthemeandtypography.ui.screens.SignInScreen.signUpScreen"
+            android:exported="false"
+            android:label="@string/title_activity_sign_up_screen"
+            android:theme="@style/Theme.ColorThemeandTypography" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
