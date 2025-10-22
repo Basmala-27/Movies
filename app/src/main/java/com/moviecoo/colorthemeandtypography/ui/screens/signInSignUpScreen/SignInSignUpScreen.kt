@@ -20,6 +20,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -28,7 +30,7 @@ import com.moviecoo.colorthemeandtypography.R
 
 import com.moviecoo.colorthemeandtypography.ui.theme.ColorThemeandTypographyTheme
 import com.moviecoo.colorthemeandtypography.ui.theme.Primary
-import com.moviecoo.colorthemeandtypography.ui.theme.RomanescoFontFamily
+//import com.moviecoo.colorthemeandtypography.ui.theme.RomanescoFontFamily
 
 @Composable
 fun SignInSignUpScreen() {
@@ -51,7 +53,7 @@ fun SignInSignUpScreen() {
 
                 Spacer(modifier = Modifier.height(200.dp))
 
-
+                val RomanescoFontFamily = FontFamily(Font(R.font.romanesco_regular))
                 Text(
                     text = "Moviecoo",
                     color = Color.White,

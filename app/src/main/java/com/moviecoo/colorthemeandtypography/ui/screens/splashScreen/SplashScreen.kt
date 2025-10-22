@@ -1,3 +1,4 @@
+package com.moviecoo.colorthemeandtypography.ui.screens.splashScreen
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
@@ -25,6 +26,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -34,14 +36,14 @@ import kotlinx.coroutines.delay
 @Composable
 fun SplashScreen(
     modifier: Modifier = Modifier,
-    onTomeOut: ()-> Unit
+    onTimeOut: ()-> Unit
 
     ) {
     var isVisile by remember{ mutableStateOf(true) }
     LaunchedEffect(Unit) {
         delay(3000)
         isVisile = false
-        onTomeOut()
+        onTimeOut()
     }
 
     AnimatedVisibility(
@@ -88,9 +90,9 @@ fun SplashScreen(
                 Text(
                     text = "WATCH AND FIND MOVIE THAT\nBRING YOUR MODE BACK",
                     fontSize = 24.sp,
-                    color = MaterialTheme.colorScheme.onPrimary,
+                    color = Color.LightGray,
                     fontFamily = staatlichesFontFamily,
-                    style = TextStyle(textAlign = androidx.compose.ui.text.style.TextAlign.Center)
+                    style = TextStyle(textAlign = TextAlign.Center)
                 )
 
 
@@ -118,6 +120,6 @@ fun SplashScreen(
 )
 @Composable
 private fun PreviewSplashScreen() {
-    SplashScreen(onTomeOut = {})
+    SplashScreen(onTimeOut = {})
 
 }
