@@ -8,7 +8,7 @@ data class MovieDataUiModel(
     val tickets: Int,
     val date: Int,
     val durationMinutes: Int,
-   @DrawableRes val poster: Int
+    val poster: Int
 
 
 )

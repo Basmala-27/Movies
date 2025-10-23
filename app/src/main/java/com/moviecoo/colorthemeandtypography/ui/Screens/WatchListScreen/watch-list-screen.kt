@@ -1,6 +1,6 @@
 package com.moviecoo.colorthemeandtypography.ui.Screens.WatchListScreen
 
-import androidx.compose.foundation.background
+
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
