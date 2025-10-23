@@ -3,12 +3,12 @@ package com.moviecoo.colorthemeandtypography.ui.theme
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
-val Primary = Color(0xFF0E3E62)          // background of buttons
+val Primary = Color(0xFF09274C)          // background of buttons
 val OnPrimary = Color(0xFFFFFFFF)         // content on buttons ... text,shadow  and Main text in every place
 val Secondary = Color(0xFF051542)         // circle for userAccount when activate  nd symbol in user screen
 val OnSecondary = Color(0xFFFFFFFF)      // lines for icons when active
 // Bottom bar colors and text field
-val Surface = Color(0x4D4D4D66)        // background for both
+val Surface = Color(0xFF212331)        // background for both
 val OnSurface = Color(0x4D4D4D66)      // icons in default , hint in text field
 // background
 val GradientBackground = Brush.verticalGradient(

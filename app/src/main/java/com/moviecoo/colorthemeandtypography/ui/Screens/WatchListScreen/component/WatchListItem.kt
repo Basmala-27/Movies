@@ -35,6 +35,7 @@ import com.moviecoo.colorthemeandtypography.R
 import com.moviecoo.colorthemeandtypography.ui.Screens.WatchListScreen.model.MovieDataUiModel
 import coil.request.ImageRequest
 import coil.compose.rememberAsyncImagePainter
+import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 
 @Composable
 fun MovieWatchListItem(
@@ -53,7 +54,7 @@ fun MovieWatchListItem(
                 .padding(horizontal = 16.dp, vertical = 8.dp),
             shape = MaterialTheme.shapes.large,
             elevation = CardDefaults.cardElevation(4.dp),
-            colors = CardDefaults.cardColors(containerColor = Color(0xFF09274C))
+            colors = CardDefaults.cardColors(containerColor = Primary)
 
         ) {
 
