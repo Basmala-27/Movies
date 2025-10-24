@@ -9,10 +9,14 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="50e773c2-a2a1-4ee0-af53-7faa109560e1" name="Changes" comment="Commit">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="50e773c2-a2a1-4ee0-af53-7faa109560e1" name="Changes" comment="add signup">
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/cast1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/cast2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/cast3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/cast4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/venom_background.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,6 +74,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Kotlin File" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
@@ -100,12 +105,12 @@
     &quot;assignee&quot;: &quot;Basmala-27&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Basmala-27/Movies.git",
-    "accountId": "42db4d12-e3d2-4cef-a6e3-7f43a485a88d"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Basmala-27/Movies.git&quot;,
+    &quot;accountId&quot;: &quot;42db4d12-e3d2-4cef-a6e3-7f43a485a88d&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 0
@@ -129,12 +134,16 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "watch-list",
-    "last_opened_file_path": "C:/Users/ITC/Desktop/Movies/app/src/main/res/drawable"
+    "last_opened_file_path": "C:/Users/COMPUMARTS/AndroidStudioProjects/experince/app/src/main/res/drawable"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\COMPUMARTS\AndroidStudioProjects\experince\app\src\main\res\drawable" />
       <recent name="C:\Users\ITC\Desktop\Movies\app\src\main\res\drawable" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\COMPUMARTS\AndroidStudioProjects\experince\app\src\main\res\drawable" />
     </key>
     <key name="android.template.454324318">
       <recent name="com.moviecoo.colorthemeandtypography.Screen.SignInSignUpScreen" />
@@ -256,12 +265,21 @@
       <option name="project" value="LOCAL" />
       <updated>1760722944223</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="add signup">
+      <option name="closed" value="true" />
+      <created>1761322766758</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1761322766758</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Commit" />
+    <MESSAGE value="add signup" />
+    <option name="LAST_COMMIT_MESSAGE" value="add signup" />
   </component>
   <component name="play_dynamic_filters_status">
     <option name="appIdToCheckInfo">
