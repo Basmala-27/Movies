@@ -1,4 +1,4 @@
-package com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit
+package com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.model
 
 data class moviedatamodle(
     val articles: List<Article>,

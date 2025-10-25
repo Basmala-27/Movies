@@ -1,4 +1,6 @@
-package com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit
+package com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.model
+
+import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.model.Source
 
 data class Article(
     val author: String,
