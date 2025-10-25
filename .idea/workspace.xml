@@ -9,14 +9,13 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="50e773c2-a2a1-4ee0-af53-7faa109560e1" name="Changes" comment="add signup">
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/cast1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/cast2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/cast3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/cast4.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/venom_background.png" afterDir="false" />
+    <list default="true" id="50e773c2-a2a1-4ee0-af53-7faa109560e1" name="Changes" comment="add details screen">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/data/data_source/remote/retrofit/api/Dates.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/data/data_source/remote/retrofit/api/Result.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/data/data_source/remote/retrofit/api/movidatamodle.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/Screens/detailsScreen/DetailsScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/Screens/detailsScreen/DetailsScreen.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,7 +133,8 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "watch-list",
-    "last_opened_file_path": "C:/Users/COMPUMARTS/AndroidStudioProjects/experince/app/src/main/res/drawable"
+    "last_opened_file_path": "C:/Users/COMPUMARTS/AndroidStudioProjects/experince/app/src/main/res/drawable",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -273,13 +273,22 @@
       <option name="project" value="LOCAL" />
       <updated>1761322766758</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="add details screen">
+      <option name="closed" value="true" />
+      <created>1761324313861</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1761324313862</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Commit" />
     <MESSAGE value="add signup" />
-    <option name="LAST_COMMIT_MESSAGE" value="add signup" />
+    <MESSAGE value="add details screen" />
+    <option name="LAST_COMMIT_MESSAGE" value="add details screen" />
   </component>
   <component name="play_dynamic_filters_status">
     <option name="appIdToCheckInfo">

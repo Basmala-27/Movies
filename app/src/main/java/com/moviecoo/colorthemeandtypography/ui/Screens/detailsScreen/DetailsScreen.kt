@@ -39,7 +39,7 @@ fun DetailsScreen() {
             )
     ) {
         Column {
-            // الجزء العلوي (صورة الفيلم)
+
             Box(
                 modifier = Modifier
                     .weight(1f)
@@ -52,7 +52,7 @@ fun DetailsScreen() {
                     contentScale = ContentScale.Crop
                 )
 
-                // تدرج غامق في الأسفل عشان النص يبان
+
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
@@ -66,7 +66,7 @@ fun DetailsScreen() {
                 )
             }
 
-            // الجزء السفلي (معلومات الفيلم)
+
             Column(
                 modifier = Modifier
                     .weight(1f)
@@ -125,7 +125,7 @@ fun DetailsScreen() {
 
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    // قسم الممثلين
+
                     Text(
                         text = "cast",
                         color = Color.White,
@@ -135,7 +135,7 @@ fun DetailsScreen() {
 
                     Spacer(modifier = Modifier.height(10.dp))
 
-                    // صف الممثلين + كلمة Trailer على اليمين
+
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
@@ -173,7 +173,7 @@ fun DetailsScreen() {
 
                 Spacer(modifier = Modifier.height(2.dp))
 
-                // صف الأيقونة + الزر
+
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.End,
@@ -196,9 +196,9 @@ fun DetailsScreen() {
                             .width(230.dp)
                             .height(65.dp)
                             .shadow(
-                                elevation = 20.dp, // قوة الشادو
+                                elevation = 20.dp,
                                 shape = RoundedCornerShape(20.dp),
-                                ambientColor = Color(0xFFEC255A), // لون الظل الأبيض
+                                ambientColor = Color(0xFFEC255A), 
                                 spotColor = Color(0xFFEC255A)
                             ),
                         shape = RoundedCornerShape(16.dp),
