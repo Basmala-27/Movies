@@ -1,4 +1,4 @@
-package com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.api
+package com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.model
 
 data class Result(
     val adult: Boolean,

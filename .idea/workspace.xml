@@ -9,13 +9,18 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="50e773c2-a2a1-4ee0-af53-7faa109560e1" name="Changes" comment="add details screen">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/data/data_source/remote/retrofit/api/Dates.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/data/data_source/remote/retrofit/api/Result.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/data/data_source/remote/retrofit/api/movidatamodle.kt" afterDir="false" />
+    <list default="true" id="50e773c2-a2a1-4ee0-af53-7faa109560e1" name="Changes" comment="retrofit">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/data/Constants.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/data/data_source/remote/retrofit/Article.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/data/data_source/remote/retrofit/Source.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/data/data_source/remote/retrofit/model/Dates.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/data/data_source/remote/retrofit/model/Result.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/data/data_source/remote/retrofit/model/movidatamodle.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/data/data_source/remote/retrofit/moviedatamodle.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/Screens/detailsScreen/DetailsScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/Screens/detailsScreen/DetailsScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/data/data_source/remote/retrofit/api/Dates.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/data/data_source/remote/retrofit/api/MovieApi.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/data/data_source/remote/retrofit/api/Result.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/data/data_source/remote/retrofit/api/movidatamodle.kt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,6 +79,7 @@
       <list>
         <option value="Kotlin File" />
         <option value="Kotlin Class" />
+        <option value="Kotlin Interface" />
       </list>
     </option>
   </component>
@@ -119,7 +125,6 @@
     <option name="STATE" value="1" />
   </component>
   <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
@@ -144,6 +149,10 @@
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\COMPUMARTS\AndroidStudioProjects\experince\app\src\main\res\drawable" />
+    </key>
+    <key name="K2MoveDeclarationsDialog.RECENT_PACKAGE_KEY">
+      <recent name="com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.model" />
+      <recent name="com.moviecoo.colorthemeandtypography.data" />
     </key>
     <key name="android.template.454324318">
       <recent name="com.moviecoo.colorthemeandtypography.Screen.SignInSignUpScreen" />
@@ -281,14 +290,23 @@
       <option name="project" value="LOCAL" />
       <updated>1761324313862</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="retrofit">
+      <option name="closed" value="true" />
+      <created>1761423800612</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1761423800612</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Commit" />
     <MESSAGE value="add signup" />
     <MESSAGE value="add details screen" />
-    <option name="LAST_COMMIT_MESSAGE" value="add details screen" />
+    <MESSAGE value="retrofit" />
+    <option name="LAST_COMMIT_MESSAGE" value="retrofit" />
   </component>
   <component name="play_dynamic_filters_status">
     <option name="appIdToCheckInfo">
