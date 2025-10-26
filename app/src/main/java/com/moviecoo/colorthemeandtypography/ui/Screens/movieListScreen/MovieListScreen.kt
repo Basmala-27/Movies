@@ -151,7 +151,7 @@ fun FeaturedMovieCard(title: String, details: String, color: Color) {
 }
 
 @Composable
-fun MovieSection(title: String, movies: List<Movie>, showRating: Boolean) {
+fun MovieSection(title: String, movies: List<MovieUiModel>, showRating: Boolean) {
 
     Row(
         modifier = Modifier
@@ -178,7 +178,7 @@ fun MovieSection(title: String, movies: List<Movie>, showRating: Boolean) {
 }
 
 @Composable
-fun MovieListItem(movie: Movie, showRating: Boolean) {
+fun MovieListItem(movie: MovieUiModel, showRating: Boolean) {
     Column(modifier = Modifier.width(160.dp)) {
 
         Card(
