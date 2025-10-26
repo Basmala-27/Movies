@@ -4,7 +4,7 @@ import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.api
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.model.MovieDataModel
 
 class RemoteDataSource(private val movieApi: MovieApi) {
-    fun fetchGithubRepos(): MovieDataModel {
+    fun fetchMovies(): MovieDataModel {
 
         try {
             return movieApi.fetchMovies().body() as MovieDataModel
@@ -12,4 +12,4 @@ class RemoteDataSource(private val movieApi: MovieApi) {
             throw e
             }
 
-}
+}}
