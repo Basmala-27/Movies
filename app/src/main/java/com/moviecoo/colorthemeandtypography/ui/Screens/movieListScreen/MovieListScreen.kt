@@ -4,7 +4,7 @@ package com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen
 import androidx.compose.foundation.Image
 import com.moviecoo.colorthemeandtypography.R
 
-
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -18,6 +18,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,6 +30,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.moviecoo.colorthemeandtypography.ui.Screens.movieListScreen.model.MovieUiModel
+import com.moviecoo.colorthemeandtypography.ui.Screens.movieListScreen.viewmodel.MovieListViewModel
 import com.moviecoo.colorthemeandtypography.ui.component.MovieBottomBar
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.componant.AppScreenHeader
 import com.moviecoo.colorthemeandtypography.ui.theme.ColorThemeandTypographyTheme
@@ -37,26 +41,16 @@ import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 import com.moviecoo.colorthemeandtypography.ui.theme.Secondary
 
 
-data class Movie(
-    val title: String,
-    val year: Int,
-    val durationMin: Int,
-    val genre: String,
-    val rating: Double,
-    val image: Int
-)
-
-
-
-
-
-
 
 
 
 
 @Composable
 fun MovieAppScreen() {
+    val viewmodel: MovieListViewModel = viewModel()
+    val movieListState = remember {
+        mutableStateOf< List<MovieUiModel>?>(null)
+        }
     Scaffold(
 
         bottomBar = { MovieBottomBar() }

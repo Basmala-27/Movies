@@ -1,0 +1,10 @@
+package com.moviecoo.colorthemeandtypography.ui.Screens.movieListScreen.model
+
+data class MovieUiModel(
+    val title: String,
+    val year: Int,
+    val durationMin: Int,
+    val genre: String,
+    val rating: Double,
+    val image: Int
+)
