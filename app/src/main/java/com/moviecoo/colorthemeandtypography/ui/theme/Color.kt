@@ -11,7 +11,7 @@ val OnSecondary = Color(0xFFFFFFFF)      // lines for icons when active
 val Surface = Color(0x4D4D4D66)        // background for both
 val OnSurface = Color(0x4D4D4D66)      // icons in default , hint in text field
 // background
-val GradientBackground = Brush.verticalGradient(
+val GradientBackground: Brush  = Brush.verticalGradient(
     colorStops = arrayOf(
         0.0f to Color(0xFF0C3260),       // 0%   first color
         0.6254f to Color(0xFF061E3B),    // 62.54%   second color

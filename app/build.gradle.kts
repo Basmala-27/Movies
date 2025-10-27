@@ -27,18 +27,24 @@ android {
             )
         }
     }
+
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
+
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
+
     buildFeatures {
         compose = true
     }
-}
 
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.4"
+    }
+}
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -62,7 +68,7 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("androidx.compose.animation:animation:1.7.4")
-
+    implementation("androidx.compose.material:material-icons-extended-android:1.6.6")
     implementation(libs.coil.compose)
     implementation(libs.coil)
     implementation("io.coil-kt:coil-compose:2.6.0")

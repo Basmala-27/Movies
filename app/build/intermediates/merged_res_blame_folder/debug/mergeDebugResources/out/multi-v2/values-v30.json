@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.moviecoo.colorthemeandtypography.app-mergeDebugResources-2:/values-v30/values-v30.xml",
+            "outputFile": "com.moviecoo.colorthemeandtypography.app-mergeDebugResources-52:/values-v30/values-v30.xml",
             "map": [
                 {
-                    "source": "E:\\Android\\plugins\\gradle\\caches\\8.13\\transforms\\e2344aa41848c5c54cac99d40a28e59d\\transformed\\material3-release\\res\\values-v30\\values-v30.xml",
+                    "source": "C:\\Users\\Fix-Dell\\.gradle\\caches\\8.13\\transforms\\3900dd23f82596e6727eb9dd8701903f\\transformed\\material3-release\\res\\values-v30\\values-v30.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
