@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import com.moviecoo.colorthemeandtypography.navigation.AppNavHost
 import com.moviecoo.colorthemeandtypography.ui.screens.splashScreen.SplashScreen
 import com.moviecoo.colorthemeandtypography.ui.theme.ColorThemeandTypographyTheme
 
@@ -14,15 +15,15 @@ class MainActivity : ComponentActivity() {
       //  enableEdgeToEdge()
         setContent {
             ColorThemeandTypographyTheme {
-                SplashScreen(
-                    onTimeOut = {
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
-                        finish()
-
-                    }
-                )
-
+//                SplashScreen(
+//                    onTimeOut = {
+//                        val intent = Intent(this, MainActivity::class.java)
+//                        startActivity(intent)
+//                        finish()
+//
+//                    }
+//                )
+                AppNavHost()
             }
         }
     }

@@ -30,10 +30,13 @@ import com.moviecoo.colorthemeandtypography.R
 
 import com.moviecoo.colorthemeandtypography.ui.theme.ColorThemeandTypographyTheme
 import com.moviecoo.colorthemeandtypography.ui.theme.Primary
-//import com.moviecoo.colorthemeandtypography.ui.theme.RomanescoFontFamily
+
 
 @Composable
-fun SignInSignUpScreen() {
+fun SignInSignUpScreen(
+    onSignInClicked: () -> Unit ,
+    onSignUpClicked: () -> Unit
+) {
     ColorThemeandTypographyTheme {
         Box(modifier = Modifier.fillMaxSize()) {
             Image(
@@ -53,13 +56,13 @@ fun SignInSignUpScreen() {
 
                 Spacer(modifier = Modifier.height(200.dp))
 
-                val RomanescoFontFamily = FontFamily(Font(R.font.romanesco_regular))
+                val romanescoFontFamily = FontFamily(Font(R.font.romanesco_regular))
                 Text(
                     text = "Moviecoo",
                     color = Color.White,
                     fontSize = 85.sp,
                     fontWeight = FontWeight.Light,
-                    fontFamily = RomanescoFontFamily,
+                    fontFamily = romanescoFontFamily,
 
                     modifier = Modifier.padding(bottom = 100.dp)
                 )
@@ -76,7 +79,7 @@ fun SignInSignUpScreen() {
 
                     Button(
 
-                        onClick = { },
+                        onClick = { onSignInClicked() },
                         colors = ButtonDefaults.buttonColors(containerColor = Primary),
                         modifier = Modifier
                             .fillMaxWidth()
@@ -98,7 +101,7 @@ fun SignInSignUpScreen() {
 
 
                     Button(
-                        onClick = { },
+                        onClick = { onSignUpClicked() },
                         colors = ButtonDefaults.buttonColors(containerColor = Primary),
                         modifier = Modifier
                             .fillMaxWidth()
@@ -116,7 +119,7 @@ fun SignInSignUpScreen() {
 @Composable
 fun GreetingPreview() {
     ColorThemeandTypographyTheme {
-        SignInSignUpScreen()
-
+        SignInSignUpScreen(onSignInClicked = {}, onSignUpClicked = {})
     }
 }
+
