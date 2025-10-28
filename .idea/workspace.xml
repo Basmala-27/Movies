@@ -21,13 +21,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="50e773c2-a2a1-4ee0-af53-7faa109560e1" name="Changes" comment="retrofit 2">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/navigation/AppNavHost.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/Screens/signInSignUpScreen/SignInSignUpScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/Screens/signInSignUpScreen/SignInSignUpScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/libs.versions.toml" afterDir="false" />
-    </list>
+    <list default="true" id="50e773c2-a2a1-4ee0-af53-7faa109560e1" name="Changes" comment="Stated in Navigation" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -313,7 +307,15 @@
       <option name="project" value="LOCAL" />
       <updated>1761430238577</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Stated in Navigation">
+      <option name="closed" value="true" />
+      <created>1761662619890</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1761662619890</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -322,7 +324,8 @@
     <MESSAGE value="add details screen" />
     <MESSAGE value="retrofit" />
     <MESSAGE value="retrofit 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="retrofit 2" />
+    <MESSAGE value="Stated in Navigation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Stated in Navigation" />
   </component>
   <component name="play_dynamic_filters_status">
     <option name="appIdToCheckInfo">
