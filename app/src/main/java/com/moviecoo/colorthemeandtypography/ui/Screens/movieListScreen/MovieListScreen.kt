@@ -34,11 +34,26 @@ import com.moviecoo.colorthemeandtypography.ui.Screens.movieListScreen.model.Mov
 import com.moviecoo.colorthemeandtypography.ui.Screens.movieListScreen.viewmodel.MovieListViewModel
 import com.moviecoo.colorthemeandtypography.ui.component.MovieBottomBar
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.componant.AppScreenHeader
+import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.data.Movies
 import com.moviecoo.colorthemeandtypography.ui.theme.ColorThemeandTypographyTheme
 import com.moviecoo.colorthemeandtypography.ui.theme.OnPrimary
 import com.moviecoo.colorthemeandtypography.ui.theme.OrangeAccent
 import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 import com.moviecoo.colorthemeandtypography.ui.theme.Secondary
+
+
+data class Movie(
+    val title: String,
+    val year: Int,
+    val durationMin: Int,
+    val genre: String,
+    val rating: Double,
+    val image: Int
+)
+
+
+
+
 
 
 
@@ -52,9 +67,7 @@ fun MovieAppScreen() {
         mutableStateOf< List<MovieUiModel>?>(null)
         }
     Scaffold(
-
-        bottomBar = { MovieBottomBar() }
-
+        bottomBar = { MovieBottomBar(home = true) }
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -69,8 +82,7 @@ fun MovieAppScreen() {
 
             FeaturedMovieCard(
                 title = "Quantum Paradox",
-                details = "Sci-Fi • 2021 • 136m",
-                color = Color(0xFF454545)
+                details = "Sci-Fi • 2021 • 136m"
             )
             Spacer(modifier = Modifier.height(24.dp))
 
@@ -87,21 +99,20 @@ fun MovieAppScreen() {
 
 
 @Composable
-fun FeaturedMovieCard(title: String, details: String, color: Color) {
+fun FeaturedMovieCard(title: String, details: String) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .height(220.dp)
             .padding(horizontal = 16.dp)
-            .clip(RoundedCornerShape(12.dp)),
-        colors = CardDefaults.cardColors(containerColor = color) // Using color placeholder
+            .clip(RoundedCornerShape(12.dp))
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
 
             Box(
                 modifier = Modifier
                     .matchParentSize()
-                    .background(color)
+
             ){
                 Image(painter = painterResource(R.drawable.movie), contentDescription = "Movie Image" , contentScale = ContentScale.FillBounds, modifier = Modifier.fillMaxSize())
             }
@@ -113,7 +124,7 @@ fun FeaturedMovieCard(title: String, details: String, color: Color) {
                     
             )
 
-            // Content
+
             Column(
                 modifier = Modifier
                     .align(Alignment.BottomStart)
@@ -151,6 +162,7 @@ fun FeaturedMovieCard(title: String, details: String, color: Color) {
 }
 
 @Composable
+
 fun MovieSection(title: String, movies: List<MovieUiModel>, showRating: Boolean) {
 
     Row(
