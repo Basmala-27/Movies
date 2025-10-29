@@ -1,4 +1,4 @@
-package com.moviecoo.colorthemeandtypography.ui.component
+package com.moviecoo.colorthemeandtypography.common_components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FavoriteBorder
@@ -6,7 +6,6 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
@@ -18,38 +17,38 @@ import com.moviecoo.colorthemeandtypography.ui.theme.Surface
 
 
 @Composable
-fun MovieBottomBar(home: Boolean = false , search: Boolean =false , watchlist: Boolean = false, profile: Boolean= false) {
+fun MovieBottomBar(home: Boolean = false , search: Boolean =false , watchlist: Boolean = false, profile: Boolean= false
+,onHomeClick: () -> Unit ={}, onSearchClick: () -> Unit ={}, onWatchlistClick: () -> Unit ={} , onProfileClick: () -> Unit={}) {
     NavigationBar(
-        containerColor = Surface
+        containerColor = Surface ,
     ) {
 
         NavigationBarItem(
             selected = home,
-            onClick = {  },
+            onClick = {onHomeClick() },
             icon = { Icon(Icons.Default.Home, contentDescription = "Home", tint = isSelected(home) ) },
             label = { Text("Home", color =isSelected(home)) },
             colors = NavigationBarItemDefaults.colors(indicatorColor = Color.Transparent)
         )
 
         NavigationBarItem(
-            selected = false,
-            onClick = {  },
+            selected = search,
+            onClick = { onSearchClick() },
             icon = { Icon(Icons.Default.Search, contentDescription = "Search", tint = isSelected(search)) },
             label = { Text("Search", color = isSelected(search)) }
         )
 
         NavigationBarItem(
-            selected = false,
-            onClick = { /* Navigate Watchlist */ },
+            selected = watchlist,
+            onClick = {  onWatchlistClick()},
             icon = { Icon(Icons.Default.FavoriteBorder, contentDescription = "Watchlist", tint = isSelected(watchlist)) },
             label = { Text("Watchlist", color = isSelected(watchlist)) }
         )
 
         NavigationBarItem(
-            selected = false,
-            onClick = { /* Navigate Profile */ },
+            selected = profile,
+            onClick = { onProfileClick() },
             icon = { Icon(Icons.Default.Person, contentDescription = "Profile", tint=isSelected(profile)) },
-            label = { Text("Profile", color = isSelected(profile)) }
         )
     }
 }

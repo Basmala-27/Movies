@@ -12,7 +12,7 @@ import com.moviecoo.colorthemeandtypography.R
 import com.moviecoo.colorthemeandtypography.common_components.TopAppBar
 import com.moviecoo.colorthemeandtypography.ui.Screens.WatchListScreen.component.MovieWatchListItem
 import com.moviecoo.colorthemeandtypography.ui.Screens.WatchListScreen.model.MovieDataUiModel
-import com.moviecoo.colorthemeandtypography.ui.component.MovieBottomBar
+import com.moviecoo.colorthemeandtypography.common_components.MovieBottomBar
 import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 import com.moviecoo.colorthemeandtypography.ui.theme.Surface
 

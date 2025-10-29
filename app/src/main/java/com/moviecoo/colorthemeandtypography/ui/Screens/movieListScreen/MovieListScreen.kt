@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.moviecoo.colorthemeandtypography.ui.Screens.movieListScreen.model.MovieUiModel
 import com.moviecoo.colorthemeandtypography.ui.Screens.movieListScreen.viewmodel.MovieListViewModel
-import com.moviecoo.colorthemeandtypography.ui.component.MovieBottomBar
+import com.moviecoo.colorthemeandtypography.common_components.MovieBottomBar
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.componant.AppScreenHeader
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.data.Movies
 import com.moviecoo.colorthemeandtypography.ui.theme.ColorThemeandTypographyTheme
@@ -41,15 +41,6 @@ import com.moviecoo.colorthemeandtypography.ui.theme.OrangeAccent
 import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 import com.moviecoo.colorthemeandtypography.ui.theme.Secondary
 
-
-data class Movie(
-    val title: String,
-    val year: Int,
-    val durationMin: Int,
-    val genre: String,
-    val rating: Double,
-    val image: Int
-)
 
 
 
@@ -61,7 +52,7 @@ data class Movie(
 
 
 @Composable
-fun MovieAppScreen() {
+fun MovieListScreen() {
     val viewmodel: MovieListViewModel = viewModel()
     val movieListState = remember {
         mutableStateOf< List<MovieUiModel>?>(null)
@@ -163,7 +154,7 @@ fun FeaturedMovieCard(title: String, details: String) {
 
 @Composable
 
-fun MovieSection(title: String, movies: List<MovieUiModel>, showRating: Boolean) {
+fun MovieSection(title: String, movies: List<Movies>, showRating: Boolean) {
 
     Row(
         modifier = Modifier
@@ -190,7 +181,7 @@ fun MovieSection(title: String, movies: List<MovieUiModel>, showRating: Boolean)
 }
 
 @Composable
-fun MovieListItem(movie: MovieUiModel, showRating: Boolean) {
+fun MovieListItem(movie: Movies, showRating: Boolean) {
     Column(modifier = Modifier.width(160.dp)) {
 
         Card(
@@ -263,6 +254,6 @@ fun RatingBadge(rating: Double) {
 @Composable
 fun PreviewMovieAppScreen() {
     ColorThemeandTypographyTheme {
-        MovieAppScreen()
+        MovieListScreen()
     }
 }
