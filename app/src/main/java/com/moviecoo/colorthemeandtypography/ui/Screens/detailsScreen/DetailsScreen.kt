@@ -1,7 +1,5 @@
 package com.moviecoo.colorthemeandtypography.ui.Screens.detailsScreen
 
-
-
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -28,7 +26,8 @@ import com.moviecoo.colorthemeandtypography.R
 
 
 @Composable
-fun DetailsScreen() {
+fun DetailsScreen(movie: MovieDetailsUiModel) {
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -39,7 +38,7 @@ fun DetailsScreen() {
             )
     ) {
         Column {
-
+            // صورة الخلفية
             Box(
                 modifier = Modifier
                     .weight(1f)
@@ -47,11 +46,10 @@ fun DetailsScreen() {
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.venom_background),
-                    contentDescription = "Venom 2 Background",
+                    contentDescription = movie.title,
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop
                 )
-
 
                 Box(
                     modifier = Modifier
@@ -66,7 +64,7 @@ fun DetailsScreen() {
                 )
             }
 
-
+            // التفاصيل
             Column(
                 modifier = Modifier
                     .weight(1f)
@@ -76,7 +74,7 @@ fun DetailsScreen() {
             ) {
                 Column {
                     Text(
-                        text = "Venom 2",
+                        text = movie.title,
                         color = Color.White,
                         fontSize = 48.sp,
                         fontWeight = FontWeight.Bold,
@@ -87,10 +85,9 @@ fun DetailsScreen() {
                     Spacer(modifier = Modifier.height(8.dp))
 
                     Text(
-                        text = "2021 | Action Fantasy | 1h 37 min",
+                        text = "${movie.year} | ${movie.genre} | ${movie.duration}",
                         color = Color(0xFFCCCCCC),
                         fontSize = 24.sp,
-                        fontWeight = FontWeight.Light,
                         textAlign = TextAlign.Center,
                         modifier = Modifier.fillMaxWidth()
                     )
@@ -99,7 +96,7 @@ fun DetailsScreen() {
 
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(
-                            text = "6.1",
+                            text = movie.rating.toString(),
                             color = Color.White,
                             fontSize = 18.sp,
                             fontWeight = FontWeight.Bold
@@ -115,26 +112,23 @@ fun DetailsScreen() {
                     Spacer(modifier = Modifier.height(16.dp))
 
                     Text(
-                        text = "Eddie Brock attempts to reignite his career by interviewing serial killer Cletus Kasady, who becomes the host of the symbiote Carnage and escapes prison after a failed execution.",
+                        text = movie.overview,
                         color = Color(0xFFCCCCCC),
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Light,
-                        lineHeight = 21.sp,
-                        textAlign = TextAlign.Start
+                        lineHeight = 21.sp
                     )
 
                     Spacer(modifier = Modifier.height(20.dp))
 
-
                     Text(
-                        text = "cast",
+                        text = "Cast",
                         color = Color.White,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Bold
                     )
 
                     Spacer(modifier = Modifier.height(10.dp))
-
 
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -144,14 +138,7 @@ fun DetailsScreen() {
                         Row(
                             horizontalArrangement = Arrangement.spacedBy(-20.dp)
                         ) {
-                            val castImages = listOf(
-                                R.drawable.cast2,
-                                R.drawable.cast1,
-                                R.drawable.cast3,
-                                R.drawable.cast4
-                            )
-
-                            castImages.forEach {
+                            movie.castImages.forEach {
                                 Image(
                                     painter = painterResource(id = it),
                                     contentDescription = "Cast Member",
@@ -173,7 +160,6 @@ fun DetailsScreen() {
 
                 Spacer(modifier = Modifier.height(2.dp))
 
-
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.End,
@@ -191,14 +177,14 @@ fun DetailsScreen() {
                     Spacer(modifier = Modifier.width(20.dp))
 
                     Button(
-                        onClick = { /* TODO */ },
+                        onClick = { /* TODO: Watch now */ },
                         modifier = Modifier
                             .width(230.dp)
                             .height(65.dp)
                             .shadow(
                                 elevation = 20.dp,
                                 shape = RoundedCornerShape(20.dp),
-                                ambientColor = Color(0xFFEC255A), 
+                                ambientColor = Color(0xFFEC255A),
                                 spotColor = Color(0xFFEC255A)
                             ),
                         shape = RoundedCornerShape(16.dp),
@@ -211,16 +197,30 @@ fun DetailsScreen() {
                             fontWeight = FontWeight.Bold
                         )
                     }
-
                 }
             }
         }
     }
 }
 
-
 @Preview(showBackground = true)
 @Composable
 fun PreviewDetailsScreen() {
-    DetailsScreen()
+    val sampleMovie = MovieDetailsUiModel(
+        title = "Venom 2",
+        year = "2021",
+        genre = "Action, Fantasy",
+        duration = "1h 37min",
+        rating = 6.1,
+        overview = "Eddie Brock attempts to reignite his career by interviewing serial killer Cletus Kasady, who becomes the host of the symbiote Carnage.",
+        image = "venom_background",
+        castImages = listOf(
+            R.drawable.cast1,
+            R.drawable.cast2,
+            R.drawable.cast3,
+            R.drawable.cast4
+        )
+    )
+
+    DetailsScreen(movie = sampleMovie)
 }
