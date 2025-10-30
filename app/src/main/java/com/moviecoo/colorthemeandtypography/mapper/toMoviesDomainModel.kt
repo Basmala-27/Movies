@@ -5,12 +5,12 @@ import com.moviecoo.colorthemeandtypography.domain.model.MoviesDomainModel
 import kotlin.String
 
 fun MovieDataModel.toMoviesDomainModel(): List<MoviesDomainModel>{
-    return this.articles.map { article ->
-        MoviesDomainModel(
-            val title: String,
-
-
-        )
+    return this.results.map { article ->
+       MoviesDomainModel(
+//            val title: String,
+//
+//
+       )
           }
 
 }
