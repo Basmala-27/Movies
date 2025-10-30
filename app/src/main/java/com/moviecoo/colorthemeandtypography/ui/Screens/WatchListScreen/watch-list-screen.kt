@@ -6,19 +6,28 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.moviecoo.colorthemeandtypography.R
 import com.moviecoo.colorthemeandtypography.common_components.TopAppBar
 import com.moviecoo.colorthemeandtypography.ui.Screens.WatchListScreen.component.MovieWatchListItem
 import com.moviecoo.colorthemeandtypography.ui.Screens.WatchListScreen.model.MovieDataUiModel
 import com.moviecoo.colorthemeandtypography.common_components.MovieBottomBar
+import com.moviecoo.colorthemeandtypography.ui.Screens.movieListScreen.model.MovieUiModel
+import com.moviecoo.colorthemeandtypography.ui.Screens.movieListScreen.viewmodel.MovieListViewModel
 import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 import com.moviecoo.colorthemeandtypography.ui.theme.Surface
 
 
 @Composable
 fun WatchListScreen() {
+    val viewmodel: MovieListViewModel = viewModel()
+    val movieListState = remember {
+        mutableStateOf< List<MovieUiModel>?>(null)
+    }
     val movies = listOf(
         MovieDataUiModel(
             name = "Spiderman",
