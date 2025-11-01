@@ -1,6 +1,4 @@
-package com.moviecoo.colorthemeandtypography.ui.Screens.WatchListScreen.model
-
-import androidx.annotation.DrawableRes
+package com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen.model
 
 data class MovieDataUiModel(
     val name: String,

@@ -8,14 +8,19 @@ fun MovieDataModel.toDetailsDomainModel(): List<DetailsDomainModel>{
     return this.results.map { results ->
         DetailsDomainModel(
             title = results.title,
-            year = results.release_date.toInt(),
-            durationMin = 0,
+            year = results.release_date,
+            duration = "0",
             genre = results.genre_ids.toString(),
             rating = results.vote_average,
-            image = results.poster_path.toInt(),
-            cast =results
+            image = results.poster_path,
+            overview = results.overview,
+            castImages = emptyList()
         )
 
     }
 
+
+
+
 }
+

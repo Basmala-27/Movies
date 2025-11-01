@@ -1,4 +1,4 @@
-package com.moviecoo.colorthemeandtypography.ui.Screens.WatchListScreen
+package com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen
 
 
 import androidx.compose.foundation.layout.padding
@@ -13,11 +13,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.moviecoo.colorthemeandtypography.R
 import com.moviecoo.colorthemeandtypography.common_components.TopAppBar
-import com.moviecoo.colorthemeandtypography.ui.Screens.WatchListScreen.component.MovieWatchListItem
-import com.moviecoo.colorthemeandtypography.ui.Screens.WatchListScreen.model.MovieDataUiModel
+import com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen.component.MovieWatchListItem
+import com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen.model.MovieDataUiModel
 import com.moviecoo.colorthemeandtypography.common_components.MovieBottomBar
-import com.moviecoo.colorthemeandtypography.ui.Screens.movieListScreen.model.MovieUiModel
-import com.moviecoo.colorthemeandtypography.ui.Screens.movieListScreen.viewmodel.MovieListViewModel
+import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.model.MovieUiModel
+import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.viewmodel.MovieListViewModel
 import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 import com.moviecoo.colorthemeandtypography.ui.theme.Surface
 

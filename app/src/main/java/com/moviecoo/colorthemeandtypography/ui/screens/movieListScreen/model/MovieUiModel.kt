@@ -1,4 +1,4 @@
-package com.moviecoo.colorthemeandtypography.ui.Screens.movieListScreen.model
+package com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.model
 
 data class MovieUiModel(
     val title: String,

@@ -6,10 +6,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.moviecoo.colorthemeandtypography.ui.screens.splashScreen.SplashScreen
-import com.merna.setting_screen.SettingScreen
+
 import com.moviecoo.colorthemeandtypography.common_components.MovieBottomBar
-import com.moviecoo.colorthemeandtypography.ui.Screens.WatchListScreen.WatchListScreen
+import com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen.WatchListScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.MovieListScreen
+import com.moviecoo.colorthemeandtypography.ui.screens.settingScreen.SettingScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.SignInScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.signInSignUpScreen.SignInSignUpScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.signUpScreen.SignUpScreen
@@ -41,7 +42,7 @@ fun AppNavHost(modifier: Modifier = Modifier) {
         }
         composable("Sign_Up_Screen"){
             SignUpScreen(onSignInClick = { email, password ->
-                navController.navigate("Sign_In_Screen")
+                navController.navigate("Movie_List_Screen")
             }, onSignUpClick = {
                 navController.navigate("Movie_List_Screen")
             })

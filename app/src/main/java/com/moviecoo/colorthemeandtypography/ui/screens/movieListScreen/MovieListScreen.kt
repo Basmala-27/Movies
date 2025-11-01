@@ -30,8 +30,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.moviecoo.colorthemeandtypography.ui.Screens.movieListScreen.model.MovieUiModel
-import com.moviecoo.colorthemeandtypography.ui.Screens.movieListScreen.viewmodel.MovieListViewModel
+import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.model.MovieUiModel
+import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.viewmodel.MovieListViewModel
 import com.moviecoo.colorthemeandtypography.common_components.MovieBottomBar
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.componant.AppScreenHeader
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.data.Movies

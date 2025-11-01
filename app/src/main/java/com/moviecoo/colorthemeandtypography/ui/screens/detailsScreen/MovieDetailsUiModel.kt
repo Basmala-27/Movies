@@ -1,4 +1,4 @@
-package com.moviecoo.colorthemeandtypography.ui.Screens.detailsScreen
+package com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen
 
 
 

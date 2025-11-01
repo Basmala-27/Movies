@@ -1,4 +1,4 @@
-package com.moviecoo.colorthemeandtypography.ui.Screens.detailsScreen
+package com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

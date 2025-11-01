@@ -1,5 +1,4 @@
-package com.merna.setting_screen
-
+package com.moviecoo.colorthemeandtypography.ui.screens.settingScreen
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

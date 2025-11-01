@@ -1,8 +1,6 @@
-package com.moviecoo.colorthemeandtypography.ui.Screens.movieListScreen.viewmodel
+package com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.viewmodel
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
 import com.moviecoo.colorthemeandtypography.domain.usecase.FetchMoviesUseCase
 
 class MovieListViewModel(private val fetchMoviesUseCase: FetchMoviesUseCase) : ViewModel(){

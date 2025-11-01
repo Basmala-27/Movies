@@ -3,8 +3,7 @@ package com.moviecoo.colorthemeandtypography.mapper
 
 
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.model.MovieDataModel
-import com.moviecoo.colorthemeandtypography.ui.Screens.movieListScreen.model.MovieUiModel
-import kotlin.String
+import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.model.MovieUiModel
 
 fun MovieDataModel.toMoviesUiModel(): List<MovieUiModel>{
     return this.results.map { results ->
