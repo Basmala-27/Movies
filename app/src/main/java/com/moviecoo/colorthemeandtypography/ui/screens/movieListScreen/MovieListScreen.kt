@@ -18,21 +18,30 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.model.MovieUiModel
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.viewmodel.MovieListViewModel
 import com.moviecoo.colorthemeandtypography.common_components.MovieBottomBar
+import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.model.MovieDataModel
+import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.model.Result
+import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.provideMovieApi
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.componant.AppScreenHeader
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.data.Movies
 import com.moviecoo.colorthemeandtypography.ui.theme.ColorThemeandTypographyTheme
@@ -40,8 +49,7 @@ import com.moviecoo.colorthemeandtypography.ui.theme.OnPrimary
 import com.moviecoo.colorthemeandtypography.ui.theme.OrangeAccent
 import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 import com.moviecoo.colorthemeandtypography.ui.theme.Secondary
-
-
+import com.moviecoo.colorthemeandtypography.mapper.toMoviesUiModel
 
 
 
@@ -53,10 +61,15 @@ import com.moviecoo.colorthemeandtypography.ui.theme.Secondary
 
 @Composable
 fun MovieListScreen() {
-    val viewmodel: MovieListViewModel = viewModel()
-    val movieListState = remember {
-        mutableStateOf< List<MovieUiModel>?>(null)
-        }
+//    val viewmodel: MovieListViewModel = viewModel()
+
+
+
+
+
+//    LaunchedEffect(Unit) {
+//        viewmodel.fetchMovies()
+//    }
     Scaffold(
         bottomBar = { MovieBottomBar(home = true) }
     ) { innerPadding ->
@@ -77,10 +90,10 @@ fun MovieListScreen() {
             )
             Spacer(modifier = Modifier.height(24.dp))
 
-            MovieSection(title = "Trending Now", movies = sampleTrending, showRating = true)
+            MovieSection(title = "Trending Now", showRating = true)
             Spacer(modifier = Modifier.height(24.dp))
 
-            MovieSection(title = "New Releases", movies = sampleNewReleases, showRating = false)
+            MovieSection(title = "New Releases",  showRating = false)
             Spacer(modifier = Modifier.height(24.dp))
         }
     }
@@ -154,7 +167,14 @@ fun FeaturedMovieCard(title: String, details: String) {
 
 @Composable
 
-fun MovieSection(title: String, movies: List<Movies>, showRating: Boolean) {
+fun MovieSection(title: String,showRating: Boolean) {
+    val movieListState = remember {
+       mutableStateOf<MovieDataModel?>(null)
+      }
+LaunchedEffect(Unit) {
+    val response = provideMovieApi().fetchMovies()
+    movieListState.value = response.body() as MovieDataModel
+}
 
     Row(
         modifier = Modifier
@@ -174,14 +194,19 @@ fun MovieSection(title: String, movies: List<Movies>, showRating: Boolean) {
         contentPadding = PaddingValues(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        items(movies) { movie ->
-            MovieListItem(movie = movie, showRating = showRating)
+        movieListState.value?.let {
+            items( it.toMoviesUiModel()) {  repoUiModelItem->
+            MovieListItem(movie = repoUiModelItem, showRating = showRating)
         }
+        }
+
     }
 }
 
+
+
 @Composable
-fun MovieListItem(movie: Movies, showRating: Boolean) {
+fun MovieListItem(movie: MovieUiModel, showRating: Boolean) {
     Column(modifier = Modifier.width(160.dp)) {
 
         Card(
@@ -192,7 +217,17 @@ fun MovieListItem(movie: Movies, showRating: Boolean) {
             colors = CardDefaults.cardColors(containerColor =  OnPrimary)
         ) {
             Box(modifier = Modifier.fillMaxSize()) {
-                Image(painter = painterResource(id = movie.image), contentDescription = movie.title, modifier = Modifier.fillMaxSize() , contentScale = ContentScale.FillBounds)
+               Image ( painter=rememberAsyncImagePainter(
+                    ImageRequest.Builder(LocalContext.current)
+                        .data(movie.image).crossfade(1000)
+                        .build()),
+
+                    contentDescription = movie.title,
+                    modifier = Modifier.fillMaxSize() ,
+                    contentScale = ContentScale.FillBounds
+                )
+
+
                 if (showRating) {
                     RatingBadge(rating = movie.rating)
                 }
@@ -205,7 +240,7 @@ fun MovieListItem(movie: Movies, showRating: Boolean) {
         Text(movie.title, color = Color.White, fontWeight = FontWeight.SemiBold, maxLines = 1)
 
         Row {
-            Text("${movie.year}", color = Color.Gray, fontSize = 12.sp)
+            Text(movie.year, color = Color.Gray, fontSize = 12.sp)
             Spacer(modifier = Modifier.width(4.dp))
             Text("•", color = Color.Gray, fontSize = 12.sp)
             Spacer(modifier = Modifier.width(4.dp))

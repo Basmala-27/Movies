@@ -6,5 +6,5 @@ import retrofit2.http.GET
 
 interface MovieApi {
     @GET(MOVIE_ENDPOINT)
-    fun fetchMovies(): Response<MovieDataModel>
+    suspend fun fetchMovies(): Response<MovieDataModel>
 }

@@ -2,6 +2,9 @@ package com.moviecoo.colorthemeandtypography.mapper
 
 
 
+import com.moviecoo.colorthemeandtypography.data.Constants.Companion.BASE_URL
+import com.moviecoo.colorthemeandtypography.data.Constants.Companion.IMAGE_ENDPOINT
+import com.moviecoo.colorthemeandtypography.data.Constants.Companion.MOVIE_ENDPOINT
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.model.MovieDataModel
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.model.MovieUiModel
 
@@ -9,11 +12,11 @@ fun MovieDataModel.toMoviesUiModel(): List<MovieUiModel>{
     return this.results.map { results ->
         MovieUiModel(
             title = results.title,
-            year = results.release_date.toInt(),
+            year = results.release_date.substring(0,4),
             durationMin = 0,
             genre = results.genre_ids.toString(),
             rating = results.vote_average,
-            image = results.poster_path.toInt()
+            image = IMAGE_ENDPOINT + results.poster_path
         )
 
     }

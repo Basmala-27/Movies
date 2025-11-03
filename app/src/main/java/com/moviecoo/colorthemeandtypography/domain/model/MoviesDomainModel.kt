@@ -4,10 +4,10 @@ import android.media.Image
 
 data class  MoviesDomainModel (
     val title: String,
-    val year: Int,
+    val year: String,
     val durationMin: Int,
     val genre: String,
     val rating: Double,
-    val image: Int
+    val image: String
 
 )

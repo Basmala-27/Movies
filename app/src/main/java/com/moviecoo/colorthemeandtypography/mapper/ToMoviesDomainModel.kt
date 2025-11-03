@@ -7,11 +7,11 @@ fun MovieDataModel.toMoviesDomainModel(): List<MoviesDomainModel>{
     return this.results.map { results ->
        MoviesDomainModel(
            title = results.title,
-           year = results.release_date.toInt(),
+           year = results.release_date.substring(0,4),
            durationMin = 0,
            genre = results.genre_ids.toString(),
            rating = results.vote_average,
-           image = results.poster_path.toInt()
+           image = results.poster_path
        )
 
           }

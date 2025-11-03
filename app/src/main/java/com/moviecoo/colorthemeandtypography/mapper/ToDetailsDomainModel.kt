@@ -8,7 +8,7 @@ fun MovieDataModel.toDetailsDomainModel(): List<DetailsDomainModel>{
     return this.results.map { results ->
         DetailsDomainModel(
             title = results.title,
-            year = results.release_date,
+            year = results.release_date.substring(0,4),
             duration = "0",
             genre = results.genre_ids.toString(),
             rating = results.vote_average,
