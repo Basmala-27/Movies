@@ -1,7 +1,10 @@
 package com.moviecoo.colorthemeandtypography.ui.screens.settingScreen
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,12 +13,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme.shapes
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
@@ -36,16 +42,27 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.moviecoo.colorthemeandtypography.R
+import com.moviecoo.colorthemeandtypography.common_components.TopAppBar
+import com.moviecoo.colorthemeandtypography.ui.theme.OnSecondary
+import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 
 
 @Composable
 fun SettingScreen() {
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = Color(0xFF09274C)
-    ) {
-        Column{
-            Spacer(modifier = Modifier.height(60.dp))
+    val scrollState = rememberScrollState()
+
+
+
+    Scaffold(
+        topBar = { TopAppBar(showBackButton = true, title = R.string.setting) }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .padding(top =innerPadding.calculateTopPadding())
+                .background(Primary)
+                .verticalScroll(scrollState)
+                .fillMaxSize().padding(top = 10.dp)
+        ) {
 
             Text(
                 text = "Account",
@@ -55,7 +72,6 @@ fun SettingScreen() {
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
             Spacer(modifier = Modifier.height(12.dp))
-
             accountCard()
 
             Spacer(modifier = Modifier.height(25.dp))
@@ -68,7 +84,6 @@ fun SettingScreen() {
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
             Spacer(modifier = Modifier.height(10.dp))
-
             generalCard()
 
             Spacer(modifier = Modifier.height(25.dp))
@@ -81,13 +96,12 @@ fun SettingScreen() {
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
             Spacer(modifier = Modifier.height(10.dp))
-
             supportCard()
         }
     }
 }
 
-@Composable
+    @Composable
 fun supportCard() {
     Card(
         modifier = Modifier

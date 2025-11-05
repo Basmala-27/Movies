@@ -33,9 +33,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
+import com.google.android.material.bottomappbar.BottomAppBar
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.model.MovieUiModel
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.viewmodel.MovieListViewModel
 import com.moviecoo.colorthemeandtypography.common_components.MovieBottomBar
@@ -70,9 +72,8 @@ fun MovieListScreen() {
 //    LaunchedEffect(Unit) {
 //        viewmodel.fetchMovies()
 //    }
-    Scaffold(
-        bottomBar = { MovieBottomBar(home = true) }
-    ) { innerPadding ->
+
+    Scaffold { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()

@@ -58,9 +58,6 @@ fun WatchListScreen() {
                 title = R.string.app_name,
             )
         },
-        bottomBar = {
-            MovieBottomBar()
-        },
         containerColor = Primary
     ) { innerPadding ->
         LazyColumn(
