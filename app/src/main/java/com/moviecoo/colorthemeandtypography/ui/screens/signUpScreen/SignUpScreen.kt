@@ -18,14 +18,22 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.sp
+import com.moviecoo.colorthemeandtypography.R
+
+import com.moviecoo.colorthemeandtypography.ui.theme.OnPrimary
 
 
 @Composable
 fun SignUpScreen(
-    onSignInClick: (String, String) -> Unit,
-    onSignUpClick: () -> Unit
+    onSignUpClick: (String, String) -> Unit = { _, _ -> },
+    onSignInClick: () -> Unit  = {  }
 ) {
     Scaffold { innerPadding ->
         Box(
@@ -33,6 +41,7 @@ fun SignUpScreen(
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
+
 
             val context = LocalContext.current
             val imageId = remember {
@@ -54,6 +63,23 @@ fun SignUpScreen(
                 )
             }
 
+            Box(
+                modifier = Modifier
+                    .absoluteOffset(x = 88.dp, y = 275.dp)
+                    .width(218.dp)
+                    .wrapContentHeight(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "Moviecoo",
+                    fontSize = 96.sp,
+                    fontFamily = FontFamily(Font(R.font.romanesco_regular)),
+                    fontWeight = FontWeight.Normal,
+                    letterSpacing = 0.sp,
+                    lineHeight = 96.sp,
+                    color = OnPrimary
+                )
+            }
 
             Column(
                 modifier = Modifier
@@ -75,7 +101,9 @@ fun SignUpScreen(
                     modifier =  Modifier
                         .width(351.dp)
                         .height(57.dp),
-                    shape = RoundedCornerShape(13.dp)
+                    shape = RoundedCornerShape(13.dp),
+                    textStyle = TextStyle(color = Color.White)
+
                 )
                 Spacer(modifier = Modifier.height(20.dp))
 
@@ -87,12 +115,16 @@ fun SignUpScreen(
                     modifier =  Modifier
                         .width(351.dp)
                         .height(57.dp),
-                    shape = RoundedCornerShape(13.dp)
+                    shape = RoundedCornerShape(13.dp) ,
+                     textStyle = TextStyle(color = Color.White),
+                    singleLine = true,
+                    visualTransformation = PasswordVisualTransformation()
+
                 )
                 Spacer(modifier = Modifier.height(40.dp))
 
                 Button(
-                    onClick = { onSignInClick(email, password) },
+                    onClick = { onSignUpClick(email, password) },
                     modifier =  Modifier
                         .width(351.dp)
                         .height(57.dp),
@@ -112,16 +144,18 @@ fun SignUpScreen(
                 ) {
                     Text(
                         text = "Don't have an account? ",
-                        color = White
+                        color = White,
+                        fontSize = 17.sp
                     )
                     TextButton(
-                        onClick = onSignUpClick,
+                        onClick = onSignInClick,
                         modifier = Modifier.padding(start = 0.dp, top = 0.dp, end = 0.dp, bottom = 0.dp)
                     ) {
                         Text(
-                            "Sign Up",
+                            "Sign In",
                             fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.primary
+                            color = MaterialTheme.colorScheme.primary ,
+                            fontSize = 17.sp
                         )
                     }
                 }
@@ -130,3 +164,8 @@ fun SignUpScreen(
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+fun SignUpScreenPreview() {
+    SignUpScreen()
+}

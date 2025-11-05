@@ -36,15 +36,17 @@ fun AppNavHost(modifier: Modifier = Modifier) {
         }
 
         composable("Sign_In_Screen"){
-            SignInScreen { email, password ->
-                navController.navigate("Movie_List_Screen")
-            }
-        }
-        composable("Sign_Up_Screen"){
-            SignUpScreen(onSignInClick = { email, password ->
+            SignInScreen (onSignInClick = { email, password ->
                 navController.navigate("Movie_List_Screen")
             }, onSignUpClick = {
+                navController.navigate("Sign_Up_Screen")
+            })
+        }
+        composable("Sign_Up_Screen"){
+            SignUpScreen(onSignUpClick = { email, password ->
                 navController.navigate("Movie_List_Screen")
+            }, onSignInClick = {
+                navController.navigate("Sign_In_Screen")
             })
         }
         composable("Movie_List_Screen"){

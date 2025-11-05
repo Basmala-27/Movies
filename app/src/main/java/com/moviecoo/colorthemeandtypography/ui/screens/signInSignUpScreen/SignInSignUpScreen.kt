@@ -60,7 +60,7 @@ fun SignInSignUpScreen(
                 Text(
                     text = "Moviecoo",
                     color = Color.White,
-                    fontSize = 85.sp,
+                    fontSize = 96.sp,
                     fontWeight = FontWeight.Light,
                     fontFamily = romanescoFontFamily,
 

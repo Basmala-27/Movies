@@ -21,6 +21,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -45,10 +46,13 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.tooling.preview.Preview
+
 
 
 @Composable
-fun SignInScreen(onSignInClick: (String, String) -> Unit) {
+fun SignInScreen(onSignInClick: (String, String) -> Unit = { _, _ -> } ,
+                 onSignUpClick: () -> Unit={}) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -109,6 +113,7 @@ fun SignInScreen(onSignInClick: (String, String) -> Unit) {
                 focusedContainerColor = Color(0x4D4D4D66),
                 unfocusedContainerColor = Color(0x4D4D4D66)
             ),
+            textStyle = TextStyle(color = Color.White),
             singleLine = true,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
         )
@@ -143,6 +148,8 @@ fun SignInScreen(onSignInClick: (String, String) -> Unit) {
                 focusedContainerColor = Color(0x4D4D4D66),
                 unfocusedContainerColor = Color(0x4D4D4D66)
             ),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            textStyle = TextStyle(color = Color.White),
             singleLine = true,
             visualTransformation = PasswordVisualTransformation()
         )
@@ -186,39 +193,49 @@ fun SignInScreen(onSignInClick: (String, String) -> Unit) {
             contentAlignment = Alignment.Center
         ) {
             val signUpColor = Color(0xFF6C47DB)
-            Text(
-                buildAnnotatedString {
-                    append("Don't you have an account? ")
+            TextButton(onClick = onSignUpClick) {
+                Text(
+                    buildAnnotatedString {
+                        append("Don't you have an account? ")
 
-                    withStyle(
-                        style = SpanStyle(
-                            color = signUpColor,
-                            fontWeight = FontWeight.SemiBold,
-                            shadow = Shadow(
+                        withStyle(
+                            style = SpanStyle(
                                 color = signUpColor,
-                                offset = Offset(0f, 0f),
-                                blurRadius = 10f
+                                fontWeight = FontWeight.SemiBold,
+                                shadow = Shadow(
+                                    color = signUpColor,
+                                    offset = Offset(0f, 0f),
+                                    blurRadius = 10f
+                                )
                             )
-                        )
-                    ) {
-                        append("Sign Up")
+                        ) {
+                            append("Sign Up")
+
+
+                        }
+
+                        append(" Now!")
+                    }
+                    ,
+                    color = Color.White,
+                    fontSize = 15.sp,
+                    fontFamily = FontFamily(Font(R.font.inter_semibold)),
+                    fontWeight = FontWeight.Normal,
+                    letterSpacing = 0.sp,
+                    lineHeight = 10.sp,
+                    softWrap = false,
+                    maxLines = 1
+                )
                     }
 
-                    append(" Now!")
-                },
-                color = Color.White,
-                fontSize = 10.sp,
-                fontFamily = FontFamily(Font(R.font.inter_semibold)),
-                fontWeight = FontWeight.Normal,
-                letterSpacing = 0.sp,
-                lineHeight = 10.sp,
-                softWrap = false,
-                maxLines = 1
-            )
         }
 
     }
 }
 
 
-
+@Preview(showBackground = true)
+@Composable
+fun SignUpScreenPreview() {
+    SignInScreen(onSignInClick = { _, _ -> })
+}
