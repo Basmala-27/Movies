@@ -196,8 +196,8 @@ LaunchedEffect(Unit) {
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         movieListState.value?.let {
-            items( it.toMoviesUiModel()) {  repoUiModelItem->
-            MovieListItem(movie = repoUiModelItem, showRating = showRating)
+            items( it.toMoviesUiModel()) {  movieUiModelItem->
+            MovieListItem(movie = movieUiModelItem, showRating = showRating)
         }
         }
 

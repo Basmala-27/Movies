@@ -24,19 +24,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 import com.moviecoo.colorthemeandtypography.R
 import com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen.model.MovieDataUiModel
+import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.model.MovieUiModel
 import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 
 @Composable
 fun MovieWatchListItem(
     modifier: Modifier = Modifier,
-    movieDataUiModel: MovieDataUiModel
+    movieUiModel: MovieUiModel
 ) {
     Box(
         modifier = Modifier
@@ -64,17 +68,17 @@ fun MovieWatchListItem(
                     modifier = Modifier
                         .size(width = 120.dp, height = 150.dp)
                         .clip(MaterialTheme.shapes.large),
-                    painter = painterResource(id = movieDataUiModel.poster),
-                    contentDescription = movieDataUiModel.name,
-                    contentScale = ContentScale.Crop
+                    //painter = painterResource(id = movieDataUiModel.poster),
+                    contentDescription = movieUiModel.title,
+                    contentScale = ContentScale.Crop,
 
-//                    painter = rememberAsyncImagePainter(
-//                        ImageRequest.Builder(LocalContext.current)
-//                            .data(movieDataUiModel.poster)
-//                            .crossfade(1000)
-//                            .build()
-//
-//                    ),
+                    painter = rememberAsyncImagePainter(
+                        ImageRequest.Builder(LocalContext.current)
+                            .data(movieUiModel.image)
+                            .crossfade(1000)
+                            .build()
+
+                    ),
 
 
 
@@ -85,7 +89,7 @@ fun MovieWatchListItem(
                     modifier = Modifier.weight(1f)
                 ){
                     Text(
-                        text = movieDataUiModel.name,
+                        text = movieUiModel.title,
                         style = MaterialTheme.typography.titleLarge,
                         fontFamily = FontFamily(Font(R.font.poppins_regular)),
                         color = Color.White,
@@ -108,7 +112,7 @@ fun MovieWatchListItem(
 
                         Text(
                             modifier = Modifier.padding(horizontal = 6.dp),
-                            text = movieDataUiModel.rate.toString(),
+                            text = movieUiModel.rating.toString(),
                             style = MaterialTheme.typography.bodyLarge,
                             color = Color(0xFFFF8700)
                         )
@@ -132,7 +136,7 @@ fun MovieWatchListItem(
 
                         Text(
                             modifier = Modifier.padding(horizontal = 6.dp),
-                            text = movieDataUiModel.tickets.toString(),
+                            text = movieUiModel.genre,
                             style = MaterialTheme.typography.bodyLarge,
                             color = Color.White
                         )
@@ -154,7 +158,7 @@ fun MovieWatchListItem(
 
                         Text(
                             modifier = Modifier.padding(horizontal = 6.dp),
-                            text = movieDataUiModel.date.toString(),
+                            text = movieUiModel.year,
                             style = MaterialTheme.typography.bodyLarge,
                             color = Color.White
                         )
@@ -173,7 +177,7 @@ fun MovieWatchListItem(
 
                         Text(
                             modifier = Modifier.padding(horizontal = 6.dp),
-                            text = "${movieDataUiModel.rate} minutes",
+                            text = "${movieUiModel.durationMin} minutes",
                             style = MaterialTheme.typography.bodyLarge,
                             color = Color.White
                         )
@@ -197,21 +201,3 @@ fun MovieWatchListItem(
 
 }
 
-@Preview(
-    showBackground = true,
-    showSystemUi = true
-)
-@Composable
-private fun PreviewMovieWatchListItem() {
-    MovieWatchListItem(
-        movieDataUiModel = MovieDataUiModel(
-            name = "spiderman",
-            rate = 1.2,
-            tickets = 1,
-            date = 5,
-            durationMinutes = 1,
-            poster = R.drawable.homem_aranha
-        )
-    )
-
-}

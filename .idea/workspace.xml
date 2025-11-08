@@ -9,7 +9,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="79b75a02-f868-4323-8c03-9c82a0d86586" name="Changes" comment="connect api with MovieListScreen.kt test version">
+    <list default="true" id="79b75a02-f868-4323-8c03-9c82a0d86586" name="Changes" comment="Modify: Edition nav bottombar in SettingScreen.kt and MovieListScreen.kt">
       <change beforePath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.bin" afterDir="false" />
@@ -17,13 +17,14 @@
       <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/common_components/topAppBar.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/common_components/topAppBar.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/navigation/AppNavHost.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/navigation/AppNavHost.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/WatchListScreen/component/WatchListItem.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/WatchListScreen/component/WatchListItem.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/WatchListScreen/model/MovieDataUiModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/WatchListScreen/model/MovieDataUiModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/WatchListScreen/movieWatchListItem.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/WatchListScreen/movieWatchListItem.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/WatchListScreen/watch-list-screen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/WatchListScreen/watch-list-screen.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/movieListScreen/MovieListScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/movieListScreen/MovieListScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/settingScreen/SettingScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/settingScreen/SettingScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +34,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=C:\Users\ITC\.android\avd\Pixel_9.avd)]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=PhysicalDevice, isTemplate=false, identifier=serial=RKCX400RXHL)]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -67,19 +68,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Android App.app.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "com.google.services.firebase.aqiPopupShown": "true",
-    "git-widget-placeholder": "watch-list"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Android App.app.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;watch-list&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
       <module name="Color,_Theme,and_Typography.app" />
@@ -170,24 +171,44 @@
       <option name="project" value="LOCAL" />
       <updated>1762201059218</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Modify: Edition nav bottombar in SettingScreen.kt and MovieListScreen.kt">
+      <option name="closed" value="true" />
+      <created>1762384492606</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1762384492607</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="connect api with MovieListScreen.kt test version" />
-    <option name="LAST_COMMIT_MESSAGE" value="connect api with MovieListScreen.kt test version" />
+    <MESSAGE value="Modify: Edition nav bottombar in SettingScreen.kt and MovieListScreen.kt" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modify: Edition nav bottombar in SettingScreen.kt and MovieListScreen.kt" />
   </component>
   <component name="play_dynamic_filters_status">
     <option name="appIdToCheckInfo">
       <map>
         <entry key="com.moviecoo.colorthemeandtypography">
           <value>
-            <CheckInfo lastCheckTimestamp="1762378548919" />
+            <CheckInfo lastCheckTimestamp="1762537681466" />
           </value>
         </entry>
         <entry key="com.moviecoo.colorthemeandtypography.test">
           <value>
-            <CheckInfo lastCheckTimestamp="1762378548922" />
+            <CheckInfo lastCheckTimestamp="1762537681469" />
           </value>
         </entry>
       </map>

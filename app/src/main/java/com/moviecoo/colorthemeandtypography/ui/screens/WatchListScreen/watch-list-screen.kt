@@ -6,49 +6,33 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.moviecoo.colorthemeandtypography.R
 import com.moviecoo.colorthemeandtypography.common_components.TopAppBar
 import com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen.component.MovieWatchListItem
 import com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen.model.MovieDataUiModel
-import com.moviecoo.colorthemeandtypography.common_components.MovieBottomBar
-import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.model.MovieUiModel
-import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.viewmodel.MovieListViewModel
+import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.model.MovieDataModel
+import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.provideMovieApi
+import com.moviecoo.colorthemeandtypography.mapper.toMoviesUiModel
 import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 import com.moviecoo.colorthemeandtypography.ui.theme.Surface
 
 
 @Composable
 fun WatchListScreen() {
-    val viewmodel: MovieListViewModel = viewModel()
     val movieListState = remember {
-        mutableStateOf< List<MovieUiModel>?>(null)
+        mutableStateOf<MovieDataModel?>(null)
     }
-    val movies = listOf(
-        MovieDataUiModel(
-            name = "Spiderman",
-            rate = 8.5,
-            tickets = 10,
-            date = 2019,
-            durationMinutes = 139,
-            poster = R.drawable.homem_aranha
-        ),
+    LaunchedEffect(Unit) {
+        val response = provideMovieApi().fetchMovies()
+        movieListState.value = response.body() as MovieDataModel
+    }
 
 
-        MovieDataUiModel(
-            name = "Spider-Man: No Way Home",
-            rate = 8.7,
-            tickets = 10,
-            date = 2021,
-            durationMinutes = 139,
-            poster = R.drawable.homem_aranha2
-
-        )
-    )
 
     Scaffold(
         topBar = {
@@ -63,8 +47,10 @@ fun WatchListScreen() {
         LazyColumn(
             modifier = Modifier.padding(innerPadding)
         ) {
-            items(movies) { movie ->
-                MovieWatchListItem(movieDataUiModel = movie)
+            movieListState.value?.let {
+            items(it.toMoviesUiModel()) { movie ->
+                MovieWatchListItem(movieUiModel = movie)
+            }
             }
         }
     }
