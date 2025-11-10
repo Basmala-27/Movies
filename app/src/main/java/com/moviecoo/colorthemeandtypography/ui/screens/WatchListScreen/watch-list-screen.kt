@@ -40,7 +40,7 @@ fun WatchListScreen() {
             TopAppBar(
                 true,
                 backgroundColor = Surface,
-                title = R.string.app_name,
+                title = R.string.watchlist,
             )
         },
         containerColor = Primary
