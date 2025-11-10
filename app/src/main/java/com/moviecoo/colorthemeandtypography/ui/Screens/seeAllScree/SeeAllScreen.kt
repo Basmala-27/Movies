@@ -55,7 +55,7 @@ fun SeeAllScreen(title : String ="") {
             TopAppBar(
                 true,
                 backgroundColor = Surface,
-                title = R.string.app_name,
+                title = R.string.allMovies,
             )
         },
         containerColor = Primary
