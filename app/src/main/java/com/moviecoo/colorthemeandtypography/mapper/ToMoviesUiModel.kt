@@ -13,7 +13,7 @@ fun MovieDataModel.toMoviesUiModel(): List<MovieUiModel>{
         MovieUiModel(
             title = results.title,
             year = results.release_date.substring(0,4),
-            durationMin = 0,
+            description = results.overview,
             genre = results.genre_ids.toString(),
             rating = results.vote_average,
             image = IMAGE_ENDPOINT + results.poster_path

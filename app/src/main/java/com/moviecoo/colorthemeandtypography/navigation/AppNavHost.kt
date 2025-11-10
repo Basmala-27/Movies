@@ -6,15 +6,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.moviecoo.colorthemeandtypography.ui.screens.splashScreen.SplashScreen
 
 import com.moviecoo.colorthemeandtypography.common_components.MovieBottomBar
 import com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen.WatchListScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.MovieListScreen
+import com.moviecoo.colorthemeandtypography.ui.screens.seeAllScree.SeeAllScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.settingScreen.SettingScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.SignInScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.signInSignUpScreen.SignInSignUpScreen
@@ -76,7 +79,20 @@ fun AppNavHost(modifier: Modifier = Modifier) {
                     onSignInClick = { navController.navigate("Sign_In_Screen") }
                 )
             }
-            composable("Movie_List_Screen") { MovieListScreen() }
+            composable("Movie_List_Screen") { MovieListScreen(
+                onSeeAllClick = { title ->
+                    navController.navigate("See_All_Screen/$title")
+                }
+              )
+            }
+            composable(
+                "See_All_Screen/{title}",
+                arguments = listOf(navArgument("title") { type = NavType.StringType })
+            ) { backStackEntry ->
+                val title = backStackEntry.arguments?.getString("title") ?: ""
+                SeeAllScreen(title = title)
+            }
+
             composable("Watch_List_Screen") { WatchListScreen() }
             composable("Setting_Screen") { SettingScreen() }
         }

@@ -9,4 +9,3 @@ data class MovieDataUiModel(
 )
 
 
-//year = results.release_date.substring(0,4)

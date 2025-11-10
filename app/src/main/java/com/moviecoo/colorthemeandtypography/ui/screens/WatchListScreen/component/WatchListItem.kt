@@ -38,7 +38,7 @@ import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.model.Mov
 import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 
 @Composable
-fun MovieWatchListItem(
+fun MovieSeeAllItem(
     modifier: Modifier = Modifier,
     movieUiModel: MovieUiModel
 ) {
@@ -177,9 +177,10 @@ fun MovieWatchListItem(
 
                         Text(
                             modifier = Modifier.padding(horizontal = 6.dp),
-                            text = "${movieUiModel.durationMin} minutes",
+                            text = "${movieUiModel.description} minutes",
                             style = MaterialTheme.typography.bodyLarge,
-                            color = Color.White
+                            color = Color.White ,
+                            maxLines = 1
                         )
 
 

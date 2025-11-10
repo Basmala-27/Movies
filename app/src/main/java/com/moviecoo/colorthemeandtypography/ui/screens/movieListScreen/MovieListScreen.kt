@@ -62,7 +62,7 @@ import com.moviecoo.colorthemeandtypography.mapper.toMoviesUiModel
 
 
 @Composable
-fun MovieListScreen() {
+fun MovieListScreen(onSeeAllClick: (String) -> Unit = { _ -> }) {
 //    val viewmodel: MovieListViewModel = viewModel()
 
 
@@ -90,11 +90,15 @@ fun MovieListScreen() {
                 details = "Sci-Fi • 2021 • 136m"
             )
             Spacer(modifier = Modifier.height(24.dp))
-
-            MovieSection(title = "Trending Now", showRating = true)
+             MovieSection(title = "Upcoming", onSeeAllClick = onSeeAllClick, showRating = false)
+             Spacer(modifier = Modifier.height(24.dp))
+            MovieSection(title = "Trending Now",onSeeAllClick, showRating = true)
             Spacer(modifier = Modifier.height(24.dp))
 
-            MovieSection(title = "New Releases",  showRating = false)
+             MovieSection(title = "Top Rated", onSeeAllClick,showRating = true)
+             Spacer(modifier = Modifier.height(24.dp))
+
+            MovieSection(title = "New Releases",  onSeeAllClick ,showRating = false)
             Spacer(modifier = Modifier.height(24.dp))
         }
     }
@@ -168,15 +172,30 @@ fun FeaturedMovieCard(title: String, details: String) {
 
 @Composable
 
-fun MovieSection(title: String,showRating: Boolean) {
+fun MovieSection(title: String,onSeeAllClick:(String) -> Unit = {_ -> },showRating: Boolean) {
+
     val movieListState = remember {
        mutableStateOf<MovieDataModel?>(null)
       }
 LaunchedEffect(Unit) {
+    if (title == "Trending Now"){
     val response = provideMovieApi().fetchMovies()
     movieListState.value = response.body() as MovieDataModel
 }
+    else if (title == "New Releases"){
+        val response = provideMovieApi().fetchNowPlayingMovies()
+        movieListState.value = response.body() as MovieDataModel
+    }
+    else if (title == "Upcoming"){
+        val response = provideMovieApi().fetchUpcomingMovies()
+        movieListState.value = response.body() as MovieDataModel
 
+    }
+    else if (title == "Top Rated"){
+        val response = provideMovieApi().fetchTopRatingMovies()
+        movieListState.value = response.body() as MovieDataModel
+    }
+}
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -185,7 +204,7 @@ LaunchedEffect(Unit) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(title, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold, color = Color.White)
-        TextButton(onClick = {  }) {
+        TextButton(onClick = { onSeeAllClick(title) }) {
             Text("See All >", color = OrangeAccent, fontSize = 14.sp)
         }
     }
@@ -245,13 +264,13 @@ fun MovieListItem(movie: MovieUiModel, showRating: Boolean) {
             Spacer(modifier = Modifier.width(4.dp))
             Text("•", color = Color.Gray, fontSize = 12.sp)
             Spacer(modifier = Modifier.width(4.dp))
-            Text("${movie.durationMin}m", color = Color.Gray, fontSize = 12.sp)
+            Text("${movie.rating}", color = Color.Gray, fontSize = 12.sp)
 
             if (showRating) {
                 Spacer(modifier = Modifier.width(4.dp))
                 Text("•", color = Color.Gray, fontSize = 12.sp)
                 Spacer(modifier = Modifier.width(4.dp))
-                Text(movie.genre, color = Color.Gray, fontSize = 12.sp)
+                Text(movie.description, color = Color.Gray, fontSize = 12.sp , maxLines = 1)
             }
         }
     }
