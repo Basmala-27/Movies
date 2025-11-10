@@ -18,7 +18,7 @@ import com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen.model.Mov
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.model.MovieDataModel
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.provideMovieApi
 import com.moviecoo.colorthemeandtypography.mapper.toMoviesUiModel
-import com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen.component.MovieSeeAllItem
+import com.moviecoo.colorthemeandtypography.ui.screens.seeAllScree.component.MovieSeeAllItem
 import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 import com.moviecoo.colorthemeandtypography.ui.theme.Surface
 
@@ -82,6 +82,6 @@ fun SeeAllScreen(title : String ="") {
 @Preview(showBackground = true,
     showSystemUi = true)
 @Composable
-private fun PreviewWatchListScreen() {
+private fun PreviewSeeAllScreen() {
     SeeAllScreen()
 }
