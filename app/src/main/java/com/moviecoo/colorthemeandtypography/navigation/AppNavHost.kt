@@ -16,6 +16,8 @@ import com.moviecoo.colorthemeandtypography.ui.screens.splashScreen.SplashScreen
 
 import com.moviecoo.colorthemeandtypography.common_components.MovieBottomBar
 import com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen.WatchListScreen
+import com.moviecoo.colorthemeandtypography.ui.screens.movieContentScreen.codeOfScreen.MovieContentScreen
+import com.moviecoo.colorthemeandtypography.ui.screens.movieContentScreen.data.sampleMovie
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.MovieListScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.seeAllScree.SeeAllScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.settingScreen.SettingScreen
@@ -95,6 +97,9 @@ fun AppNavHost(modifier: Modifier = Modifier) {
 
             composable("Watch_List_Screen") { WatchListScreen() }
             composable("Setting_Screen") { SettingScreen() }
+
+
+
         }
     }
 }
