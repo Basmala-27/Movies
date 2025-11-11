@@ -31,6 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.moviecoo.colorthemeandtypography.R
+import com.moviecoo.colorthemeandtypography.ui.theme.OnPrimary
 import kotlinx.coroutines.delay
 
 @Composable
@@ -80,7 +81,7 @@ fun SplashScreen(
                 Text(
                     text = "Moviecoo",
                     fontSize = 96.sp,
-                    color = MaterialTheme.colorScheme.onPrimary,
+                    color = OnPrimary,
                     fontFamily = moviecooFontFamily,
                     style = TextStyle(shadow = glowShadow)
 

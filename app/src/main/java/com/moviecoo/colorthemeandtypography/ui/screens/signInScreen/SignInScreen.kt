@@ -1,6 +1,5 @@
 package com.moviecoo.colorthemeandtypography.ui.screens.signInScreen
 
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import com.moviecoo.colorthemeandtypography.R
@@ -35,7 +34,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.Font
@@ -49,7 +47,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
-import com.google.firebase.auth.FirebaseAuth
+
 
 
 @Composable
@@ -155,27 +153,11 @@ fun SignInScreen(onSignInClick: (String, String) -> Unit = { _, _ -> } ,
             singleLine = true,
             visualTransformation = PasswordVisualTransformation()
         )
-        val auth = FirebaseAuth.getInstance()
 
-        val context = LocalContext.current
         // //////////      ///////////////////////////     Button       ///////// ///////////////////////////////////
         Button(
 
-              onClick = {
-                if (email.isNotEmpty() && password.isNotEmpty()) {
-                    auth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                Toast.makeText(context, "Welcome back!", Toast.LENGTH_SHORT).show()
-                                onSignInClick(email, password)
-                            } else {
-                                Toast.makeText(context, "Error: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
-                            }
-                        }
-                } else {
-                    Toast.makeText(context, "Please fill all fields", Toast.LENGTH_SHORT).show()
-                }
-            },
+            onClick = {onSignInClick(email, password) },
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0xFF0E3E62)
             ),
@@ -254,6 +236,6 @@ fun SignInScreen(onSignInClick: (String, String) -> Unit = { _, _ -> } ,
 
 @Preview(showBackground = true)
 @Composable
-fun SignInScreenPreview() {
+fun SignUpScreenPreview() {
     SignInScreen(onSignInClick = { _, _ -> })
 }
