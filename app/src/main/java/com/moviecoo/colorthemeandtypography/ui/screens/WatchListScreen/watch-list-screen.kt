@@ -18,7 +18,7 @@ import com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen.model.Mov
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.model.MovieDataModel
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.provideMovieApi
 import com.moviecoo.colorthemeandtypography.mapper.toMoviesUiModel
-import com.moviecoo.colorthemeandtypography.ui.screens.seeAllScree.component.MovieWatchListItem
+import com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen.component.MovieWatchListItem
 import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 import com.moviecoo.colorthemeandtypography.ui.theme.Surface
 

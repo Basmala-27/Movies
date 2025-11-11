@@ -5,6 +5,8 @@ import androidx.compose.foundation.background
 import com.moviecoo.colorthemeandtypography.R
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 
 import androidx.compose.foundation.layout.absoluteOffset
 import androidx.compose.foundation.layout.fillMaxSize
@@ -53,182 +55,188 @@ import androidx.compose.ui.tooling.preview.Preview
 @Composable
 fun SignInScreen(onSignInClick: (String, String) -> Unit = { _, _ -> } ,
                  onSignUpClick: () -> Unit={}) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
-        // background .... Picture
-        Image(
-            painter = painterResource(R.drawable.signinscreenbackground),
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxSize()
-        )
-        //App Name .... moviecoo
+    Column {
+
         Box(
             modifier = Modifier
-                .absoluteOffset(x = 88.dp, y = 275.dp)
-                .width(218.dp)
-                .wrapContentHeight(),
-            contentAlignment = Alignment.Center
+                .fillMaxSize()
         ) {
-            Text(
-                text = "Moviecoo",
-                fontSize = 96.sp,
-                fontFamily = FontFamily(Font(R.font.romanesco_regular)),
-                fontWeight = FontWeight.Normal,
-                letterSpacing = 0.sp,
-                lineHeight = 96.sp,
-                color = Color.White
+            // background .... Picture
+            Image(
+                painter = painterResource(R.drawable.signinscreenbackground),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize()
             )
-        }
-
-        // //////////      /////////////////////////// OutlinedTextField.....email      ///////// ///////////////////////////////////
-        var email by remember { mutableStateOf("") }
-
-        OutlinedTextField(
-            value = email,
-            onValueChange = { email = it },
-            placeholder = {
+            //App Name .... moviecoo
+            Box(
+                modifier = Modifier
+                    .absoluteOffset(x = 88.dp, y = 275.dp)
+                    .width(218.dp)
+                    .wrapContentHeight(),
+                contentAlignment = Alignment.Center
+            ) {
                 Text(
-                    "E-mail",
-                    color = Color(0x4D4D4D66),
-                    fontFamily = FontFamily(Font(R.font.inter_semibold)),
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 20.sp,
-                    lineHeight = 20.sp ,
-                    letterSpacing = 0.sp
-                )
-            },
-            modifier = Modifier
-                .offset(x = 21.dp, y = 522.dp)
-                .width(351.dp)
-                .height(57.dp)
-                .clip(RoundedCornerShape(13.dp))
-                .background(Color(0x4D4D4D66)),
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedBorderColor = Color.Transparent,
-                unfocusedBorderColor = Color.Transparent,
-                disabledBorderColor = Color.Transparent,
-                focusedContainerColor = Color(0x4D4D4D66),
-                unfocusedContainerColor = Color(0x4D4D4D66)
-            ),
-            textStyle = TextStyle(color = Color.White),
-            singleLine = true,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
-        )
-
-        // //////////      /////////////////////////// OutlinedTextField.....password      ///////// ///////////////////////////////////
-        var password by remember { mutableStateOf("") }
-
-        OutlinedTextField(
-            value = password,
-            onValueChange = { password = it },
-            placeholder = {
-                Text(
-                    "Password",
-                    color = Color(0x4D4D4D66),
-                    fontFamily = FontFamily(Font(R.font.inter_semibold)),
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 20.sp,
-                    lineHeight = 20.sp ,
-                    letterSpacing = 0.sp
-                )
-            },
-            modifier = Modifier
-                .offset(x = 21.dp, y = 600.dp)
-                .width(351.dp)
-                .height(57.dp)
-                .clip(RoundedCornerShape(13.dp))
-                .background(Color(0x4D4D4D66)),
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedBorderColor = Color.Transparent,
-                unfocusedBorderColor = Color.Transparent,
-                disabledBorderColor = Color.Transparent,
-                focusedContainerColor = Color(0x4D4D4D66),
-                unfocusedContainerColor = Color(0x4D4D4D66)
-            ),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            textStyle = TextStyle(color = Color.White),
-            singleLine = true,
-            visualTransformation = PasswordVisualTransformation()
-        )
-
-        // //////////      ///////////////////////////     Button       ///////// ///////////////////////////////////
-        Button(
-
-            onClick = {onSignInClick(email, password) },
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFF0E3E62)
-            ),
-            shape = RoundedCornerShape(13.dp),
-            modifier = Modifier
-                .offset(x = 21.dp, y = 696.dp)
-                .width(351.dp)
-                .height(57.dp)
-        ) {
-            Text(
-                text = "Sign In",
-                color = Color.White,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Medium,
-                letterSpacing = 0.sp,
-                lineHeight = 20.sp,
-                fontFamily = FontFamily(Font(R.font.inter_medium)),
-                style = TextStyle(
-                    shadow = Shadow(
-                        color = Color.White,
-                        offset = Offset(0f, 0f),
-                        blurRadius = 6f
-                    )
-                )
-            )
-        }
-
-        // text
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 770.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            val signUpColor = Color(0xFF6C47DB)
-            TextButton(onClick = onSignUpClick) {
-                Text(
-                    buildAnnotatedString {
-                        append("Don't you have an account? ")
-
-                        withStyle(
-                            style = SpanStyle(
-                                color = signUpColor,
-                                fontWeight = FontWeight.SemiBold,
-                                shadow = Shadow(
-                                    color = signUpColor,
-                                    offset = Offset(0f, 0f),
-                                    blurRadius = 10f
-                                )
-                            )
-                        ) {
-                            append("Sign Up")
-
-
-                        }
-
-                        append(" Now!")
-                    }
-                    ,
-                    color = Color.White,
-                    fontSize = 15.sp,
-                    fontFamily = FontFamily(Font(R.font.inter_semibold)),
+                    text = "Moviecoo",
+                    fontSize = 96.sp,
+                    fontFamily = FontFamily(Font(R.font.romanesco_regular)),
                     fontWeight = FontWeight.Normal,
                     letterSpacing = 0.sp,
-                    lineHeight = 10.sp,
-                    softWrap = false,
-                    maxLines = 1
+                    lineHeight = 96.sp,
+                    color = Color.White
                 )
-                    }
+            }
+
+            // //////////      /////////////////////////// OutlinedTextField.....email      ///////// ///////////////////////////////////
+            var email by remember { mutableStateOf("") }
+
+            OutlinedTextField(
+                value = email,
+                onValueChange = { email = it },
+                placeholder = {
+                    Text(
+                        "E-mail",
+                        color = Color(0x4D4D4D66),
+                        fontFamily = FontFamily(Font(R.font.inter_semibold)),
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 20.sp,
+                        lineHeight = 20.sp,
+                        letterSpacing = 0.sp
+                    )
+                },
+                modifier = Modifier
+                    .offset(x = 21.dp, y = 522.dp)
+                    .width(351.dp)
+                    .height(57.dp)
+                    .clip(RoundedCornerShape(13.dp))
+                    .background(Color(0x4D4D4D66)),
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor = Color.Transparent,
+                    unfocusedBorderColor = Color.Transparent,
+                    disabledBorderColor = Color.Transparent,
+                    focusedContainerColor = Color(0x4D4D4D66),
+                    unfocusedContainerColor = Color(0x4D4D4D66)
+                ),
+                textStyle = TextStyle(color = Color.White),
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
+            )
+
+            // //////////      /////////////////////////// OutlinedTextField.....password      ///////// ///////////////////////////////////
+            var password by remember { mutableStateOf("") }
+
+            OutlinedTextField(
+                value = password,
+                onValueChange = { password = it },
+                placeholder = {
+                    Text(
+                        "Password",
+                        color = Color(0x4D4D4D66),
+                        fontFamily = FontFamily(Font(R.font.inter_semibold)),
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 20.sp,
+                        lineHeight = 20.sp,
+                        letterSpacing = 0.sp
+                    )
+                },
+                modifier = Modifier
+                    .offset(x = 21.dp, y = 600.dp)
+                    .width(351.dp)
+                    .height(57.dp)
+                    .clip(RoundedCornerShape(13.dp))
+                    .background(Color(0x4D4D4D66)),
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor = Color.Transparent,
+                    unfocusedBorderColor = Color.Transparent,
+                    disabledBorderColor = Color.Transparent,
+                    focusedContainerColor = Color(0x4D4D4D66),
+                    unfocusedContainerColor = Color(0x4D4D4D66)
+                ),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                textStyle = TextStyle(color = Color.White),
+                singleLine = true,
+                visualTransformation = PasswordVisualTransformation()
+            )
+
+            // //////////      ///////////////////////////     Button       ///////// ///////////////////////////////////
+            Button(
+
+                onClick = { onSignInClick(email, password) },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0xFF0E3E62)
+                ),
+                shape = RoundedCornerShape(13.dp),
+                modifier = Modifier
+                    .offset(x = 21.dp, y = 696.dp)
+                    .width(351.dp)
+                    .height(57.dp)
+            ) {
+                Text(
+                    text = "Sign In",
+                    color = Color.White,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Medium,
+                    letterSpacing = 0.sp,
+                    lineHeight = 20.sp,
+                    fontFamily = FontFamily(Font(R.font.inter_medium)),
+                    style = TextStyle(
+                        shadow = Shadow(
+                            color = Color.White,
+                            offset = Offset(0f, 0f),
+                            blurRadius = 6f
+                        )
+                    )
+                )
+            }
+
+            // text
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 750.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                val signUpColor = Color(0xFF6C47DB)
+                TextButton(onClick = onSignUpClick) {
+                    Text(
+                        buildAnnotatedString {
+                            append("Don't you have an account? ")
+
+                            withStyle(
+                                style = SpanStyle(
+                                    color = signUpColor,
+                                    fontWeight = FontWeight.SemiBold,
+                                    shadow = Shadow(
+                                        color = signUpColor,
+                                        offset = Offset(0f, 0f),
+                                        blurRadius = 10f
+                                    )
+                                )
+                            ) {
+                                append("Sign Up")
+
+
+                            }
+
+                            append(" Now!")
+                        },
+                        color = Color.White,
+                        fontSize = 15.sp,
+                        fontFamily = FontFamily(Font(R.font.inter_semibold)),
+                        fontWeight = FontWeight.Normal,
+                        letterSpacing = 0.sp,
+                        lineHeight = 10.sp,
+                        softWrap = false,
+                        maxLines = 1 ,
+                        modifier = Modifier.padding(bottom = 50.dp)
+                    )
+                }
+
+
+            }
 
         }
+
 
     }
 }

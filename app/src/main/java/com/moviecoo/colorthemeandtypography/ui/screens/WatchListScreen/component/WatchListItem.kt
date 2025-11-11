@@ -38,7 +38,7 @@ import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.model.Mov
 import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 
 @Composable
-fun MovieSeeAllItem(
+fun MovieWatchListItem(
     modifier: Modifier = Modifier,
     movieUiModel: MovieUiModel
 ) {

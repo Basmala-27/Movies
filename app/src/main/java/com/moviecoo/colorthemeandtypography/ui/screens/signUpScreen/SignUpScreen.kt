@@ -121,7 +121,7 @@ fun SignUpScreen(
                     visualTransformation = PasswordVisualTransformation()
 
                 )
-                Spacer(modifier = Modifier.height(40.dp))
+                Spacer(modifier = Modifier.height(20.dp))
 
                 Button(
                     onClick = { onSignUpClick(email, password) },
@@ -137,7 +137,7 @@ fun SignUpScreen(
                         fontWeight = FontWeight.Medium)
                 }
 
-                Spacer(modifier = Modifier.height(16.dp))
+
 
                 Row(
                     verticalAlignment = Alignment.CenterVertically
