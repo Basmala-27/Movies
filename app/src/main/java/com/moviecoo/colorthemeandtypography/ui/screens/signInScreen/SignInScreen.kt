@@ -236,6 +236,6 @@ fun SignInScreen(onSignInClick: (String, String) -> Unit = { _, _ -> } ,
 
 @Preview(showBackground = true)
 @Composable
-fun SignUpScreenPreview() {
+fun SignInScreenPreview() {
     SignInScreen(onSignInClick = { _, _ -> })
 }

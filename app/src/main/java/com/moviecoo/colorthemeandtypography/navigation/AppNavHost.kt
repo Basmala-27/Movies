@@ -20,9 +20,11 @@ import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.MovieList
 import com.moviecoo.colorthemeandtypography.ui.screens.seeAllScree.SeeAllScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.settingScreen.SettingScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.SignInScreen
+import com.moviecoo.colorthemeandtypography.ui.screens.signUpScreen.SignUpScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.signInSignUpScreen.SignInSignUpScreen
 
-import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.SignUpScreen
+
+
 
 @Composable
 fun AppNavHost(modifier: Modifier = Modifier) {
