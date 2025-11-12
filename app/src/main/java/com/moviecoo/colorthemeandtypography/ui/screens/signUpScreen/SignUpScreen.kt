@@ -1,4 +1,4 @@
-package com.moviecoo.colorthemeandtypography.ui.screens.signInScreen
+package com.moviecoo.colorthemeandtypography.ui.screens.signUpScreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

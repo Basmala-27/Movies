@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1090342880449",
+    "project_id": "movieco-a1333",
+    "storage_bucket": "movieco-a1333.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1090342880449:android:6249a2b01942160a19c040",
+        "android_client_info": {
+          "package_name": "com.moviecoo.colorthemeandtypography"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHnxmuW4Kp3OjCdVsvXXGybrTF_l1sBLw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
