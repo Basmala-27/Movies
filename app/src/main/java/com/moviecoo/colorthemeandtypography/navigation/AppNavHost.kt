@@ -15,12 +15,12 @@ import androidx.navigation.navArgument
 import com.moviecoo.colorthemeandtypography.ui.screens.splashScreen.SplashScreen
 
 import com.moviecoo.colorthemeandtypography.common_components.MovieBottomBar
+import com.moviecoo.colorthemeandtypography.ui.Screens.signUpScreen.SignUpScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen.WatchListScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.MovieListScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.seeAllScree.SeeAllScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.settingScreen.SettingScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.SignInScreen
-import com.moviecoo.colorthemeandtypography.ui.screens.signUpScreen.SignUpScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.signInSignUpScreen.SignInSignUpScreen
 
 

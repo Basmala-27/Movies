@@ -1,10 +1,14 @@
-package com.moviecoo.colorthemeandtypography.ui.screens.signUpScreen
+package com.moviecoo.colorthemeandtypography.ui.Screens.signUpScreen
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import com.moviecoo.colorthemeandtypography.R
 
 import androidx.compose.foundation.layout.Box
+
+import androidx.compose.ui.platform.LocalContext
+
 
 import androidx.compose.foundation.layout.absoluteOffset
 import androidx.compose.foundation.layout.fillMaxSize
@@ -47,6 +51,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
+import com.google.firebase.auth.FirebaseAuth
+
+
 
 
 
@@ -63,7 +70,7 @@ fun SignUpScreen( onSignUpClick: (String, String) -> Unit = { _, _ ->  }, onSign
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
         )
-        //App Name .... moviecoo
+
         Box(
             modifier = Modifier
                 .absoluteOffset(x = 88.dp, y = 275.dp)
@@ -82,7 +89,7 @@ fun SignUpScreen( onSignUpClick: (String, String) -> Unit = { _, _ ->  }, onSign
             )
         }
 
-        // //////////      /////////////////////////// OutlinedTextField.....email      ///////// ///////////////////////////////////
+
         var email by remember { mutableStateOf("") }
 
         OutlinedTextField(
@@ -117,7 +124,7 @@ fun SignUpScreen( onSignUpClick: (String, String) -> Unit = { _, _ ->  }, onSign
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
         )
 
-        // //////////      /////////////////////////// OutlinedTextField.....password      ///////// ///////////////////////////////////
+
         var password by remember { mutableStateOf("") }
 
         OutlinedTextField(
@@ -153,10 +160,28 @@ fun SignUpScreen( onSignUpClick: (String, String) -> Unit = { _, _ ->  }, onSign
             visualTransformation = PasswordVisualTransformation()
         )
 
-        // //////////      ///////////////////////////     Button       ///////// ///////////////////////////////////
+        val context = LocalContext.current
+        val auth = FirebaseAuth.getInstance()
+
         Button(
 
-            onClick = {onSignUpClick(email, password) },
+            onClick = {
+                if (email.isNotEmpty() && password.isNotEmpty()) {
+                    auth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                Toast.makeText(context, "Account created successfully!", Toast.LENGTH_SHORT).show()
+                                onSignUpClick(email, password)
+
+
+                            } else {
+                                Toast.makeText(context, "Error: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                } else {
+                    Toast.makeText(context, "Please fill all fields", Toast.LENGTH_SHORT).show()
+                }
+            },
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0xFF0E3E62)
             ),
@@ -184,7 +209,7 @@ fun SignUpScreen( onSignUpClick: (String, String) -> Unit = { _, _ ->  }, onSign
             )
         }
 
-        // text
+
         Box(
             modifier = Modifier
                 .fillMaxWidth()
