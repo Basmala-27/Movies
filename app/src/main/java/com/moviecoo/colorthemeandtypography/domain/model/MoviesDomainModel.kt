@@ -5,6 +5,7 @@ import android.media.Image
 data class  MoviesDomainModel (
     val title: String,
     val year: String,
+    val overview: String,
     val durationMin: Int,
     val genre: String,
     val rating: Double,

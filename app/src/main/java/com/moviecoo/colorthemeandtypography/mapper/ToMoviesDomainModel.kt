@@ -8,6 +8,7 @@ fun MovieDataModel.toMoviesDomainModel(): List<MoviesDomainModel>{
        MoviesDomainModel(
            title = results.title,
            year = results.release_date.substring(0,4),
+           overview = results.overview,
            durationMin = 0,
            genre = results.genre_ids.toString(),
            rating = results.vote_average,

@@ -2,6 +2,7 @@ package com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen
 
 import com.moviecoo.colorthemeandtypography.R
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.data.Movies
+import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.model.MovieUiModel
 
 val sampleTrending = listOf(
     Movies("Quantum Paradox", 2022, 146, "Sci-Fi", 8.2, R.drawable.movie),
@@ -9,8 +10,8 @@ val sampleTrending = listOf(
     Movies("Cosmic Voyage", 2023, 120, "Drama", 7.9, R.drawable.movie),
 )
 
-val sampleNewReleases = listOf(
-    Movies("Title A", 2023, 120, "Drama", 8.6, R.drawable.movie),
-    Movies("Title B", 2023, 95, "Comedy", 9.0, R.drawable.movie),
-    Movies("Title C", 2024, 110, "Horror", 7.5, R.drawable.movie),
+val sampleNewReleases = listOf <MovieUiModel>(
+    MovieUiModel("The Matrix", "2023", "Action", "Sci-Fi", 8.7, "https://picsum.photos/200/300"),
+    MovieUiModel("The Matrix", "2023", "Action", "Sci-Fi", 8.7, "https://picsum.photos/200/300"),
+    MovieUiModel("The Matrix", "2023", "Action", "Sci-Fi", 8.7, "https://picsum.photos/200/300"),
 )

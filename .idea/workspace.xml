@@ -10,12 +10,43 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="79b75a02-f868-4323-8c03-9c82a0d86586" name="Changes" comment="Add: Adding Icon for App splash screen">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/data/data_source/remote/dataSource.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/data/data_source/repository/MoviesRepositoryImp.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/movieListScreen/MovieListUiState.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/movieListScreen/componant/MoviesListItem.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/movieListScreen/componant/Rating.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/movieListScreen/mapper/ToMovieListUiModel.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/movieListScreen/viewmodel/MovieListViewModelFactory.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/data/data_source/remote/RemoteDataSource.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/data/data_source/remote/RemoteDataSource.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/data/data_source/remote/retrofit/api/MovieApi.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/data/data_source/remote/retrofit/api/MovieApi.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/domain/model/MoviesDomainModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/domain/model/MoviesDomainModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/domain/repository/MoviesRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/domain/repository/MoviesRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/domain/usecase/FetchMoviesUseCase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/domain/usecase/FetchMoviesUseCase.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/mapper/ToMoviesDomainModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/mapper/ToMoviesDomainModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/repository/MoviesRepositoryImp.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/Screens/movieContentScreen/codeOfScreen/ContentSection.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/movieContentScreen/codeOfScreen/ContentSection.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/Screens/movieContentScreen/codeOfScreen/FullScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/movieContentScreen/codeOfScreen/FullScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/Screens/movieContentScreen/codeOfScreen/VideoPlayerSection.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/movieContentScreen/codeOfScreen/VideoPlayerSection.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/Screens/movieContentScreen/data/FakeMovieContentData.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/movieContentScreen/data/FakeMovieContentData.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/Screens/movieContentScreen/data/MovieContentData.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/movieContentScreen/data/MovieContentData.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/Screens/movieContentScreen/data/UpNextMovie.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/movieContentScreen/data/UpNextMovie.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/Screens/seeAllScree/SeeAllScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/seeAllScree/SeeAllScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/Screens/seeAllScree/component/SeeAllItem.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/seeAllScree/component/SeeAllItem.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/WatchListScreen/component/WatchListItem.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/WatchListScreen/component/WatchListItem.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/WatchListScreen/watch-list-screen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/WatchListScreen/watch-list-screen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/signInScreen/SignInScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/signInScreen/SignInScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/signUpScreen/SignUpScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/signUpScreen/SignUpScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/splashScreen/SplashScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/splashScreen/SplashScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/detailsScreen/viewmodel/DetailsViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/detailsScreen/viewmodel/DetailsViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/movieListScreen/MovieListScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/movieListScreen/MovieListScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/movieListScreen/fakeData.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/movieListScreen/fakeData.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/movieListScreen/viewmodel/MovieListViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/movieListScreen/viewmodel/MovieListViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/libs.versions.toml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,10 +79,20 @@
       </state>
     </system>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Kotlin Interface" />
+        <option value="Kotlin Class" />
+        <option value="Kotlin File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="services2" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -76,24 +117,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Android App.app.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/ITC/Desktop/Movies/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/seeAllScree&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Android App.app.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "com.google.services.firebase.aqiPopupShown": "true",
+    "git-widget-placeholder": "mvvm",
+    "last_opened_file_path": "C:/Users/ITC/Desktop/Movies/app/src/main/java/com/moviecoo/colorthemeandtypography/domain"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\ITC\Desktop\Movies\app\src\main\java\com\moviecoo\colorthemeandtypography\domain" />
       <recent name="C:\Users\ITC\Desktop\Movies\app\src\main\java\com\moviecoo\colorthemeandtypography\ui\screens\seeAllScree" />
       <recent name="C:\Users\ITC\Desktop\Movies\app\src\main\java\com\moviecoo\colorthemeandtypography\ui\screens\seeAllScreen" />
+    </key>
+    <key name="K2MoveDeclarationsDialog.RECENT_PACKAGE_KEY">
+      <recent name="com.moviecoo.colorthemeandtypography.data.data_source.repository" />
     </key>
   </component>
   <component name="RunManager">
@@ -226,7 +271,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762814629034</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Add: Adding Icon for App splash screen">
+      <option name="closed" value="true" />
+      <created>1762866291705</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1762866291705</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

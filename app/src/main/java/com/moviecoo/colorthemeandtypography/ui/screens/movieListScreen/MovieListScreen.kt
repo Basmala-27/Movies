@@ -19,59 +19,38 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.compose.rememberNavController
-import coil.compose.AsyncImage
-import coil.compose.rememberAsyncImagePainter
-import coil.request.ImageRequest
-import com.google.android.material.bottomappbar.BottomAppBar
-import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.model.MovieUiModel
-import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.viewmodel.MovieListViewModel
-import com.moviecoo.colorthemeandtypography.common_components.MovieBottomBar
-import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.model.MovieDataModel
-import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.model.Result
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
+import com.moviecoo.colorthemeandtypography.data.data_source.remote.RemoteDataSource
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.provideMovieApi
+import com.moviecoo.colorthemeandtypography.data.data_source.repository.MoviesRepositoryImp
+import com.moviecoo.colorthemeandtypography.domain.usecase.FetchMoviesUseCase
+import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.viewmodel.MovieListViewModel
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.componant.AppScreenHeader
-import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.data.Movies
 import com.moviecoo.colorthemeandtypography.ui.theme.ColorThemeandTypographyTheme
-import com.moviecoo.colorthemeandtypography.ui.theme.OnPrimary
 import com.moviecoo.colorthemeandtypography.ui.theme.OrangeAccent
 import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 import com.moviecoo.colorthemeandtypography.ui.theme.Secondary
-import com.moviecoo.colorthemeandtypography.mapper.toMoviesUiModel
-
-
-
-
-
-
-
+import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.componant.MovieListItem
+import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.model.MovieUiModel
+import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.viewmodel.MovieListViewModelFactory
 
 
 @Composable
-fun MovieListScreen(onSeeAllClick: (String) -> Unit = { _ -> }) {
-//    val viewmodel: MovieListViewModel = viewModel()
+fun MovieListScreen(onSeeAllClick: (String) -> Unit = { _ -> } , onMovieClick: (String) -> Unit = { _ -> }) {
 
-
-
-
-
-//    LaunchedEffect(Unit) {
-//        viewmodel.fetchMovies()
-//    }
 
     Scaffold { innerPadding ->
         Column(
@@ -90,15 +69,15 @@ fun MovieListScreen(onSeeAllClick: (String) -> Unit = { _ -> }) {
                 details = "Sci-Fi • 2021 • 136m"
             )
             Spacer(modifier = Modifier.height(24.dp))
-             MovieSection(title = "Upcoming", onSeeAllClick = onSeeAllClick, showRating = false)
+             MovieSection(title = "Upcoming", onSeeAllClick = onSeeAllClick, showRating = false , onMovieClick = onMovieClick)
              Spacer(modifier = Modifier.height(24.dp))
-            MovieSection(title = "Trending Now",onSeeAllClick, showRating = true)
+            MovieSection(title = "Trending Now",onSeeAllClick, showRating = true , onMovieClick)
             Spacer(modifier = Modifier.height(24.dp))
 
-             MovieSection(title = "Top Rated", onSeeAllClick,showRating = true)
+             MovieSection(title = "Top Rated", onSeeAllClick,showRating = true ,onMovieClick)
              Spacer(modifier = Modifier.height(24.dp))
 
-            MovieSection(title = "New Releases",  onSeeAllClick ,showRating = false)
+             MovieSection(title = "New Releases",  onSeeAllClick ,showRating = false , onMovieClick)
             Spacer(modifier = Modifier.height(24.dp))
         }
     }
@@ -130,7 +109,7 @@ fun FeaturedMovieCard(title: String, details: String) {
             Box(
 
                 modifier = Modifier.fillMaxSize()
-                    
+
             )
 
 
@@ -172,30 +151,45 @@ fun FeaturedMovieCard(title: String, details: String) {
 
 @Composable
 
-fun MovieSection(title: String,onSeeAllClick:(String) -> Unit = {_ -> },showRating: Boolean) {
+fun MovieSection(
+    title: String,
+    onSeeAllClick: (String) -> Unit = { _ -> },
+    showRating: Boolean,
+    onMovieClick: (String) -> Unit = { _ -> }
+) {
+   val fetchMoviesUseCase = FetchMoviesUseCase(
+       MoviesRepositoryImp(RemoteDataSource(provideMovieApi()))
+   )
+    val factory = MovieListViewModelFactory(fetchMoviesUseCase)
 
-    val movieListState = remember {
-       mutableStateOf<MovieDataModel?>(null)
-      }
-LaunchedEffect(Unit) {
-    if (title == "Trending Now"){
-    val response = provideMovieApi().fetchMovies()
-    movieListState.value = response.body() as MovieDataModel
-}
-    else if (title == "New Releases"){
-        val response = provideMovieApi().fetchNowPlayingMovies()
-        movieListState.value = response.body() as MovieDataModel
+    val viewmodel = ViewModelProvider(LocalViewModelStoreOwner.current!!, factory).get(MovieListViewModel::class.java)
+    LaunchedEffect(Unit) {
+        when (title) {
+            "Trending Now" -> viewmodel.requestMovies()
+            "New Releases" -> viewmodel.requestMovies()
+            "Upcoming" -> viewmodel.requestMovies()
+            "Top Rated" -> viewmodel.requestMovies()
+        }
     }
-    else if (title == "Upcoming"){
-        val response = provideMovieApi().fetchUpcomingMovies()
-        movieListState.value = response.body() as MovieDataModel
 
+   val movieListUiState by viewmodel.movieListStateFlow.collectAsStateWithLifecycle()
+        MovieListContent(
+            title = title,
+            onSeeAllClick = onSeeAllClick,
+            showRating = showRating,
+            movieListUiState = movieListUiState,
+            onMovieClick = onMovieClick
+        )
     }
-    else if (title == "Top Rated"){
-        val response = provideMovieApi().fetchTopRatingMovies()
-        movieListState.value = response.body() as MovieDataModel
-    }
-}
+
+
+
+@Composable
+fun MovieListContent(
+    title: String,
+    onSeeAllClick: (String) -> Unit = { _ -> },
+    showRating: Boolean, movieListUiState: MovieListUiState, onMovieClick: (String) -> Unit = { _ -> }){
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -209,106 +203,101 @@ LaunchedEffect(Unit) {
         }
     }
 
+    when(movieListUiState){
+        MovieListUiState.Initial -> {}
+        is MovieListUiState.Loading ->
+            if (movieListUiState.isLoading)
+            {
+                Box(modifier = Modifier.fillMaxSize()) {
+                    CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                }
+            }
+        is MovieListUiState.MoviesList -> {
+            MovieListLazyColume(movieList = movieListUiState.movies, showRating = showRating, onMovieClick = onMovieClick)
+        }
+        is MovieListUiState.Error -> {
+            Text(text = movieListUiState.message)
+        }
+    }
 
+
+
+}
+@Composable
+fun MovieListLazyColume(
+    movieList: List<MovieUiModel>,
+    showRating: Boolean,
+    onMovieClick: (String) -> Unit = { _ -> }
+){
     LazyRow(
         contentPadding = PaddingValues(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        movieListState.value?.let {
-            items( it.toMoviesUiModel()) {  movieUiModelItem->
-            MovieListItem(movie = movieUiModelItem, showRating = showRating)
-        }
-        }
 
-    }
-}
-
-
-
-@Composable
-fun MovieListItem(movie: MovieUiModel, showRating: Boolean) {
-    Column(modifier = Modifier.width(160.dp)) {
-
-        Card(
-            modifier = Modifier
-                .height(200.dp)
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(8.dp)),
-            colors = CardDefaults.cardColors(containerColor =  OnPrimary)
-        ) {
-            Box(modifier = Modifier.fillMaxSize()) {
-               Image ( painter=rememberAsyncImagePainter(
-                    ImageRequest.Builder(LocalContext.current)
-                        .data(movie.image).crossfade(1000)
-                        .build()),
-
-                    contentDescription = movie.title,
-                    modifier = Modifier.fillMaxSize() ,
-                    contentScale = ContentScale.FillBounds
-                )
-
-
-                if (showRating) {
-                    RatingBadge(rating = movie.rating)
-                }
+        items( movieList) {  movieUiModelItem->
+            MovieListItem(movie = movieUiModelItem, showRating = showRating ){ title ->
+                onMovieClick(title)
             }
         }
 
-        Spacer(modifier = Modifier.height(8.dp))
 
-
-        Text(movie.title, color = Color.White, fontWeight = FontWeight.SemiBold, maxLines = 1)
-
-        Row {
-            Text(movie.year, color = Color.Gray, fontSize = 12.sp)
-            Spacer(modifier = Modifier.width(4.dp))
-            Text("•", color = Color.Gray, fontSize = 12.sp)
-            Spacer(modifier = Modifier.width(4.dp))
-            Text("${movie.rating}", color = Color.Gray, fontSize = 12.sp)
-
-            if (showRating) {
-                Spacer(modifier = Modifier.width(4.dp))
-                Text("•", color = Color.Gray, fontSize = 12.sp)
-                Spacer(modifier = Modifier.width(4.dp))
-                Text(movie.description, color = Color.Gray, fontSize = 12.sp , maxLines = 1)
-            }
-        }
     }
 }
 
+@Preview(showBackground = true, backgroundColor = 0xFF000000)
 @Composable
-fun RatingBadge(rating: Double) {
-    Row(
-        modifier = Modifier
-            .padding(8.dp)
-            .clip(RoundedCornerShape(4.dp))
-            .background(Color.Black.copy(alpha = 0.6f))
-            .padding(horizontal = 6.dp, vertical = 4.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Icon(
-            Icons.Default.Star,
-            contentDescription = "Rating Star",
-            tint = OrangeAccent,
-            modifier = Modifier.size(14.dp)
-        )
-        Spacer(modifier = Modifier.width(4.dp))
-        Text(
-            text = rating.toString(),
-            color = Color.White,
-            fontSize = 12.sp,
-            fontWeight = FontWeight.Bold
-        )
-    }
-}
-
-
-
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewMovieAppScreen() {
+fun PreviewMovieListScreenFull() {
     ColorThemeandTypographyTheme {
-        MovieListScreen()
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Primary)
+                .verticalScroll(rememberScrollState())
+        ) {
+            AppScreenHeader()
+            Spacer(modifier = Modifier.height(16.dp))
+
+            FeaturedMovieCard(
+                title = "Quantum Paradox",
+                details = "Sci-Fi • 2021 • 136m"
+            )
+            Spacer(modifier = Modifier.height(24.dp))
+
+
+            MovieListContent(
+                title = "Upcoming",
+                onSeeAllClick = {},
+                showRating = false,
+                movieListUiState = MovieListUiState.MoviesList(sampleNewReleases),
+                onMovieClick = {}
+            )
+            Spacer(modifier = Modifier.height(24.dp))
+
+            MovieListContent(
+                title = "Trending Now",
+                onSeeAllClick = {},
+                showRating = true,
+                movieListUiState = MovieListUiState.MoviesList(sampleNewReleases),
+                onMovieClick = {}
+            )
+            Spacer(modifier = Modifier.height(24.dp))
+
+            MovieListContent(
+                title = "Top Rated",
+                onSeeAllClick = {},
+                showRating = true,
+                movieListUiState =  MovieListUiState.MoviesList(sampleNewReleases),
+                onMovieClick = {}
+            )
+            Spacer(modifier = Modifier.height(24.dp))
+
+            MovieListContent(
+                title = "New Releases",
+                onSeeAllClick = {},
+                showRating = false,
+                movieListUiState =  MovieListUiState.MoviesList(sampleNewReleases),
+                onMovieClick = {}
+            )
+        }
     }
 }

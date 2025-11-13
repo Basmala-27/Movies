@@ -18,3 +18,4 @@ interface MovieApi {
     suspend fun fetchUpcomingMovies(): Response<MovieDataModel>
 
 }
+

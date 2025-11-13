@@ -39,7 +39,6 @@ import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 
 @Composable
 fun MovieWatchListItem(
-    modifier: Modifier = Modifier,
     movieUiModel: MovieUiModel
 ) {
     Box(
