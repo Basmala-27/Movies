@@ -18,9 +18,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 @Composable
-fun AppScreenHeader() {
+fun AppScreenHeader(navController: NavController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -34,7 +35,9 @@ fun AppScreenHeader() {
             Text("What would you like to watch?", fontSize = 16.sp, color = Color.LightGray)
         }
         Row {
-            IconButton(onClick = { /* Search */ }) {
+            IconButton(onClick = {
+                navController.navigate("search_screen")
+            }) {
                 Icon(Icons.Default.Search, contentDescription = "Search", tint = Color.White)
             }
             IconButton(onClick = { /* Notifications */ }) {

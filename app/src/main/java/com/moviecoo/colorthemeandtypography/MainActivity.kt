@@ -8,6 +8,10 @@ import androidx.activity.compose.setContent
 import com.moviecoo.colorthemeandtypography.navigation.AppNavHost
 import com.moviecoo.colorthemeandtypography.ui.screens.splashScreen.SplashScreen
 import com.moviecoo.colorthemeandtypography.ui.theme.ColorThemeandTypographyTheme
+import dagger.hilt.android.AndroidEntryPoint
+
+
+@AndroidEntryPoint
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

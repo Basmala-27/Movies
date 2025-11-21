@@ -19,6 +19,8 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -33,6 +35,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
@@ -41,9 +45,9 @@ import com.google.android.material.bottomappbar.BottomAppBar
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.model.MovieUiModel
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.viewmodel.MovieListViewModel
 import com.moviecoo.colorthemeandtypography.common_components.MovieBottomBar
+import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.NetworkModule.provideMovieApi
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.model.MovieDataModel
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.model.Result
-import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.provideMovieApi
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.componant.AppScreenHeader
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.data.Movies
 import com.moviecoo.colorthemeandtypography.ui.theme.ColorThemeandTypographyTheme
@@ -61,9 +65,16 @@ import com.moviecoo.colorthemeandtypography.mapper.toMoviesUiModel
 
 
 
+
+
+
 @Composable
-fun MovieListScreen(onSeeAllClick: (String) -> Unit = { _ -> }) {
+fun MovieListScreen(onSeeAllClick: (String) -> Unit = { _ -> }, navController: NavController) {
 //    val viewmodel: MovieListViewModel = viewModel()
+
+
+    val viewModel: MovieListViewModel = hiltViewModel() // لو Compose
+
 
 
 
@@ -82,7 +93,7 @@ fun MovieListScreen(onSeeAllClick: (String) -> Unit = { _ -> }) {
                 .padding(innerPadding)
             )
          {
-             AppScreenHeader()
+             AppScreenHeader(navController = navController)
             Spacer(modifier = Modifier.height(16.dp))
 
             FeaturedMovieCard(
@@ -226,7 +237,7 @@ LaunchedEffect(Unit) {
 
 
 @Composable
-fun MovieListItem(movie: MovieUiModel, showRating: Boolean) {
+fun MovieListItem(movie: MovieUiModel, showRating: Boolean, modifier: Modifier = Modifier) {
     Column(modifier = Modifier.width(160.dp)) {
 
         Card(
@@ -309,6 +320,9 @@ fun RatingBadge(rating: Double) {
 @Composable
 fun PreviewMovieAppScreen() {
     ColorThemeandTypographyTheme {
-        MovieListScreen()
+        MovieListScreen(
+            onSeeAllClick = TODO(),
+            navController = TODO()
+        )
     }
 }

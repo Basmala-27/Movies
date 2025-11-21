@@ -3,9 +3,11 @@ package com.moviecoo.colorthemeandtypography.navigation
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -15,11 +17,17 @@ import androidx.navigation.navArgument
 import com.moviecoo.colorthemeandtypography.ui.screens.splashScreen.SplashScreen
 
 import com.moviecoo.colorthemeandtypography.common_components.MovieBottomBar
+<<<<<<< HEAD
 import com.moviecoo.colorthemeandtypography.ui.Screens.signUpScreen.SignUpScreen
+=======
+import com.moviecoo.colorthemeandtypography.mapper.toMovieUiList
+import com.moviecoo.colorthemeandtypography.ui.screens.searchScreen.SearchScreen
+
+>>>>>>> 0fb297c (DI)
 import com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen.WatchListScreen
-import com.moviecoo.colorthemeandtypography.ui.screens.movieContentScreen.codeOfScreen.MovieContentScreen
-import com.moviecoo.colorthemeandtypography.ui.screens.movieContentScreen.data.sampleMovie
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.MovieListScreen
+import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.model.MovieUiModel
+import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.viewmodel.MovieListViewModel
 import com.moviecoo.colorthemeandtypography.ui.screens.seeAllScree.SeeAllScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.settingScreen.SettingScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.SignInScreen
@@ -38,7 +46,8 @@ fun AppNavHost(modifier: Modifier = Modifier) {
     val showBottomBar = currentRoute in listOf(
         "Movie_List_Screen",
         "Watch_List_Screen",
-      "Setting_Screen"
+        "Setting_Screen",
+        "Search_Screen"
     )
 
     Scaffold(
@@ -48,9 +57,13 @@ fun AppNavHost(modifier: Modifier = Modifier) {
                     home = currentRoute == "Movie_List_Screen",
                     watchlist = currentRoute == "Watch_List_Screen",
                     profile = currentRoute == "Setting_Screen",
+                    search = currentRoute == "Search_Screen",
                     onHomeClick = { navController.navigate("Movie_List_Screen") },
                     onWatchlistClick = { navController.navigate("Watch_List_Screen") },
-                    onProfileClick = { navController.navigate("Setting_Screen") }
+                    onProfileClick = { navController.navigate("Setting_Screen") },
+                    onSearchClick = {navController.navigate("search_screen")},
+                    navController = navController
+
                 )
             }
         }
@@ -85,6 +98,7 @@ fun AppNavHost(modifier: Modifier = Modifier) {
                 )
             }
             composable("Movie_List_Screen") { MovieListScreen(
+                navController = navController,
                 onSeeAllClick = { title ->
                     navController.navigate("See_All_Screen/$title")
                 }
@@ -100,6 +114,28 @@ fun AppNavHost(modifier: Modifier = Modifier) {
 
             composable("Watch_List_Screen") { WatchListScreen() }
             composable("Setting_Screen") { SettingScreen() }
+
+
+            composable("search_screen") {
+//                val viewModel: MovieListViewModel = viewModel()
+//                val moviesList = viewModel.movies.collectAsState().value
+
+
+                val viewModel: MovieListViewModel = hiltViewModel()
+                val moviesList by viewModel.movies.collectAsState()
+
+
+
+                LaunchedEffect(Unit) {
+                    viewModel.fetchMovies()
+                }
+
+                SearchScreen(
+                    navController = navController,
+                    moviesList = moviesList
+                )
+            }
+
 
 
 

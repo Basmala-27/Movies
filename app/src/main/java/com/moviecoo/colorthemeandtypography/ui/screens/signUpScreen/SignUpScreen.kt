@@ -38,8 +38,9 @@ fun SignUpScreen(
     Scaffold { innerPadding ->
         Box(
             modifier = Modifier
+//                .padding(innerPadding)
                 .fillMaxSize()
-                .padding(innerPadding)
+//             .padding(innerPadding)
         ) {
 
 
@@ -84,14 +85,15 @@ fun SignUpScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
+                    .padding(innerPadding)
                     .padding(24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
+                verticalArrangement = Arrangement.Top
             ) {
                 var email by remember { mutableStateOf("") }
                 var password by remember { mutableStateOf("") }
 
-                Spacer(modifier = Modifier.height(460.dp))
+                Spacer(modifier = Modifier.weight(1.5f))
 
                 OutlinedTextField(
                     value = email,
