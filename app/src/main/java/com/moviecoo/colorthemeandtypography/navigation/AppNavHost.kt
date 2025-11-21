@@ -17,13 +17,13 @@ import androidx.navigation.navArgument
 import com.moviecoo.colorthemeandtypography.ui.screens.splashScreen.SplashScreen
 
 import com.moviecoo.colorthemeandtypography.common_components.MovieBottomBar
-<<<<<<< HEAD
-import com.moviecoo.colorthemeandtypography.ui.Screens.signUpScreen.SignUpScreen
-=======
+
+import com.moviecoo.colorthemeandtypography.ui.screens.signUpScreen.SignUpScreen
+
 import com.moviecoo.colorthemeandtypography.mapper.toMovieUiList
 import com.moviecoo.colorthemeandtypography.ui.screens.searchScreen.SearchScreen
 
->>>>>>> 0fb297c (DI)
+
 import com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen.WatchListScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.MovieListScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.model.MovieUiModel
