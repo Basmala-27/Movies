@@ -10,12 +10,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="79b75a02-f868-4323-8c03-9c82a0d86586" name="Changes" comment="Add: Adding Icon for App splash screen">
+      <change beforePath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/WatchListScreen/component/WatchListItem.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/WatchListScreen/component/WatchListItem.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/WatchListScreen/watch-list-screen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/WatchListScreen/watch-list-screen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/signInScreen/SignInScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/signInScreen/SignInScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/signUpScreen/SignUpScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/signUpScreen/SignUpScreen.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/splashScreen/SplashScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/splashScreen/SplashScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/common_components/MovieBottomAppBarEdited.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/common_components/MovieBottomAppBarEdited.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/navigation/AppNavHost.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/navigation/AppNavHost.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/libs.versions.toml" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/libs.versions.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,22 +43,24 @@
       <state>
         <projects_view>
           <tree_state>
-            <expand>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Color, Theme,and Typography" type="f1a62948:ProjectNode" />
-              </path>
-            </expand>
+            <expand />
             <select />
           </tree_state>
         </projects_view>
       </state>
     </system>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="services2" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -72,30 +81,26 @@
   &quot;associatedIndex&quot;: 6
 }</component>
   <component name="ProjectId" id="34yzk1UvwaSbZLPQJ8fmkgkFB4X" />
+  <component name="ProjectReloadState">
+    <option name="STATE" value="1" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Android App.app.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/ITC/Desktop/Movies/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/seeAllScree&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Android App.app.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "com.google.services.firebase.aqiPopupShown": "true",
+    "git-widget-placeholder": "MovieBottomAppBarEdited"
   }
-}</component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\ITC\Desktop\Movies\app\src\main\java\com\moviecoo\colorthemeandtypography\ui\screens\seeAllScree" />
-      <recent name="C:\Users\ITC\Desktop\Movies\app\src\main\java\com\moviecoo\colorthemeandtypography\ui\screens\seeAllScreen" />
-    </key>
-  </component>
+}]]></component>
   <component name="RunManager">
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
       <module name="Color,_Theme,and_Typography.app" />
@@ -202,31 +207,7 @@
       <option name="project" value="LOCAL" />
       <updated>1762614630293</updated>
     </task>
-    <task id="LOCAL-00004" summary="Modify: deleting duplicated watchListitem">
-      <option name="closed" value="true" />
-      <created>1762629864427</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1762629864427</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Modify: adding more endpoint and see all screen">
-      <option name="closed" value="true" />
-      <created>1762744309796</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1762744309796</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Add: Adding Icon for App splash screen">
-      <option name="closed" value="true" />
-      <created>1762814629034</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1762814629034</updated>
-    </task>
-    <option name="localTasksCounter" value="7" />
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -244,22 +225,19 @@
     <MESSAGE value="connect api with MovieListScreen.kt test version" />
     <MESSAGE value="Modify: Edition nav bottombar in SettingScreen.kt and MovieListScreen.kt" />
     <MESSAGE value="Modify: Editing in watch-list-screen.kt" />
-    <MESSAGE value="Modify: deleting duplicated watchListitem" />
-    <MESSAGE value="Modify: adding more endpoint and see all screen" />
-    <MESSAGE value="Add: Adding Icon for App splash screen" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add: Adding Icon for App splash screen" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modify: Editing in watch-list-screen.kt" />
   </component>
   <component name="play_dynamic_filters_status">
     <option name="appIdToCheckInfo">
       <map>
         <entry key="com.moviecoo.colorthemeandtypography">
           <value>
-            <CheckInfo lastCheckTimestamp="1762814618108" />
+            <CheckInfo lastCheckTimestamp="1762537681466" />
           </value>
         </entry>
         <entry key="com.moviecoo.colorthemeandtypography.test">
           <value>
-            <CheckInfo lastCheckTimestamp="1762814618106" />
+            <CheckInfo lastCheckTimestamp="1762537681469" />
           </value>
         </entry>
       </map>
