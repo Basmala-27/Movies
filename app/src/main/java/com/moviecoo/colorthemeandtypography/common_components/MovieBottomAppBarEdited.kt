@@ -58,7 +58,9 @@ data class BottomNavItem(
 @Composable
 fun AnimatedBottomBar(
     modifier: Modifier = Modifier,
-    feedItemCount: Int
+    feedItemCount: Int,
+    selectedIndex: Int,
+    onItemSelected: (index: Int) -> Unit
 ) {
     val items = listOf(
         BottomNavItem("Home", Icons.Default.Home, Color(0xFF428EC2)),
@@ -69,11 +71,10 @@ fun AnimatedBottomBar(
             Color(0xFFFF1E1E), // أحمر ناري
             badgeCount = feedItemCount
         ),
-        BottomNavItem("Saved", Icons.Outlined.BookmarkBorder, Color(0xFFFFC064)),
+        BottomNavItem("Saved", Icons.Outlined.BookmarkBorder, Color(0xFFB34CC5)),
         BottomNavItem("Profile", Icons.Default.AccountCircle, Color(0xFF8263EA))
     )
 
-    var selectedIndex by remember { mutableStateOf(0) }
 
     Surface(
         modifier = modifier
@@ -97,7 +98,7 @@ fun AnimatedBottomBar(
                 AnimatedBottomBarItem(
                     item = item,
                     isSelected = (index == selectedIndex),
-                    onClick = { selectedIndex = index }
+                    onClick = { onItemSelected(index) }
                 )
             }
         }
@@ -113,13 +114,13 @@ fun AnimatedBottomBarItem(
     onClick: () -> Unit
 ) {
     val contentColor by animateColorAsState(
-        targetValue = if (isSelected) item.activeColor else Color.White.copy(alpha = 0.7f),
+        targetValue = if (isSelected) item.activeColor else Color.Black.copy(alpha = 0.7f),
         animationSpec = tween(durationMillis = 300),
         label = "Content Color"
     )
 
     val backgroundColor by animateColorAsState(
-        targetValue = if (isSelected) item.activeColor.copy(alpha = 0.15f) else Color.Transparent,
+        targetValue = if (isSelected) item.activeColor.copy(alpha = 0.2f) else Color.Transparent,
         animationSpec = tween(durationMillis = 300),
         label = "Background Color"
     )
@@ -137,7 +138,7 @@ fun AnimatedBottomBarItem(
             .clip(RoundedCornerShape(50))
             .background(backgroundColor)
             .clickable(onClick = onClick)
-            .padding(horizontal = 12.dp, vertical = 8.dp),
+            .padding(horizontal = 8.dp, vertical = 8.dp),
         contentAlignment = Alignment.Center
     ) {
         if (isSelected) {
@@ -173,7 +174,7 @@ fun AnimatedBottomBarItem(
                     text = item.label,
                     color = contentColor,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 9.sp
+                    fontSize = 14.sp
                 )
             }
         } else {
@@ -197,33 +198,8 @@ fun AnimatedBottomBarItem(
                         tint = contentColor
                     )
                 }
-                Spacer(Modifier.height(4.dp))
-                Text(
-                    text = item.label,
-                    color = contentColor,
-                    fontSize = 10.sp
-                )
+
             }
         }
-    }
-}
-
-// -----------------------------------------------------
-
-@RequiresApi(Build.VERSION_CODES.S)
-@Preview(showBackground = true, backgroundColor = 0xFF121212)
-@Composable
-fun DefaultPreview() {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFF0E0E0E)),
-        contentAlignment = Alignment.BottomCenter
-    ) {
-        AnimatedBottomBar(
-            modifier = Modifier
-                .padding(bottom = 8.dp),
-            feedItemCount = 0
-        )
     }
 }

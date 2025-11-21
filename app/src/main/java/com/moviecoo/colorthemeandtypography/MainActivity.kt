@@ -45,35 +45,7 @@ class MainActivity : ComponentActivity() {
 //
 //                    }
 //                )
-                var feedItemCount by remember { mutableStateOf(0) }
-                Scaffold(
-                    containerColor = Color(0xFF0E0E0E),
-                    bottomBar = {
-                        AnimatedBottomBar(
-                            feedItemCount = feedItemCount,
-                            modifier = Modifier.padding(bottom = 65.dp)
-                        )
-                    }
-                ) { innerPadding ->
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(innerPadding),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            Text(
-                                text = "Main Screen Content",
-                                color = Color.White,
-                                fontSize = 20.sp
-                            )
-                            Spacer(Modifier.height(16.dp))
-                            Button(onClick = { feedItemCount++ }) {
-                                Text("Add to Feed (Count: $feedItemCount)")
-                            }
-                        }
-                    }
-                }
+
                 AppNavHost()
             }
         }
