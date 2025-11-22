@@ -7,6 +7,7 @@ import com.moviecoo.colorthemeandtypography.R
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.LazyRow
@@ -69,7 +70,7 @@ import com.moviecoo.colorthemeandtypography.mapper.toMoviesUiModel
 
 
 @Composable
-fun MovieListScreen(onSeeAllClick: (String) -> Unit = { _ -> }, navController: NavController) {
+fun MovieListScreen(onSeeAllClick: (String) -> Unit = { _ -> }, navController: NavController, onFeaturedClick: () -> Unit = {}) {
 //    val viewmodel: MovieListViewModel = viewModel()
 
 
@@ -93,13 +94,11 @@ fun MovieListScreen(onSeeAllClick: (String) -> Unit = { _ -> }, navController: N
                 .padding(innerPadding)
             )
          {
+             Spacer(modifier = Modifier.height(25.dp))
              AppScreenHeader(navController = navController)
             Spacer(modifier = Modifier.height(16.dp))
 
-            FeaturedMovieCard(
-                title = "Quantum Paradox",
-                details = "Sci-Fi • 2021 • 136m"
-            )
+             FeaturedMovieitem(onClick = onFeaturedClick)
             Spacer(modifier = Modifier.height(24.dp))
              MovieSection(title = "Upcoming", onSeeAllClick = onSeeAllClick, showRating = false)
              Spacer(modifier = Modifier.height(24.dp))
@@ -119,13 +118,14 @@ fun MovieListScreen(onSeeAllClick: (String) -> Unit = { _ -> }, navController: N
 
 
 @Composable
-fun FeaturedMovieCard(title: String, details: String) {
+fun FeaturedMovieitem(onClick: () -> Unit){
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .height(220.dp)
             .padding(horizontal = 16.dp)
             .clip(RoundedCornerShape(12.dp))
+            .clickable { onClick() }
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
 
@@ -133,52 +133,18 @@ fun FeaturedMovieCard(title: String, details: String) {
                 modifier = Modifier
                     .matchParentSize()
 
-            ){
-                Image(painter = painterResource(R.drawable.movie), contentDescription = "Movie Image" , contentScale = ContentScale.FillBounds, modifier = Modifier.fillMaxSize())
-            }
-
-
-            Box(
-
-                modifier = Modifier.fillMaxSize()
-                    
-            )
-
-
-            Column(
-                modifier = Modifier
-                    .align(Alignment.BottomStart)
-                    .padding(16.dp)
             ) {
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                Row {
-                    Button(
-                        onClick = { },
-                        colors = ButtonDefaults.buttonColors(containerColor = Secondary)
-                    ) {
-                        Text(text = "Watch Now", color = Color.White)
-                    }
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Button(
-                        onClick = { },
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.LightGray)
-
-                    ) {
-                        Icon(Icons.Default.Add, contentDescription = "Add to Watchlist", tint = Color.Black, modifier = Modifier.size(18.dp))
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Text(text = "Watchlist", color = Color.Black)
-                    }
-                }
+                Image(
+                    painter = painterResource(R.drawable.moodtomovie),
+                    contentDescription = "Movie Image",
+                    contentScale = ContentScale.FillBounds,
+                    modifier = Modifier.fillMaxSize()
+                )
             }
         }
     }
 
-    Column ( modifier = Modifier.fillMaxSize().padding(start = 28.dp), horizontalAlignment = Alignment.Start, verticalArrangement = Arrangement.Center  ){
-        Text(title, style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold, color = Color.White)
-        Text(details, style = MaterialTheme.typography.bodyMedium, color = Color.LightGray , modifier = Modifier.padding(start = 10.dp))
-    }
+
 }
 
 @Composable
@@ -237,14 +203,15 @@ LaunchedEffect(Unit) {
 
 
 @Composable
-fun MovieListItem(movie: MovieUiModel, showRating: Boolean, modifier: Modifier = Modifier) {
+fun MovieListItem(movie: MovieUiModel, showRating: Boolean  = true, modifier: Modifier = Modifier , onClick: (MovieUiModel) -> Unit = {}) {
     Column(modifier = Modifier.width(160.dp)) {
 
         Card(
             modifier = Modifier
                 .height(200.dp)
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(8.dp)),
+                .clip(RoundedCornerShape(8.dp))
+                .clickable{onClick},
             colors = CardDefaults.cardColors(containerColor =  OnPrimary)
         ) {
             Box(modifier = Modifier.fillMaxSize()) {
