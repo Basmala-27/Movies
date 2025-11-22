@@ -4,5 +4,7 @@
     <string name="setting">Setting</string>
     <string name="watchlist">Watchlist</string>
     <string name="allMovies">All Movies</string>
+    <string name="moodSelection">Mood to Movie</string>
+    <string name="moodToMovie">" "</string>
 
 </resources>

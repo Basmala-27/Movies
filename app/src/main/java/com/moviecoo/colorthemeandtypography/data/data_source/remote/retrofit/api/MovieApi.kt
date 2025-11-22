@@ -6,6 +6,7 @@ import com.moviecoo.colorthemeandtypography.data.Constants.Companion.MOVIE_UPCOM
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.model.MovieDataModel
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface MovieApi {
     @GET(MOVIE_ENDPOINT)
@@ -16,5 +17,12 @@ interface MovieApi {
     suspend fun fetchNowPlayingMovies(): Response<MovieDataModel>
     @GET(MOVIE_UPCOMING_ENDPOINT)
     suspend fun fetchUpcomingMovies(): Response<MovieDataModel>
-
+    @GET("discover/movie")
+    suspend fun getMoviesByGenre(
+        @Query("api_key") apiKey: String = "c49820c55b9cfe9e135e6427800d7597",
+        @Query("with_genres") genreIds: String,
+        @Query("sort_by") sortBy: String = "popularity.desc", // ترتيب حسب الشهرة
+        @Query("language") language: String = "en-US",
+        @Query("page") page: Int = 1
+    ): Response<MovieDataModel>
 }

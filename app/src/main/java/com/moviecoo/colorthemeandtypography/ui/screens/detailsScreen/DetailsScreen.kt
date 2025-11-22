@@ -26,7 +26,7 @@ import com.moviecoo.colorthemeandtypography.R
 
 
 @Composable
-fun DetailsScreen(movie: MovieDetailsUiModel) {
+fun DetailsScreen(movie: MovieDetailsUiModel ) {
 
     Box(
         modifier = Modifier
@@ -38,7 +38,7 @@ fun DetailsScreen(movie: MovieDetailsUiModel) {
             )
     ) {
         Column {
-            // صورة الخلفية
+
             Box(
                 modifier = Modifier
                     .weight(1f)

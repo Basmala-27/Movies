@@ -4,6 +4,8 @@ package com.moviecoo.colorthemeandtypography
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.view.WindowInsets
+import android.view.WindowInsetsController
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
@@ -45,7 +47,11 @@ class MainActivity : ComponentActivity() {
 //
 //                    }
 //                )
-
+                window.insetsController?.let { controller ->
+                    controller.hide(WindowInsets.Type.systemBars())
+                    controller.systemBarsBehavior =
+                        WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+                }
                 AppNavHost()
             }
         }
