@@ -11,14 +11,25 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.moviecoo.colorthemeandtypography.ui.theme.OrangeAccent
 import com.moviecoo.colorthemeandtypography.ui.theme.Surface
 
 
 @Composable
 fun MovieBottomBar(home: Boolean = false , search: Boolean =false , watchlist: Boolean = false, profile: Boolean= false
-,onHomeClick: () -> Unit ={}, onSearchClick: () -> Unit ={}, onWatchlistClick: () -> Unit ={} , onProfileClick: () -> Unit={}) {
+,onHomeClick: () -> Unit ={}, onSearchClick: () -> Unit ={}, onWatchlistClick: () -> Unit ={} , onProfileClick: () -> Unit={}, navController: NavController
+) {
+    var selectedItem by remember { mutableStateOf("home") }
+
+
+
     NavigationBar(
         containerColor = Surface ,
     ) {
@@ -32,7 +43,7 @@ fun MovieBottomBar(home: Boolean = false , search: Boolean =false , watchlist: B
         )
 
         NavigationBarItem(
-            selected = search,
+            selected = selectedItem == "search",
             onClick = { onSearchClick() },
             icon = { Icon(Icons.Default.Search, contentDescription = "Search", tint = isSelected(search)) },
             label = { Text("Search", color = isSelected(search)) }

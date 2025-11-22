@@ -8,6 +8,7 @@ data class  MoviesDomainModel (
     val durationMin: Int,
     val genre: String,
     val rating: Double,
-    val image: String
+    val image: String,
+    val description: String? = null
 
 )
