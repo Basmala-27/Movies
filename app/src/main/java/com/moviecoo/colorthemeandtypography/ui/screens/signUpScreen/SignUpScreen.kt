@@ -1,6 +1,7 @@
 package com.moviecoo.colorthemeandtypography.ui.screens.signUpScreen
 
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -25,6 +26,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.sp
+import com.google.firebase.auth.FirebaseAuth
 import com.moviecoo.colorthemeandtypography.R
 
 import com.moviecoo.colorthemeandtypography.ui.theme.OnPrimary
@@ -125,8 +127,31 @@ fun SignUpScreen(
                 )
                 Spacer(modifier = Modifier.height(20.dp))
 
+                val context = LocalContext.current
+                val auth = FirebaseAuth.getInstance()
+
                 Button(
-                    onClick = { onSignUpClick(email, password) },
+                    onClick = {
+                        if (email.isNotEmpty() && password.isNotEmpty()) {
+                            auth.createUserWithEmailAndPassword(email, password)
+                                .addOnCompleteListener { task ->
+                                    if (task.isSuccessful) {
+                                        val show = Toast.makeText(
+                                            context,
+                                            "Account created successfully!",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        onSignUpClick(email, password)
+
+
+                                    } else {
+                                        Toast.makeText(context, "Error: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                        } else {
+                            Toast.makeText(context, "Please fill all fields", Toast.LENGTH_SHORT).show()
+                        }
+                       },
                     modifier =  Modifier
                         .width(351.dp)
                         .height(57.dp),
