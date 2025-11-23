@@ -11,6 +11,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -29,6 +30,7 @@ import com.moviecoo.colorthemeandtypography.ui.screens.moodToMovieScreen.moodToM
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.MovieListScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.moodToMovie.MoodToMovieRepository
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.viewmodel.MovieListViewModel
+import com.moviecoo.colorthemeandtypography.ui.screens.randomMovieScreen.RandomMovieSpinScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.searchScreen.SearchScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.seeAllScree.SeeAllScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.settingScreen.SettingScreen
@@ -116,28 +118,29 @@ fun AppNavHost(modifier: Modifier = Modifier) {
             }
             composable("Movie_List_Screen") {
                 MovieListScreen(
-                    onSeeAllClick = { title ->
-                        navController.navigate("See_All_Screen/$title")
+                    navController = navController,
+                    onFeaturedClick = { navController.navigate("moodSelection") },
+                    onSeeAllClick = { title -> navController.navigate("See_All_Screen/$title")
                     },
-                     navController = navController,
-                    onFeaturedClick = { navController.navigate("moodSelection") } // أول خطوة: اختيار المود
+                    onRandomClick = { navController.navigate("randomMovie") }
                 )
             }
 
-            // Mood Selection Screen
             composable("moodSelection") {
-                MoodSelectionScreen(
-                    onMoodSelected = { genreId ->
-                        navController.navigate("moodToMovie/$genreId") // بعد اختيار المود نروح للـ MoodToMovieScreen
-                    }
-                )
+                MoodSelectionScreen(onMoodSelected = { genreId ->
+                    navController.navigate("moodToMovie/$genreId")
+                })
             }
 
-            // Mood To Movie Screen
             composable("moodToMovie/{genreId}") { backStackEntry ->
-                val genreId = backStackEntry.arguments?.getString("genreId") ?: "28" // Action افتراضي
+                val genreId = backStackEntry.arguments?.getString("genreId")
                 val repository = MoodToMovieRepository(provideMovieApi())
                 MoodToMovieScreen(viewModel = repository, genreId = genreId)
+            }
+
+            composable("randomMovie") {
+                val repository = MoodToMovieRepository(provideMovieApi())
+                MoodToMovieScreen(viewModel = repository)
             }
             composable(
                 "See_All_Screen/{title}",
@@ -152,9 +155,10 @@ fun AppNavHost(modifier: Modifier = Modifier) {
 
 
 
+
             composable("search_screen") {
-//                val viewModel: MovieListViewModel = viewModel()
-//                val moviesList = viewModel.movies.collectAsState().value
+//              val viewModel: MovieListViewModel = viewModel()
+//              val moviesList = viewModel.movies.collectAsState().value
 
 
                 val viewModel: MovieListViewModel = hiltViewModel()

@@ -96,6 +96,7 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.navigation.compose)
     implementation("com.google.dagger:hilt-android:2.52")
+    implementation(libs.androidx.compose.foundation)
     kapt("com.google.dagger:hilt-android-compiler:2.52")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0-alpha01")
     // Compose BOM
@@ -118,4 +119,6 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+
+    implementation("com.airbnb.android:lottie-compose:6.3.0")
 }

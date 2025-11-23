@@ -24,7 +24,12 @@ class MoodToMovieRepository (private val api: MovieApi){
                 throw Exception("API Error: ${response.code()}")
             }
         }
-
+    suspend fun getRandomMovie(): MovieUiModel? {
+        val genres = listOf("28", "35", "18", "27") // Action, Comedy, Drama, Horror
+        val genreId = genres.random()
+        val movies = getMoviesByMood(genreId)
+        return movies.randomOrNull()
+    }
 }
 
 

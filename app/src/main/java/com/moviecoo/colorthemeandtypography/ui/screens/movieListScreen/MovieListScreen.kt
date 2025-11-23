@@ -70,20 +70,20 @@ import com.moviecoo.colorthemeandtypography.mapper.toMoviesUiModel
 
 
 @Composable
-fun MovieListScreen(onSeeAllClick: (String) -> Unit = { _ -> }, navController: NavController, onFeaturedClick: () -> Unit = {}) {
+fun MovieListScreen(onSeeAllClick: (String) -> Unit = { _ -> }, navController: NavController, onFeaturedClick: () -> Unit = {} , onRandomClick: () -> Unit = {}) {
 //    val viewmodel: MovieListViewModel = viewModel()
 
 
     val viewModel: MovieListViewModel = hiltViewModel() // لو Compose
 
+    val featuresList = remember {  listOf(
+        features("Movie to Mood" , R.drawable.moodtomovie , onFeaturedClick),
+        features("Random Movie" , R.drawable.randommovie , onRandomClick)
+
+        )}
 
 
 
-
-
-//    LaunchedEffect(Unit) {
-//        viewmodel.fetchMovies()
-//    }
 
     Scaffold { innerPadding ->
         Column(
@@ -94,11 +94,22 @@ fun MovieListScreen(onSeeAllClick: (String) -> Unit = { _ -> }, navController: N
                 .padding(innerPadding)
             )
          {
+
+
              Spacer(modifier = Modifier.height(25.dp))
              AppScreenHeader(navController = navController)
             Spacer(modifier = Modifier.height(16.dp))
 
-             FeaturedMovieitem(onClick = onFeaturedClick)
+             LazyRow(
+                 modifier = Modifier.fillMaxWidth().padding(end = 5.dp),
+
+                 horizontalArrangement = Arrangement.Center,
+                 verticalAlignment = Alignment.CenterVertically
+             ) {
+                 items(featuresList) { item ->
+                     FeaturedMovieitem(onClick = item.onClick, image = item.image)
+                 }
+             }
             Spacer(modifier = Modifier.height(24.dp))
              MovieSection(title = "Upcoming", onSeeAllClick = onSeeAllClick, showRating = false)
              Spacer(modifier = Modifier.height(24.dp))
@@ -114,14 +125,21 @@ fun MovieListScreen(onSeeAllClick: (String) -> Unit = { _ -> }, navController: N
     }
 }
 
+data class features(
+    val title: String ,
+    val image: Int ,
+    val onClick: () -> Unit ={}
+)
+
+
 
 
 
 @Composable
-fun FeaturedMovieitem(onClick: () -> Unit){
+fun FeaturedMovieitem(onClick: () -> Unit , image: Int){
     Card(
         modifier = Modifier
-            .fillMaxWidth()
+            .width(400.dp)
             .height(220.dp)
             .padding(horizontal = 16.dp)
             .clip(RoundedCornerShape(12.dp))
@@ -135,7 +153,7 @@ fun FeaturedMovieitem(onClick: () -> Unit){
 
             ) {
                 Image(
-                    painter = painterResource(R.drawable.moodtomovie),
+                    painter = painterResource(image),
                     contentDescription = "Movie Image",
                     contentScale = ContentScale.FillBounds,
                     modifier = Modifier.fillMaxSize()
