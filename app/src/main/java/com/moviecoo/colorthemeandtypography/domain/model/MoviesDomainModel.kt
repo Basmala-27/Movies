@@ -3,6 +3,7 @@ package com.moviecoo.colorthemeandtypography.domain.model
 import android.media.Image
 
 data class  MoviesDomainModel (
+    val id: Int,
     val title: String,
     val year: String,
     val durationMin: Int,
