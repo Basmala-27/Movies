@@ -89,7 +89,7 @@ fun MovieListScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             LazyRow(
-                modifier = Modifier.fillMaxWidth().padding(end = 5.dp),
+                modifier = Modifier.fillMaxWidth().padding(end = 2.dp),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -108,7 +108,7 @@ fun MovieListScreen(
                 "New Releases" to false
             ).forEach { (title, showRating) ->
                 Spacer(modifier = Modifier.height(24.dp))
-                MovieSection(title = title, showRating = showRating, onMovieClick = onMovieClick)
+                MovieSection(title = title, showRating = showRating, onMovieClick = onMovieClick , onSeeAllClick = onSeeAllClick)
             }
         }
     }
