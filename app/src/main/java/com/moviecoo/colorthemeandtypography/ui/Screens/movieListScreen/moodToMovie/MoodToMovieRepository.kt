@@ -12,6 +12,7 @@ class MoodToMovieRepository (private val api: MovieApi){
             if (response.isSuccessful) {
                 return response.body()?.results?.map { movie ->
                     MovieUiModel(
+                        id = movie.id,
                         title = movie.title,
                         year = movie.release_date.substring(0, 4),
                        description = movie.overview,
