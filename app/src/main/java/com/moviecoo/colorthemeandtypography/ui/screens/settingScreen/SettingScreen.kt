@@ -1,4 +1,11 @@
 package com.moviecoo.colorthemeandtypography.ui.screens.settingScreen
+
+import android.R.attr.font
+import android.content.Context
+import android.content.Intent
+import android.inputmethodservice.Keyboard
+import android.os.Build
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -36,14 +43,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.moviecoo.colorthemeandtypography.R
 import com.moviecoo.colorthemeandtypography.common_components.TopAppBar
-import com.moviecoo.colorthemeandtypography.ui.theme.OnSecondary
+import com.moviecoo.colorthemeandtypography.services.notification.NotificationService
 import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 
 
@@ -51,57 +61,178 @@ import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 fun SettingScreen() {
     val scrollState = rememberScrollState()
 
-
-
     Scaffold(
         topBar = { TopAppBar(showBackButton = true, title = R.string.setting) }
     ) { innerPadding ->
         Column(
             modifier = Modifier
-                .padding(top =innerPadding.calculateTopPadding())
+                .padding(top = innerPadding.calculateTopPadding())
                 .background(Primary)
                 .verticalScroll(scrollState)
-                .fillMaxSize().padding(top = 10.dp)
+                .fillMaxSize()
+                .padding(vertical = 12.dp) // padding عام من فوق وتحت
         ) {
 
+            // ---------- Account Section ----------
             Text(
                 text = "Account",
                 color = Color.White,
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily(Font(R.font.staatliches_regular)),
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
             Spacer(modifier = Modifier.height(12.dp))
             accountCard()
+            Spacer(modifier = Modifier.height(24.dp))
 
-            Spacer(modifier = Modifier.height(25.dp))
-
+            // ---------- General Section ----------
             Text(
                 text = "General",
                 color = Color.White,
                 fontSize = 28.sp,
-                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily(Font(R.font.staatliches_regular)),
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(12.dp))
             generalCard()
+            Spacer(modifier = Modifier.height(24.dp))
 
-            Spacer(modifier = Modifier.height(25.dp))
-
+            // ---------- Support Section ----------
             Text(
                 text = "Support",
                 color = Color.White,
                 fontSize = 28.sp,
-                fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily(Font(R.font.staatliches_regular)),
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(12.dp))
             supportCard()
+            Spacer(modifier = Modifier.height(24.dp))
         }
     }
 }
 
-    @Composable
+@Composable
+fun generalCard() {
+
+    val context = LocalContext.current
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 10.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.White
+        ),
+        shape = shapes.large
+    ) {
+        Column(
+            modifier = Modifier.padding(vertical = 6.dp)
+        ) {
+
+            // ---------- Notifications Row ----------
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Notifications",
+                    fontSize = 20.sp,
+                    fontFamily = FontFamily(Font(R.font.staatliches_regular)),
+                    color = Color(0xFF505664)
+                )
+
+                Spacer(modifier = Modifier.weight(1f))
+
+                var isChecked by remember { mutableStateOf(true) }
+
+                Switch(
+                    checked = isChecked,
+                    onCheckedChange = { checked ->
+                        isChecked = checked
+
+                        if (checked) {
+                            startNotificationService(context)
+                        } else {
+                            stopNotificationService(context)
+                        }
+                    },
+                    colors = SwitchDefaults.colors(
+                        checkedThumbColor = Color.White,
+                        checkedTrackColor = Color(0xFF09274C),
+                        uncheckedThumbColor = Color.White,
+                        uncheckedTrackColor = Color.Gray
+                    )
+                )
+            }
+
+            HorizontalDivider(
+                modifier = Modifier.padding(horizontal = 16.dp),
+                thickness = 2.dp,
+                color = Color.Gray.copy(alpha = 0.8f)
+            )
+
+            // ---------- Text Size ----------
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween // <-- يوزع المسافة تلقائي
+            ) {
+                Text(
+                    text = "Text Size",
+                    fontFamily = FontFamily(Font(R.font.staatliches_regular)),
+                    fontSize = 20.sp,
+                    color = Color(0xFF505664)
+                )
+
+                Text(
+                    text = "Normal",
+                    fontFamily = FontFamily(Font(R.font.staatliches_regular)),
+                    fontSize = 16.sp,
+                    color = Color(0xFF505664)
+                )
+            }
+
+            HorizontalDivider(
+                modifier = Modifier.padding(horizontal = 16.dp),
+                thickness = 2.dp,
+                color = Color.Gray.copy(alpha = 0.8f)
+            )
+
+            // ---------- Invite a Friend ----------
+          Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 16.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Invite a Friend",
+                    fontFamily = FontFamily(Font(R.font.staatliches_regular)),
+                    fontSize = 20.sp,
+                    color = Color(0xFF505664)
+
+                )
+
+                Spacer(modifier = Modifier.weight(1f))
+
+                Icon(
+                    painter = painterResource(id = R.drawable.right),
+                    contentDescription = "Go to Dark Mode",
+                    tint = Color.Black,
+                    modifier = Modifier.size(30.dp)
+                )
+            }
+        }
+    }
+}
+
+@Composable
 fun supportCard() {
     Card(
         modifier = Modifier
@@ -123,8 +254,10 @@ fun supportCard() {
             ) {
                 Text(
                     text = "Terms of Services",
+                    fontFamily = FontFamily(Font(R.font.staatliches_regular)),
                     fontSize = 20.sp,
-                    color = Color.Black
+                    color = Color(0xFF505664)
+
                 )
 
                 Spacer(modifier = Modifier.weight(1f))
@@ -132,7 +265,7 @@ fun supportCard() {
                 Icon(
                     painter = painterResource(id = R.drawable.right),
                     contentDescription = "Go to Dark Mode",
-                    tint = Color.Black,
+                    tint = Color(0xFF505664),
                     modifier = Modifier.size(30.dp)
                 )
             }
@@ -151,8 +284,10 @@ fun supportCard() {
             ) {
                 Text(
                     text = "Contact Us",
+                    fontFamily = FontFamily(Font(R.font.staatliches_regular)),
                     fontSize = 20.sp,
-                    color = Color.Black
+                    color = Color(0xFF505664)
+
                 )
 
                 Spacer(modifier = Modifier.weight(1f))
@@ -160,7 +295,7 @@ fun supportCard() {
                 Icon(
                     painter = painterResource(id = R.drawable.right),
                     contentDescription = "Go to Dark Mode",
-                    tint = Color.Black,
+                    tint =Color(0xFF505664),
                     modifier = Modifier.size(30.dp)
                 )
             }
@@ -179,8 +314,9 @@ fun supportCard() {
             ) {
                 Text(
                     text = "Report a Problem",
+                    fontFamily = FontFamily(Font(R.font.staatliches_regular)),
                     fontSize = 20.sp,
-                    color = Color.Black
+                    color = Color(0xFF505664)
                 )
 
                 Spacer(modifier = Modifier.weight(1f))
@@ -192,152 +328,7 @@ fun supportCard() {
                     modifier = Modifier.size(30.dp)
                 )
             }
-        }
-    }
-}
-
-@Composable
-fun generalCard() {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = Color.White
-        ),
-        shape = shapes.large
-    ) {
-        Column(
-            modifier = Modifier.padding(vertical = 8.dp)
-        ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = "Notifications",
-                    fontSize = 20.sp,
-                    color = Color.Black
-                )
-
-                Spacer(modifier = Modifier.weight(1f))
-
-                var isChecked by remember { mutableStateOf(true) }
-                Switch(
-                    checked = isChecked,
-                    onCheckedChange = { isChecked = it },
-                    colors = SwitchDefaults.colors(
-                        checkedThumbColor = Color.White,
-                        checkedTrackColor = Color(0xFF09274C),
-                        uncheckedThumbColor = Color.White,
-                        uncheckedTrackColor = Color.Gray
-                    )
-                )
-            }
-
-            HorizontalDivider(
-                modifier = Modifier.padding(horizontal = 16.dp),
-                thickness = 2.dp,
-                color = Color.Gray.copy(alpha = 0.8f)
-            )
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 16.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = "Dark Mode",
-                    fontSize = 20.sp,
-                    color = Color.Black
-                )
-
-                Spacer(modifier = Modifier.width(165.dp))
-
-                Text(
-                    text = "System",
-                    fontSize = 16.sp,
-                    color = Color.Black
-                )
-
-                Spacer(modifier = Modifier.weight(1f))
-
-                Icon(
-                    painter = painterResource(id = R.drawable.right),
-                    contentDescription = "Go to Dark Mode",
-                    tint = Color.Black,
-                    modifier = Modifier.size(30.dp)
-                )
-            }
-
-            HorizontalDivider(
-                modifier = Modifier.padding(horizontal = 16.dp),
-                thickness = 2.dp,
-                color = Color.Gray.copy(alpha = 0.8f)
-            )
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 16.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = "Text Size",
-                    fontSize = 20.sp,
-                    color = Color.Black
-                )
-
-                Spacer(modifier = Modifier.width(180.dp))
-
-                Text(
-                    text = "Normal",
-                    fontSize = 16.sp,
-                    color = Color.Black
-                )
-
-                Spacer(modifier = Modifier.weight(1f))
-
-                Icon(
-                    painter = painterResource(id = R.drawable.right),
-                    contentDescription = "Go to Dark Mode",
-                    tint = Color.Black,
-                    modifier = Modifier.size(30.dp)
-                )
-            }
-
-            HorizontalDivider(
-                modifier = Modifier.padding(horizontal = 16.dp),
-                thickness = 2.dp,
-                color = Color.Gray.copy(alpha = 0.8f)
-            )
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 16.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = "Invite a Friend",
-                    fontSize = 20.sp,
-                    color = Color.Black
-                )
-
-
-                Spacer(modifier = Modifier.weight(1f))
-
-                Icon(
-                    painter = painterResource(id = R.drawable.right),
-                    contentDescription = "Go to Dark Mode",
-                    tint = Color.Black,
-                    modifier = Modifier.size(30.dp)
-                )
-            }
-
+            Spacer(modifier = Modifier.weight(1f))
         }
     }
 }
@@ -353,7 +344,7 @@ fun accountCard() {
             containerColor = Color.White
         ),
         shape = shapes.large
-    ){
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxSize()
@@ -374,6 +365,7 @@ fun accountCard() {
             Column(verticalArrangement = Arrangement.Center) {
                 Text(
                     text = "Welcome, Riju Basu",
+                    fontFamily = FontFamily(Font(R.font.poppins_medium)),
                     fontSize = 18.sp,
                     color = Color.Black
                 )
@@ -386,11 +378,27 @@ fun accountCard() {
                 contentDescription = "Exit to App",
                 tint = Color.Black,
                 modifier = Modifier.size(24.dp)
-
             )
-
         }
     }
+}
+
+// ---------- Service Functions ----------
+fun startNotificationService(context: Context) {
+    val intent = Intent(context, NotificationService::class.java)
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        context.startForegroundService(intent)
+    } else {
+        context.startService(intent)
+    }
+    Toast.makeText(context, "Notification Started", Toast.LENGTH_SHORT).show()
+
+}
+
+fun stopNotificationService(context: Context) {
+    val intent = Intent(context, NotificationService::class.java)
+    context.stopService(intent)
+    Toast.makeText(context, "Notification Stopped", Toast.LENGTH_SHORT).show()
 }
 
 @Preview(showBackground = true)

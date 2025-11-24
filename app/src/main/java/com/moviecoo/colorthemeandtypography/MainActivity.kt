@@ -28,7 +28,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.moviecoo.colorthemeandtypography.common_components.AnimatedBottomBar
+import com.moviecoo.colorthemeandtypography.helpers.PermissionHelper
 import com.moviecoo.colorthemeandtypography.navigation.AppNavHost
+import com.moviecoo.colorthemeandtypography.services.ServiceStarter
 import com.moviecoo.colorthemeandtypography.ui.screens.randomMovieScreen.RandomMovieSpinScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.splashScreen.SplashScreen
 import com.moviecoo.colorthemeandtypography.ui.theme.ColorThemeandTypographyTheme
@@ -41,7 +43,15 @@ class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-      //  enableEdgeToEdge()
+        val permissionHelper = PermissionHelper(this) {
+            ServiceStarter.startBackgroundServices(this)
+            ServiceStarter.startUIAndNotificationServices(this)
+        }
+        permissionHelper.initLauncher()
+        permissionHelper.checkAndRequestPermissions()
+
+        //  enableEdgeToEdge()
+
         setContent {
             ColorThemeandTypographyTheme {
 //                SplashScreen(
@@ -58,7 +68,6 @@ class MainActivity : ComponentActivity() {
                         WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
                 }
                 AppNavHost()
-
             }
         }
     }
