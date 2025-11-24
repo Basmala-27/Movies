@@ -25,6 +25,7 @@ import com.moviecoo.colorthemeandtypography.ui.screens.splashScreen.SplashScreen
 import com.moviecoo.colorthemeandtypography.common_components.MovieBottomBar
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.NetworkModule.provideMovieApi
 import com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen.WatchListScreen
+import com.moviecoo.colorthemeandtypography.ui.screens.guessTheMovieScreen.GuessMovieScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.moodToMovieScreen.MoodToMovieScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.moodToMovieScreen.moodToMovieViweModel.MoodSelectionScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.MovieListScreen
@@ -122,8 +123,13 @@ fun AppNavHost(modifier: Modifier = Modifier) {
                     onFeaturedClick = { navController.navigate("moodSelection") },
                     onSeeAllClick = { title -> navController.navigate("See_All_Screen/$title")
                     },
-                    onRandomClick = { navController.navigate("randomMovie") }
+                    onRandomClick = { navController.navigate("randomMovie")
+                    },
+                    onGuessClick = { navController.navigate("guessTheMovie") }
                 )
+            }
+            composable("guessTheMovie") {
+                GuessMovieScreen(viewModel = viewModel())
             }
 
             composable("moodSelection") {

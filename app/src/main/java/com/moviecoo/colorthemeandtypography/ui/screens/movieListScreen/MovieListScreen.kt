@@ -58,19 +58,12 @@ import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 import com.moviecoo.colorthemeandtypography.ui.theme.Secondary
 import com.moviecoo.colorthemeandtypography.mapper.toMoviesUiModel
 
-
-
-
-
-
-
-
-
-
-
-
 @Composable
-fun MovieListScreen(onSeeAllClick: (String) -> Unit = { _ -> }, navController: NavController, onFeaturedClick: () -> Unit = {} , onRandomClick: () -> Unit = {}) {
+fun MovieListScreen(onSeeAllClick: (String) -> Unit = { _ -> },
+                    navController: NavController,
+                    onFeaturedClick: () -> Unit = {} ,
+                    onRandomClick: () -> Unit = {} ,
+                    onGuessClick: () -> Unit = {}) {
 //    val viewmodel: MovieListViewModel = viewModel()
 
 
@@ -78,7 +71,8 @@ fun MovieListScreen(onSeeAllClick: (String) -> Unit = { _ -> }, navController: N
 
     val featuresList = remember {  listOf(
         features("Movie to Mood" , R.drawable.moodtomovie , onFeaturedClick),
-        features("Random Movie" , R.drawable.randommovie , onRandomClick)
+        features("Random Movie" , R.drawable.randommovie , onRandomClick),
+        features("Guess The Movie", R.drawable.guess , onGuessClick)
 
         )}
 
