@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.moviecoo.colorthemeandtypography.common_components.AnimatedBottomBar
 import com.moviecoo.colorthemeandtypography.navigation.AppNavHost
+import com.moviecoo.colorthemeandtypography.ui.screens.randomMovieScreen.RandomMovieSpinScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.splashScreen.SplashScreen
 import com.moviecoo.colorthemeandtypography.ui.theme.ColorThemeandTypographyTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -57,6 +58,7 @@ class MainActivity : ComponentActivity() {
                         WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
                 }
                 AppNavHost()
+
             }
         }
     }
