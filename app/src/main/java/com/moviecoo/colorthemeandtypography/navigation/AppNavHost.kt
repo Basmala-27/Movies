@@ -5,10 +5,14 @@ import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -16,17 +20,19 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.moviecoo.colorthemeandtypography.common_components.AnimatedBottomBar
-import com.moviecoo.colorthemeandtypography.common_components.TopAppBar
-import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.provideMovieApi
 import com.moviecoo.colorthemeandtypography.ui.screens.splashScreen.SplashScreen
 
+import com.moviecoo.colorthemeandtypography.common_components.MovieBottomBar
+import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.NetworkModule.provideMovieApi
 import com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen.WatchListScreen
-import com.moviecoo.colorthemeandtypography.ui.screens.moodToMovie.MovieMoodViewModel
+import com.moviecoo.colorthemeandtypography.ui.screens.guessTheMovieScreen.GuessMovieScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.moodToMovieScreen.MoodToMovieScreen
-import com.moviecoo.colorthemeandtypography.ui.screens.moodToMovieScreen.MovieMoodViewModelFactory
 import com.moviecoo.colorthemeandtypography.ui.screens.moodToMovieScreen.moodToMovieViweModel.MoodSelectionScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.MovieListScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.moodToMovie.MoodToMovieRepository
+import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.viewmodel.MovieListViewModel
+import com.moviecoo.colorthemeandtypography.ui.screens.randomMovieScreen.RandomMovieSpinScreen
+import com.moviecoo.colorthemeandtypography.ui.screens.searchScreen.SearchScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.seeAllScree.SeeAllScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.settingScreen.SettingScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.SignInScreen
@@ -41,18 +47,10 @@ fun AppNavHost(modifier: Modifier = Modifier) {
     val currentRoute = navBackStackEntry?.destination?.route
 
 
-    val indexToRoute = listOf(
-        "Movie_List_Screen",
-        "Movie_List_Screen",
-        "Movie_List_Screen",
-        "Setting_Screen"
-    )
-
     val showBottomBar = currentRoute in listOf(
         "Movie_List_Screen",
         "Watch_List_Screen",
-        "Setting_Screen",
-
+      "Setting_Screen"
     )
 
     val selectedIndex = when (currentRoute) {
@@ -121,27 +119,34 @@ fun AppNavHost(modifier: Modifier = Modifier) {
             }
             composable("Movie_List_Screen") {
                 MovieListScreen(
-                    onSeeAllClick = { title ->
-                        navController.navigate("See_All_Screen/$title")
+                    navController = navController,
+                    onFeaturedClick = { navController.navigate("moodSelection") },
+                    onSeeAllClick = { title -> navController.navigate("See_All_Screen/$title")
                     },
-                    onFeaturedClick = { navController.navigate("moodSelection") } // أول خطوة: اختيار المود
+                    onRandomClick = { navController.navigate("randomMovie")
+                    },
+                    onGuessClick = { navController.navigate("guessTheMovie") }
                 )
             }
+            composable("guessTheMovie") {
+                GuessMovieScreen(viewModel = viewModel())
+            }
 
-            // Mood Selection Screen
             composable("moodSelection") {
-                MoodSelectionScreen(
-                    onMoodSelected = { genreId ->
-                        navController.navigate("moodToMovie/$genreId") // بعد اختيار المود نروح للـ MoodToMovieScreen
-                    }
-                )
+                MoodSelectionScreen(onMoodSelected = { genreId ->
+                    navController.navigate("moodToMovie/$genreId")
+                })
             }
 
-            // Mood To Movie Screen
             composable("moodToMovie/{genreId}") { backStackEntry ->
-                val genreId = backStackEntry.arguments?.getString("genreId") ?: "28" // Action افتراضي
+                val genreId = backStackEntry.arguments?.getString("genreId")
                 val repository = MoodToMovieRepository(provideMovieApi())
                 MoodToMovieScreen(viewModel = repository, genreId = genreId)
+            }
+
+            composable("randomMovie") {
+                val repository = MoodToMovieRepository(provideMovieApi())
+                MoodToMovieScreen(viewModel = repository)
             }
             composable(
                 "See_All_Screen/{title}",
@@ -150,11 +155,32 @@ fun AppNavHost(modifier: Modifier = Modifier) {
                 val title = backStackEntry.arguments?.getString("title") ?: ""
                 SeeAllScreen(title = title)
             }
+
             composable("Watch_List_Screen") { WatchListScreen() }
             composable("Setting_Screen") { SettingScreen() }
 
 
 
+
+            composable("search_screen") {
+//              val viewModel: MovieListViewModel = viewModel()
+//              val moviesList = viewModel.movies.collectAsState().value
+
+
+                val viewModel: MovieListViewModel = hiltViewModel()
+                val moviesList by viewModel.movies.collectAsState()
+
+
+
+                LaunchedEffect(Unit) {
+                    viewModel.fetchMovies()
+                }
+
+                SearchScreen(
+                    navController = navController,
+                    moviesList = moviesList
+                )
+            }
         }
     }
 }

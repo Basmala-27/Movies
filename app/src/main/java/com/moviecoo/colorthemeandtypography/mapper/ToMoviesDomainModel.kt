@@ -11,7 +11,8 @@ fun MovieDataModel.toMoviesDomainModel(): List<MoviesDomainModel>{
            durationMin = 0,
            genre = results.genre_ids.toString(),
            rating = results.vote_average,
-           image = results.poster_path
+           image = results.poster_path,
+           description = results.overview
        )
 
           }
