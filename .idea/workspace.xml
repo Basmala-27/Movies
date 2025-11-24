@@ -4,35 +4,40 @@
     <shared>
       <config />
     </shared>
-    <layouts>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/baseline_calendar_today_24.xml">
-        <config>
-          <theme>@style/Theme.ColorThemeandTypography</theme>
-        </config>
-      </layout>
-      <layout url="file://$PROJECT_DIR$/app/src/main/res/drawable/baseline_star_border_24.xml">
-        <config>
-          <theme>@style/Theme.ColorThemeandTypography</theme>
-        </config>
-      </layout>
-    </layouts>
   </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="50e773c2-a2a1-4ee0-af53-7faa109560e1" name="Changes" comment="retrofit 2">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/services/NotificationHelper.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/services/ServiceStarter.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/services/cache/CacheCleanService.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/services/download/DownloadService.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/services/notification/NotificationService.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/services/player/MoviePlayerService.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/services/sync/SyncService.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/receivers/BootReceiver.kt" afterDir="false" />
+    <list default="true" id="79b75a02-f868-4323-8c03-9c82a0d86586" name="Changes" comment="Merige: BottomAppEdit into Main">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/Screens/moodToMovieScreen/MoodToMovieScreen.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/Screens/moodToMovieScreen/MovieMoodViewModelFactory.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/Screens/moodToMovieScreen/componant/AppScreenHeader.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/Screens/moodToMovieScreen/moodToMovieViweModel/MoodSelectionScreen.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/Screens/moodToMovieScreen/moodToMovieViweModel/MovieMoodViewModel.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/Screens/movieListScreen/moodToMovie/MoodScreen.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/Screens/movieListScreen/moodToMovie/MoodToMovieRepository.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/Screens/movieListScreen/moodToMovie/MoodToMovieViewModel.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/Screens/movieListScreen/moodToMovie/moodGenres.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/moodtomovie.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/common_components/topAppBar.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/common_components/topAppBar.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/data/data_source/remote/retrofit/api/MovieApi.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/data/data_source/remote/retrofit/api/MovieApi.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/navigation/AppNavHost.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/navigation/AppNavHost.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/repository/MoviesRepositoryImp.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/repository/MoviesRepositoryImp.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/detailsScreen/DetailsScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/detailsScreen/DetailsScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/movieListScreen/MovieListScreen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/movieListScreen/MovieListScreen.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/movieListScreen/componant/AppScreenHeader.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/movieListScreen/componant/AppScreenHeader.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +47,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[DeviceId(pluginId=LocalEmulator, isTemplate=false, identifier=path=C:\Users\ITC\.android\avd\Pixel_9.avd)]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -51,35 +56,9 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
-        <task path="$PROJECT_DIR$/app">
-          <activation />
-        </task>
         <projects_view>
           <tree_state>
-            <expand>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Color, Theme,and Typography" type="f1a62948:ProjectNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Color, Theme,and Typography" type="f1a62948:ProjectNode" />
-                <item name="app" type="2d1252cf:ModuleNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Color, Theme,and Typography" type="f1a62948:ProjectNode" />
-                <item name="app" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Color, Theme,and Typography" type="f1a62948:ProjectNode" />
-                <item name="app" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="other" type="c8890929:TasksNode$1" />
-              </path>
-            </expand>
+            <expand />
             <select />
           </tree_state>
         </projects_view>
@@ -89,30 +68,15 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Kotlin Interface" />
-        <option value="Kotlin Data Class" />
-        <option value="Kotlin Class" />
         <option value="Kotlin File" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
-    <excluded-from-favorite>
-      <branch-storage>
-        <map>
-          <entry type="LOCAL">
-            <value>
-              <list>
-                <branch-info repo="$PROJECT_DIR$" source="main" />
-              </list>
-            </value>
-          </entry>
-        </map>
-      </branch-storage>
-    </excluded-from-favorite>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="watch-list" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -123,55 +87,44 @@
     &quot;assignee&quot;: &quot;Basmala-27&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Basmala-27/Movies.git",
-    "accountId": "bafecc9e-7f8f-4dda-b7b7-e353927e8cb9"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Basmala-27/Movies.git&quot;,
+    &quot;accountId&quot;: &quot;9fae0542-f23e-4566-8beb-77a102438b62&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 0
 }</component>
-  <component name="ProjectId" id="346lQXoqgStU3Jj0ffziPnwzPPV" />
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="34yzk1UvwaSbZLPQJ8fmkgkFB4X" />
   <component name="ProjectReloadState">
     <option name="STATE" value="1" />
   </component>
   <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Android App.app.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "services2",
-    "last_opened_file_path": "C:/Users/COMPUMARTS/AndroidStudioProjects/experince/app/src/main/res/drawable",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+    "com.google.services.firebase.aqiPopupShown": "true",
+    "git-widget-placeholder": "Add/Mood-to-Movie-Feature",
+    "last_opened_file_path": "C:/Users/ITC/Desktop/Movies/app/src/main/java/com/moviecoo/colorthemeandtypography/ui/screens/moodToMovieScreen/componant"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\COMPUMARTS\AndroidStudioProjects\experince\app\src\main\res\drawable" />
+      <recent name="C:\Users\ITC\Desktop\Movies\app\src\main\java\com\moviecoo\colorthemeandtypography\ui\screens\moodToMovieScreen\componant" />
       <recent name="C:\Users\ITC\Desktop\Movies\app\src\main\res\drawable" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\COMPUMARTS\AndroidStudioProjects\experince\app\src\main\res\drawable" />
-    </key>
     <key name="K2MoveDeclarationsDialog.RECENT_PACKAGE_KEY">
-      <recent name="com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.model" />
-      <recent name="com.moviecoo.colorthemeandtypography.data" />
-    </key>
-    <key name="android.template.454324318">
-      <recent name="com.moviecoo.colorthemeandtypography.Screen.SignInSignUpScreen" />
-      <recent name="com.moviecoo.colorthemeandtypography.Screen" />
-      <recent name="com.moviecoo.colorthemeandtypography" />
+      <recent name="com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.moodToMovie" />
     </key>
   </component>
   <component name="RunManager">
@@ -250,98 +203,76 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="50e773c2-a2a1-4ee0-af53-7faa109560e1" name="Changes" comment="" />
-      <created>1760541886678</created>
+      <changelist id="79b75a02-f868-4323-8c03-9c82a0d86586" name="Changes" comment="" />
+      <created>1762200741075</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1760541886678</updated>
+      <updated>1762200741075</updated>
     </task>
-    <task id="LOCAL-00001" summary="Commit">
+    <task id="LOCAL-00001" summary="connect api with MovieListScreen.kt test version">
       <option name="closed" value="true" />
-      <created>1760542370815</created>
+      <created>1762201059218</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1760542370815</updated>
+      <updated>1762201059218</updated>
     </task>
-    <task id="LOCAL-00002" summary="Commit">
+    <task id="LOCAL-00002" summary="Modify: Edition nav bottombar in SettingScreen.kt and MovieListScreen.kt">
       <option name="closed" value="true" />
-      <created>1760721974669</created>
+      <created>1762384492606</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1760721974669</updated>
+      <updated>1762384492607</updated>
     </task>
-    <task id="LOCAL-00003" summary="Commit">
+    <task id="LOCAL-00003" summary="Modify: Editing in watch-list-screen.kt">
       <option name="closed" value="true" />
-      <created>1760722344936</created>
+      <created>1762614630293</created>
       <option name="number" value="00003" />
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1760722344936</updated>
+      <updated>1762614630293</updated>
     </task>
-    <task id="LOCAL-00004" summary="Commit">
+    <task id="LOCAL-00004" summary="Merige: BottomAppEdit into Main">
       <option name="closed" value="true" />
-      <created>1760722944223</created>
+      <created>1763741993461</created>
       <option name="number" value="00004" />
       <option name="presentableId" value="LOCAL-00004" />
       <option name="project" value="LOCAL" />
-      <updated>1760722944223</updated>
+      <updated>1763741993461</updated>
     </task>
-    <task id="LOCAL-00005" summary="add signup">
-      <option name="closed" value="true" />
-      <created>1761322766758</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1761322766758</updated>
-    </task>
-    <task id="LOCAL-00006" summary="add details screen">
-      <option name="closed" value="true" />
-      <created>1761324313861</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1761324313862</updated>
-    </task>
-    <task id="LOCAL-00007" summary="retrofit">
-      <option name="closed" value="true" />
-      <created>1761423800612</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1761423800612</updated>
-    </task>
-    <task id="LOCAL-00008" summary="retrofit 2">
-      <option name="closed" value="true" />
-      <created>1761430238577</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1761430238577</updated>
-    </task>
-    <option name="localTasksCounter" value="9" />
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Commit" />
-    <MESSAGE value="add signup" />
-    <MESSAGE value="add details screen" />
-    <MESSAGE value="retrofit" />
-    <MESSAGE value="retrofit 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="retrofit 2" />
+    <MESSAGE value="connect api with MovieListScreen.kt test version" />
+    <MESSAGE value="Modify: Edition nav bottombar in SettingScreen.kt and MovieListScreen.kt" />
+    <MESSAGE value="Modify: Editing in watch-list-screen.kt" />
+    <MESSAGE value="Merige: BottomAppEdit into Main" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merige: BottomAppEdit into Main" />
   </component>
   <component name="play_dynamic_filters_status">
     <option name="appIdToCheckInfo">
       <map>
         <entry key="com.moviecoo.colorthemeandtypography">
           <value>
-            <CheckInfo lastCheckTimestamp="1762101294145" />
+            <CheckInfo lastCheckTimestamp="1763825961713" />
           </value>
         </entry>
         <entry key="com.moviecoo.colorthemeandtypography.test">
           <value>
-            <CheckInfo lastCheckTimestamp="1762101294147" />
+            <CheckInfo lastCheckTimestamp="1763825961714" />
           </value>
         </entry>
       </map>

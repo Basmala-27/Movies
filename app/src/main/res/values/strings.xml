@@ -1,4 +1,10 @@
 <resources>
-    <string name="app_name">Color, Theme,and Typography</string>
+    <string name="app_name">Movieco</string>
     <string name="title_activity_sign_up_screen">signUpScreen</string>
+    <string name="setting">Setting</string>
+    <string name="watchlist">Watchlist</string>
+    <string name="allMovies">All Movies</string>
+    <string name="moodSelection">Mood to Movie</string>
+    <string name="moodToMovie">" "</string>
+
 </resources>
