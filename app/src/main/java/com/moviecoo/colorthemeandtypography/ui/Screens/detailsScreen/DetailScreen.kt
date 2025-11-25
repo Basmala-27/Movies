@@ -7,13 +7,15 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.FontSizeViewModel
 import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.shimmerEffect.DetailsLoadingScreen
 
 @Composable
 fun DetailsScreen(
     viewModel: MovieDetailsViewModel,
-    movieId: Int
+    movieId: Int, fontSizeViewModel: FontSizeViewModel
 ) {
+    val scale = fontSizeViewModel.fontScale.value
     val movie by viewModel.movieDetails.collectAsState()
 
     LaunchedEffect(movieId) {
@@ -21,7 +23,7 @@ fun DetailsScreen(
     }
 
     movie?.let {
-        MovieDetailsUiScreen(movie = it)
+        MovieDetailsUiScreen(movie = it, fontSizeViewModel = fontSizeViewModel)
     } ?: run {
         DetailsLoadingScreen()
     }

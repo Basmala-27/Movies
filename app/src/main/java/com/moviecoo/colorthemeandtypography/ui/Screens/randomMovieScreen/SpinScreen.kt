@@ -4,37 +4,32 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
-
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.moviecoo.colorthemeandtypography.R
+import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.FontSizeViewModel
+import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.LocalFontScale
 import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 
 @Composable
+fun RandomMovieSpinScreen(
+    fontSizeViewModel: FontSizeViewModel
+) {
+    val scale = fontSizeViewModel.fontScale.value
 
-fun RandomMovieSpinScreen() {
     var isSpinning by remember { mutableStateOf(true) }
 
-    // لازم يكون هنا في الـ Composable مش جوا Button
     LaunchedEffect(true) {
-
-            kotlinx.coroutines.delay(3)
-
-
+        kotlinx.coroutines.delay(3)
     }
 
     val rotation by rememberInfiniteTransition().animateFloat(
@@ -55,21 +50,19 @@ fun RandomMovieSpinScreen() {
 
         Box(
             modifier = Modifier
-                .size(450.dp)
+                .size(450.dp * scale)
                 .background(Primary, CircleShape),
             contentAlignment = Alignment.Center
         ) {
             Image(
                 painter = painterResource(id = R.drawable.ic_movie_reel),
                 contentDescription = "Spinning Wheel",
-            modifier = Modifier
-                .size(6000.dp)
-                .rotate(rotation)
+                modifier = Modifier
+                    .size(400.dp * scale) // الحجم متناسب مع scale
+                    .rotate(rotation)
             )
         }
 
-        Spacer(modifier = Modifier.height(40.dp))
-
-
+        Spacer(modifier = Modifier.height(40.dp * scale))
     }
 }

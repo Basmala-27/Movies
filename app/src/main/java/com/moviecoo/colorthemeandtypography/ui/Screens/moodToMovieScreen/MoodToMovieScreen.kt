@@ -23,16 +23,23 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.foundation.shape.RoundedCornerShape
 import com.moviecoo.colorthemeandtypography.R
+import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.FontSizeViewModel
+import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.LocalFontScale
 import com.moviecoo.colorthemeandtypography.ui.screens.randomMovieScreen.RandomMovieSpinScreen
 import kotlinx.coroutines.delay
 
 @Composable
-fun MoodToMovieScreen(viewModel: MoodToMovieRepository, genreId: String? = null) {
+fun MoodToMovieScreen(
+    viewModel: MoodToMovieRepository,
+    genreId: String? = null,
+    fontSizeViewModel: FontSizeViewModel
+) {
+    val scale = LocalFontScale.current
     val movies = remember { mutableStateOf<List<MovieUiModel>>(emptyList()) }
     val selectedMovie = remember { mutableStateOf<MovieUiModel?>(null) }
 
     LaunchedEffect(genreId) {
-        delay(1500)
+        kotlinx.coroutines.delay(1500)
         selectedMovie.value = if (genreId != null) {
             val list = viewModel.getMoviesByMood(genreId)
             movies.value = list
@@ -40,17 +47,17 @@ fun MoodToMovieScreen(viewModel: MoodToMovieRepository, genreId: String? = null)
         } else {
             viewModel.getRandomMovie()
         }
-
-
     }
 
     selectedMovie.value?.let { movie ->
-        Scaffold(topBar = {
-            TopAppBar(
-                showBackButton = true,
-                title = R.string.moodToMovie
-            )
-        }) { innerPadding ->
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    showBackButton = true,
+                    title = R.string.moodToMovie
+                )
+            }
+        ) { innerPadding ->
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -90,36 +97,36 @@ fun MoodToMovieScreen(viewModel: MoodToMovieRepository, genreId: String? = null)
                         modifier = Modifier
                             .weight(1f)
                             .fillMaxWidth()
-                            .padding(horizontal = 20.dp, vertical = 12.dp),
+                            .padding(horizontal = 20.dp * scale, vertical = 12.dp * scale),
                         verticalArrangement = Arrangement.SpaceBetween
                     ) {
                         Column {
                             Text(
                                 text = movie.title,
                                 color = Color.White,
-                                fontSize = 30.sp,
+                                fontSize = 30.sp * scale,
                                 fontWeight = FontWeight.Bold,
                                 modifier = Modifier.fillMaxWidth(),
                                 textAlign = TextAlign.Center
                             )
-                            Spacer(modifier = Modifier.height(16.dp))
+                            Spacer(modifier = Modifier.height(16.dp * scale))
                             Text(
                                 text = "${movie.year} | ${movie.rating}+min",
                                 color = Color(0xFFCCCCCC),
-                                fontSize = 20.sp,
+                                fontSize = 20.sp * scale,
                                 textAlign = TextAlign.Center,
                                 modifier = Modifier.fillMaxWidth()
                             )
-                            Spacer(modifier = Modifier.height(16.dp))
+                            Spacer(modifier = Modifier.height(16.dp * scale))
                             Text(
                                 text = movie.description,
                                 color = Color(0xFFCCCCCC),
-                                fontSize = 18.sp,
+                                fontSize = 18.sp * scale,
                                 fontWeight = FontWeight.Light,
-                                lineHeight = 21.sp,
+                                lineHeight = 21.sp * scale,
                                 maxLines = 5
                             )
-                            Spacer(modifier = Modifier.height(20.dp))
+                            Spacer(modifier = Modifier.height(20.dp * scale))
 
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
@@ -131,28 +138,28 @@ fun MoodToMovieScreen(viewModel: MoodToMovieRepository, genreId: String? = null)
                                         imageVector = Icons.Default.BookmarkBorder,
                                         contentDescription = "Save",
                                         tint = Color.White,
-                                        modifier = Modifier.size(40.dp)
+                                        modifier = Modifier.size(40.dp * scale)
                                     )
                                 }
-                                Spacer(modifier = Modifier.width(20.dp))
+                                Spacer(modifier = Modifier.width(20.dp * scale))
                                 Button(
                                     onClick = { /* TODO: Watch now */ },
                                     modifier = Modifier
-                                        .width(230.dp)
-                                        .height(65.dp)
+                                        .width(230.dp * scale)
+                                        .height(65.dp * scale)
                                         .shadow(
-                                            elevation = 20.dp,
-                                            shape = RoundedCornerShape(20.dp),
+                                            elevation = 20.dp * scale,
+                                            shape = RoundedCornerShape(20.dp * scale),
                                             ambientColor = Color(0xFFEC255A),
                                             spotColor = Color(0xFFEC255A)
                                         ),
-                                    shape = RoundedCornerShape(16.dp),
+                                    shape = RoundedCornerShape(16.dp * scale),
                                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEC255A))
                                 ) {
                                     Text(
                                         text = "Watch Now",
                                         color = Color.White,
-                                        fontSize = 18.sp,
+                                        fontSize = 18.sp * scale,
                                         fontWeight = FontWeight.Bold
                                     )
                                 }
@@ -163,7 +170,6 @@ fun MoodToMovieScreen(viewModel: MoodToMovieRepository, genreId: String? = null)
             }
         }
     } ?: run {
-
-        RandomMovieSpinScreen()
+        RandomMovieSpinScreen(fontSizeViewModel = fontSizeViewModel)
     }
 }

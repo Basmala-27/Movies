@@ -19,8 +19,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.moviecoo.colorthemeandtypography.common_components.TopAppBar
 import com.moviecoo.colorthemeandtypography.R
+import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.FontSizeViewModel
+import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.LocalFontScale
 
 val DarkBackground = Color(0xFF1E1E2C)
 val CardBackground = Color(0xFF2C2C3E)
@@ -50,140 +53,133 @@ val moodsData = listOf(
 @Composable
 fun MoodCard(
     item: MoodItem,
-    onMoodSelected: (String) -> Unit
+    onMoodSelected: (String) -> Unit,
+    fontSizeViewModel: FontSizeViewModel
 ) {
+    val scale = LocalFontScale.current
     Card(
         modifier = Modifier
-            .padding(4.dp)
-            .height(140.dp)
+            .padding(4.dp * scale)
+            .height(140.dp * scale)
             .fillMaxWidth()
-            .clickable { onMoodSelected(item.genreId) }, // Make the whole card clickable
-        shape = RoundedCornerShape(16.dp),
+            .clickable { onMoodSelected(item.genreId) },
+        shape = RoundedCornerShape(16.dp * scale),
         colors = CardDefaults.cardColors(containerColor = CardBackground),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp * scale)
     ) {
         Column(
             modifier = Modifier
-                .padding(16.dp)
+                .padding(16.dp * scale)
                 .fillMaxSize(),
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.Start
         ) {
-
             Icon(
                 imageVector = item.icon,
                 contentDescription = item.name,
                 tint = item.color,
-                modifier = Modifier.size(40.dp)
+                modifier = Modifier.size(40.dp * scale)
             )
-
 
             Text(
                 text = item.name,
                 color = Color.White,
                 style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                fontSize = 16.sp * scale // مثال على تكبير النص مع scale
             )
         }
     }
 }
 
-
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun MoodSelectionScreen(onMoodSelected: (String) -> Unit) {
+fun MoodSelectionScreen(onMoodSelected: (String) -> Unit, fontSizeViewModel: FontSizeViewModel) {
+    val scale = LocalFontScale.current
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         containerColor = DarkBackground,
+    ) { paddingValues ->
+        TopBarIcons(scale = scale)
 
-        ) { paddingValues ->
-        TopBarIcons()
-
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues)
-                    .padding(horizontal = 16.dp)
-            ) {
-                Row {
-                    val backDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
-
-                    IconButton(onClick = {
-
-                        backDispatcher?.onBackPressed()
-                    }) {
-
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = null,
-                            tint = Color.White
-                        )
-
-
-                    }
-                }
-
-                Text(
-
-                    text = "What's your mood like?",
-                    color = Color.White,
-                    style = MaterialTheme.typography.headlineMedium,
-                    fontWeight = FontWeight.ExtraBold,
-                    modifier = Modifier.padding(top = 8.dp, bottom = 4.dp , start = 10.dp)
-                )
-                Text(
-                    text = "Choose a mood and let us recommend for you.",
-                    color = LightGrayText,
-                    style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.padding(bottom = 24.dp , start = 10.dp)
-                )
-
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(2),
-                    contentPadding = PaddingValues(0.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    items(moodsData) { mood ->
-                        MoodCard(item = mood, onMoodSelected = onMoodSelected)
-                    }
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .padding(horizontal = 16.dp * scale)
+        ) {
+            Row {
+                val backDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
+                IconButton(onClick = { backDispatcher?.onBackPressed() }) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = null,
+                        tint = Color.White,
+                        modifier = Modifier.size(24.dp * scale)
+                    )
                 }
             }
 
+            Text(
+                text = "What's your mood like?",
+                color = Color.White,
+                style = MaterialTheme.typography.headlineMedium,
+                fontWeight = FontWeight.ExtraBold,
+                fontSize = 24.sp * scale,
+                modifier = Modifier.padding(top = 8.dp * scale, bottom = 4.dp * scale, start = 10.dp * scale)
+            )
+            Text(
+                text = "Choose a mood and let us recommend for you.",
+                color = LightGrayText,
+                style = MaterialTheme.typography.bodyMedium,
+                fontSize = 14.sp * scale,
+                modifier = Modifier.padding(bottom = 24.dp * scale, start = 10.dp * scale)
+            )
+
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                contentPadding = PaddingValues(0.dp * scale),
+                verticalArrangement = Arrangement.spacedBy(8.dp * scale),
+                horizontalArrangement = Arrangement.spacedBy(8.dp * scale),
+                modifier = Modifier.fillMaxSize()
+            ) {
+                items(moodsData) { mood ->
+                    MoodCard(item = mood, onMoodSelected = onMoodSelected, fontSizeViewModel = fontSizeViewModel)
+                }
+            }
+        }
     }
 }
 
 @Composable
-fun TopBarIcons() {
+fun TopBarIcons(scale: Float) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 16.dp, end = 16.dp),
+            .padding(top = 16.dp * scale, end = 16.dp * scale),
         horizontalArrangement = Arrangement.End,
         verticalAlignment = Alignment.CenterVertically
     ) {
-
         Icon(
             imageVector = Icons.Filled.Person,
             contentDescription = "Profile",
             tint = LightGrayText,
-            modifier = Modifier.size(24.dp).padding(end = 16.dp)
+            modifier = Modifier.size(24.dp * scale).padding(end = 16.dp * scale)
         )
 
         Icon(
             imageVector = Icons.Filled.Star,
             contentDescription = "Premium",
-            tint = Color(0xFFFDD835), // Yellow tint
-            modifier = Modifier.size(24.dp).padding(end = 16.dp)
+            tint = Color(0xFFFDD835),
+            modifier = Modifier.size(24.dp * scale).padding(end = 16.dp * scale)
         )
 
         Icon(
             imageVector = Icons.Filled.Favorite,
             contentDescription = "Favorites",
-            tint = Color(0xFFE91E63), // Pink tint
-            modifier = Modifier.size(24.dp)
+            tint = Color(0xFFE91E63),
+            modifier = Modifier.size(24.dp * scale)
         )
     }
 }

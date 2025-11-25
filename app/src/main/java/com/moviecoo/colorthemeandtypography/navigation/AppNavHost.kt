@@ -22,6 +22,7 @@ import com.moviecoo.colorthemeandtypography.common_components.AnimatedBottomBar
 import com.moviecoo.colorthemeandtypography.ui.screens.splashScreen.SplashScreen
 
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.NetworkModule.provideMovieApi
+import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.FontSizeViewModel
 import com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen.WatchListScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.DetailsScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.repository.MovieDetailsRepository
@@ -42,7 +43,7 @@ import com.moviecoo.colorthemeandtypography.ui.screens.signUpScreen.SignUpScreen
 
 @Composable
 @RequiresApi(Build.VERSION_CODES.S)
-fun AppNavHost(modifier: Modifier = Modifier) {
+fun AppNavHost(modifier: Modifier = Modifier, fontSizeViewModel: FontSizeViewModel) {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
@@ -127,41 +128,46 @@ fun AppNavHost(modifier: Modifier = Modifier) {
                     onRandomClick = { navController.navigate("randomMovie")
                     },
                     onGuessClick = { navController.navigate("guessTheMovie") } ,
-                    onMovieClick = { movie -> navController.navigate("movie_details/${movie.id}") }
-
-
+                    onMovieClick = { movie -> navController.navigate("movie_details/${movie.id}") },
+                    fontSizeViewModel = fontSizeViewModel
                 )
             }
             composable("guessTheMovie") {
-                GuessMovieScreen(viewModel = viewModel())
+                GuessMovieScreen(viewModel = viewModel(),fontSizeViewModel = fontSizeViewModel )
             }
 
             composable("moodSelection") {
                 MoodSelectionScreen(onMoodSelected = { genreId ->
                     navController.navigate("moodToMovie/$genreId")
-                })
+                },
+                    fontSizeViewModel = fontSizeViewModel)
             }
 
             composable("moodToMovie/{genreId}") { backStackEntry ->
                 val genreId = backStackEntry.arguments?.getString("genreId")
                 val repository = MoodToMovieRepository(provideMovieApi())
-                MoodToMovieScreen(viewModel = repository, genreId = genreId)
+                MoodToMovieScreen(viewModel = repository, genreId = genreId,
+                    fontSizeViewModel = fontSizeViewModel )
             }
 
             composable("randomMovie") {
                 val repository = MoodToMovieRepository(provideMovieApi())
-                MoodToMovieScreen(viewModel = repository)
+                MoodToMovieScreen(viewModel = repository, fontSizeViewModel = fontSizeViewModel )// تمرير الحجم المشترك)
             }
             composable(
                 "See_All_Screen/{title}",
                 arguments = listOf(navArgument("title") { type = NavType.StringType })
             ) { backStackEntry ->
                 val title = backStackEntry.arguments?.getString("title") ?: ""
-                SeeAllScreen(title = title , onMovieClick = { movie -> navController.navigate("movie_details/${movie.id}") })
+                SeeAllScreen(title = title , fontSizeViewModel = fontSizeViewModel,
+                    onMovieClick = { movie -> navController.navigate("movie_details/${movie.id}") })
             }
 
-            composable("Watch_List_Screen") { WatchListScreen() }
-            composable("Setting_Screen") { SettingScreen() }
+            composable("Watch_List_Screen") { WatchListScreen(fontSizeViewModel = fontSizeViewModel) }
+
+            composable("Setting_Screen") {
+                SettingScreen(fontSizeViewModel = fontSizeViewModel)
+            }
             composable(
                 "movie_details/{movieId}",
                 arguments = listOf(navArgument("movieId") { type = NavType.IntType })
@@ -172,7 +178,7 @@ fun AppNavHost(modifier: Modifier = Modifier) {
                     factory = MovieDetailsViewModelFactory(repository)
                 )
 
-                DetailsScreen(movieId = movieId, viewModel = viewModel)
+                DetailsScreen(movieId = movieId, viewModel = viewModel,fontSizeViewModel = fontSizeViewModel)
             }
 
 
@@ -194,7 +200,8 @@ fun AppNavHost(modifier: Modifier = Modifier) {
 
                 SearchScreen(
                     navController = navController,
-                    moviesList = moviesList
+                    moviesList = moviesList,
+                    fontSizeViewModel = fontSizeViewModel
                 )
             }
         }
