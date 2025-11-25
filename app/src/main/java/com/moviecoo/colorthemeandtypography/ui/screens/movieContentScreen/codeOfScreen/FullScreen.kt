@@ -13,12 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.NetworkModule.provideMovieApi
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.model.MovieDataModel
+import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.FontSizeViewModel
 import com.moviecoo.colorthemeandtypography.ui.screens.movieContentScreen.data.MovieContentData
 import com.moviecoo.colorthemeandtypography.ui.screens.movieContentScreen.data.sampleMovie
 import com.moviecoo.colorthemeandtypography.ui.theme.GradientBackground
 
 @Composable
-fun MovieContentScreen(movieContentData: MovieContentData) {
+fun MovieContentScreen(movieContentData: MovieContentData,fontSizeViewModel: FontSizeViewModel) {
+
 
     val movieListState = remember {
         mutableStateOf<MovieDataModel?>(null)
@@ -35,12 +37,7 @@ fun MovieContentScreen(movieContentData: MovieContentData) {
             .verticalScroll(rememberScrollState())
 
     ) {
-        VideoPlayerSection(thumbnailRes = movieContentData.videoThumbnail)
-        ContentSection(movieContentData = movieContentData)
+        VideoPlayerSection(thumbnailRes = movieContentData.videoThumbnail,fontSizeViewModel)
+        ContentSection(movieContentData = movieContentData,fontSizeViewModel)
     }
-}
-@Preview(showBackground = true, backgroundColor = 0xFF000000)
-@Composable
-fun MovieContentScreenPreview() {
-    MovieContentScreen(movieContentData = sampleMovie)
 }

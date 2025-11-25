@@ -35,73 +35,93 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.moviecoo.colorthemeandtypography.R
 import com.moviecoo.colorthemeandtypography.common_components.RatingRow
+import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.FontSizeViewModel
+import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.LocalFontScale
 import com.moviecoo.colorthemeandtypography.ui.screens.movieContentScreen.data.MovieContentData
 import com.moviecoo.colorthemeandtypography.ui.theme.UserAccount
 
 @Composable
-fun ContentSection(movieContentData: MovieContentData) {
-    Column(modifier = Modifier.padding(16.dp)) {
+fun ContentSection(movieContentData: MovieContentData ,fontSizeViewModel: FontSizeViewModel) {
+    val scale = fontSizeViewModel.fontScale.value
+    Column(modifier = Modifier.padding(16.dp * scale)) {
+        // Title
         Text(
             text = movieContentData.title,
             color = Color.White,
-            fontSize = 32.sp,
+            fontSize = 32.sp * scale,
             fontWeight = FontWeight.Normal,
             fontFamily = FontFamily(Font(R.font.roboto_regular))
         )
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(12.dp * scale))
+
+        // Rating
         RatingRow(movieContentData.rating)
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(8.dp * scale))
+
+        // Movie Info
         Text(
             text = "${movieContentData.year} | ${movieContentData.genre} | ${movieContentData.duration}",
             color = UserAccount,
-            fontSize = 18.sp
+            fontSize = 18.sp * scale
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(16.dp * scale))
+
+        // Description
         Text(
             text = movieContentData.description,
             color = UserAccount,
-            fontSize = 18.sp,
-            lineHeight = 22.sp
+            fontSize = 18.sp * scale,
+            lineHeight = 22.sp * scale
         )
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(24.dp * scale))
+
+        // Cast Title
         Text(
-            text = "cast",
+            text = "Cast",
             color = Color.White,
-            fontSize = 24.sp,
+            fontSize = 24.sp * scale,
             fontFamily = FontFamily(Font(R.font.roboto_regular)),
             fontWeight = FontWeight.Bold
         )
-        LazyRow(modifier = Modifier.padding(top = 12.dp)) {
+
+        // Cast List
+        LazyRow(modifier = Modifier.padding(top = 12.dp * scale)) {
             items(movieContentData.cast) { actorRes ->
                 Image(
                     painter = painterResource(actorRes),
                     contentDescription = "Cast member",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
-                        .size(35.dp)
+                        .size(35.dp * scale)
                         .clip(CircleShape)
                 )
-                Spacer(modifier = Modifier.width(1.dp))
+                Spacer(modifier = Modifier.width(1.dp * scale))
             }
         }
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(24.dp * scale))
+
+        // Up Next Title
         Text(
             text = "Up Next",
             color = Color.White,
-            fontSize = 24.sp,
+            fontSize = 24.sp * scale,
             fontFamily = FontFamily(Font(R.font.roboto_bold)),
             fontWeight = FontWeight.Bold
         )
+
+        // Up Next List
         Box(
-            modifier = Modifier.fillMaxWidth().padding(top = 12.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 12.dp * scale)
         ) {
             LazyRow(
                 modifier = Modifier.fillMaxWidth(),
-                contentPadding = PaddingValues(end = 50.dp)
+                contentPadding = PaddingValues(end = 50.dp * scale)
             ) {
                 items(movieContentData.upNext) { movie ->
                     Column(
-                        modifier = Modifier.padding(end = 12.dp),
+                        modifier = Modifier.padding(end = 12.dp * scale),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Image(
@@ -109,27 +129,32 @@ fun ContentSection(movieContentData: MovieContentData) {
                             contentDescription = null,
                             contentScale = ContentScale.Crop,
                             modifier = Modifier
-                                .width(110.dp)
-                                .height(165.dp)
-                                .clip(RoundedCornerShape(8.dp))
+                                .width(110.dp * scale)
+                                .height(165.dp * scale)
+                                .clip(RoundedCornerShape(8.dp * scale))
                         )
-                        Spacer(modifier = Modifier.height(8.dp))
+                        Spacer(modifier = Modifier.height(8.dp * scale))
                         Text(
                             text = movie.title1,
                             color = Color.White.copy(alpha = 0.9f),
-                            fontSize = 14.sp
+                            fontSize = 14.sp * scale
                         )
                     }
                 }
             }
+
+            // Scroll Icon
             Box(
                 modifier = Modifier
                     .align(Alignment.CenterEnd)
-                    .size(40.dp)
+                    .size(40.dp * scale)
                     .clip(CircleShape)
                     .background(
                         Brush.radialGradient(
-                            colors = listOf(Color.White.copy(alpha = 0.3f), Color.White.copy(alpha = 0.1f)),
+                            colors = listOf(
+                                Color.White.copy(alpha = 0.3f),
+                                Color.White.copy(alpha = 0.1f)
+                            )
                         )
                     ),
                 contentAlignment = Alignment.Center
@@ -138,10 +163,11 @@ fun ContentSection(movieContentData: MovieContentData) {
                     imageVector = Icons.Filled.ChevronRight,
                     contentDescription = "Scroll next",
                     tint = Color.White,
-                    modifier = Modifier.size(28.dp)
+                    modifier = Modifier.size(28.dp * scale)
                 )
             }
         }
-        Spacer(modifier = Modifier.height(16.dp))
+
+        Spacer(modifier = Modifier.height(16.dp * scale))
     }
 }

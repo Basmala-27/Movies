@@ -27,6 +27,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.FontSizeViewModel
+import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.LocalFontScale
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.MovieListItem
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.model.MovieUiModel
 import com.moviecoo.colorthemeandtypography.ui.theme.Primary
@@ -35,8 +37,11 @@ import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 @Composable
 fun SearchScreen(
     navController: NavController,
-    moviesList: List<MovieUiModel>
+    moviesList: List<MovieUiModel>,
+    fontSizeViewModel: FontSizeViewModel
 ) {
+    val scale = fontSizeViewModel.fontScale.value
+
     var query by remember { mutableStateOf("") }
     val searchedMovies = remember { mutableStateOf(moviesList) }
 
@@ -44,15 +49,20 @@ fun SearchScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(Primary)
-            .padding(16.dp)
+            .padding(16.dp * scale)
     ) {
-        // Search TextField
+
         TextField(
             value = query,
             onValueChange = { query = it },
-            placeholder = { Text("Search movies...", color = Color.LightGray) },
+            placeholder = {
+                Text(
+                    "Search movies...",
+                    color = Color.LightGray,
+                    fontSize = 14.sp * scale
+                )
+            },
             singleLine = true,
-
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Search
             ),
@@ -65,29 +75,28 @@ fun SearchScreen(
             ),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 16.dp)
+                .padding(bottom = 16.dp * scale)
         )
 
-        // Display Results
         if (searchedMovies.value.isEmpty()) {
             Text(
                 "No movies found",
                 color = Color.LightGray,
-                fontSize = 16.sp,
+                fontSize = 16.sp * scale,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
         } else {
             LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+                verticalArrangement = Arrangement.spacedBy(12.dp * scale)
             ) {
                 items(searchedMovies.value) { movie ->
                     MovieListItem(
                         movie = movie,
                         showRating = true,
+                        scale = scale,
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable {
-                                // Navigate to SeeAllScreen with movie title
                                 navController.navigate("See_All_Screen/${movie.title}")
                             }
                     )
@@ -98,32 +107,5 @@ fun SearchScreen(
 }
 
 
-@Preview(
-    showBackground = true,
-    showSystemUi = true
-
-)
-
-@Composable
-private fun PreviewSearchScreen() {
-    val dummyMovies = listOf(
-        MovieUiModel(
-            title = "Inception", rating = 8.8,
-            year = "2015",
-            description = "",
-            genre = "",
-            image = "TODO()",
-            id = 1
-        ),
-
-    )
-
-    val fakeNavController = rememberNavController()
 
 
-    SearchScreen(
-        navController = fakeNavController,
-        moviesList = dummyMovies
-    )
-
-}

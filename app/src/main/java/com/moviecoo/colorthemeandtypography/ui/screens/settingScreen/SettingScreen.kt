@@ -29,6 +29,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme.shapes
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Slider
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
@@ -54,93 +55,92 @@ import androidx.compose.ui.unit.sp
 import com.moviecoo.colorthemeandtypography.R
 import com.moviecoo.colorthemeandtypography.common_components.TopAppBar
 import com.moviecoo.colorthemeandtypography.services.notification.NotificationService
+import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.FontSizeViewModel
+import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.LocalFontScale
 import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 
 
 @Composable
-fun SettingScreen() {
+fun SettingScreen(fontSizeViewModel: FontSizeViewModel) {
     val scrollState = rememberScrollState()
-
+    val scale = fontSizeViewModel.fontScale.value
     Scaffold(
         topBar = { TopAppBar(showBackButton = true, title = R.string.setting) }
     ) { innerPadding ->
         Column(
             modifier = Modifier
                 .padding(top = innerPadding.calculateTopPadding())
-                .background(Primary)
                 .verticalScroll(scrollState)
                 .fillMaxSize()
-                .padding(vertical = 12.dp) // padding عام من فوق وتحت
+                .background(Primary)
+                .padding(vertical = 12.dp * scale)
         ) {
-
             // ---------- Account Section ----------
             Text(
                 text = "Account",
                 color = Color.White,
-                fontSize = 28.sp,
+                fontSize = 28.sp * scale,
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily(Font(R.font.staatliches_regular)),
-                modifier = Modifier.padding(horizontal = 16.dp)
+                modifier = Modifier.padding(horizontal = 16.dp * scale)
             )
-            Spacer(modifier = Modifier.height(12.dp))
-            accountCard()
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(12.dp * scale))
+            accountCard(fontSizeViewModel)
+
+            Spacer(modifier = Modifier.height(24.dp * scale))
 
             // ---------- General Section ----------
             Text(
                 text = "General",
                 color = Color.White,
-                fontSize = 28.sp,
+                fontSize = 28.sp * scale,
                 fontFamily = FontFamily(Font(R.font.staatliches_regular)),
-                modifier = Modifier.padding(horizontal = 16.dp)
+                modifier = Modifier.padding(horizontal = 16.dp * scale)
             )
-            Spacer(modifier = Modifier.height(12.dp))
-            generalCard()
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(12.dp * scale))
+            generalCard(fontSizeViewModel, scale)
+            Spacer(modifier = Modifier.height(24.dp * scale))
 
             // ---------- Support Section ----------
             Text(
                 text = "Support",
                 color = Color.White,
-                fontSize = 28.sp,
+                fontSize = 28.sp * scale,
                 fontFamily = FontFamily(Font(R.font.staatliches_regular)),
-                modifier = Modifier.padding(horizontal = 16.dp)
+                modifier = Modifier.padding(horizontal = 16.dp * scale)
             )
-            Spacer(modifier = Modifier.height(12.dp))
-            supportCard()
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(12.dp * scale))
+            supportCard(fontSizeViewModel) // ✅ صح
+
+            Spacer(modifier = Modifier.height(24.dp * scale))
         }
     }
 }
 
-@Composable
-fun generalCard() {
 
+@Composable
+fun generalCard(fontSizeViewModel: FontSizeViewModel, scale: Float) {
     val context = LocalContext.current
 
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 10.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = Color.White
-        ),
+            .padding(horizontal = 10.dp * scale),
+        colors = CardDefaults.cardColors(containerColor = Color.White),
         shape = shapes.large
     ) {
-        Column(
-            modifier = Modifier.padding(vertical = 6.dp)
-        ) {
+        Column(modifier = Modifier.padding(vertical = 6.dp * scale)) {
 
             // ---------- Notifications Row ----------
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 8.dp),
+                    .padding(horizontal = 16.dp * scale, vertical = 8.dp * scale),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
                     text = "Notifications",
-                    fontSize = 20.sp,
+                    fontSize = 20.sp * scale,
                     fontFamily = FontFamily(Font(R.font.staatliches_regular)),
                     color = Color(0xFF505664)
                 )
@@ -153,12 +153,8 @@ fun generalCard() {
                     checked = isChecked,
                     onCheckedChange = { checked ->
                         isChecked = checked
-
-                        if (checked) {
-                            startNotificationService(context)
-                        } else {
-                            stopNotificationService(context)
-                        }
+                        if (checked) startNotificationService(context)
+                        else stopNotificationService(context)
                     },
                     colors = SwitchDefaults.colors(
                         checkedThumbColor = Color.White,
@@ -170,53 +166,64 @@ fun generalCard() {
             }
 
             HorizontalDivider(
-                modifier = Modifier.padding(horizontal = 16.dp),
-                thickness = 2.dp,
+                modifier = Modifier.padding(horizontal = 16.dp * scale),
+                thickness = 2.dp * scale,
                 color = Color.Gray.copy(alpha = 0.8f)
             )
 
-            // ---------- Text Size ----------
-            Row(
+            // ---------- Text Size Row + Slider ----------
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween // <-- يوزع المسافة تلقائي
+                    .padding(horizontal = 16.dp * scale, vertical = 16.dp * scale)
             ) {
-                Text(
-                    text = "Text Size",
-                    fontFamily = FontFamily(Font(R.font.staatliches_regular)),
-                    fontSize = 20.sp,
-                    color = Color(0xFF505664)
-                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = "Text Size",
+                        fontFamily = FontFamily(Font(R.font.staatliches_regular)),
+                        fontSize = 20.sp * scale,
+                        color = Color(0xFF505664)
+                    )
 
-                Text(
-                    text = "Normal",
-                    fontFamily = FontFamily(Font(R.font.staatliches_regular)),
-                    fontSize = 16.sp,
-                    color = Color(0xFF505664)
+                    Text(
+                        text = "${(fontSizeViewModel.fontScale.value * 100).toInt()}%",
+                        fontFamily = FontFamily(Font(R.font.staatliches_regular)),
+                        fontSize = 16.sp * scale,
+                        color = Color(0xFF505664)
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(8.dp * scale))
+
+                Slider(
+                    value = fontSizeViewModel.fontScale.value,
+                    valueRange = 0.8f..1.5f,
+                    onValueChange = { fontSizeViewModel.fontScale.value = it }
                 )
             }
 
             HorizontalDivider(
-                modifier = Modifier.padding(horizontal = 16.dp),
-                thickness = 2.dp,
+                modifier = Modifier.padding(horizontal = 16.dp * scale),
+                thickness = 2.dp * scale,
                 color = Color.Gray.copy(alpha = 0.8f)
             )
 
             // ---------- Invite a Friend ----------
-          Row(
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 16.dp),
+                    .padding(horizontal = 16.dp * scale, vertical = 16.dp * scale),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
                     text = "Invite a Friend",
                     fontFamily = FontFamily(Font(R.font.staatliches_regular)),
-                    fontSize = 20.sp,
+                    fontSize = 20.sp * scale,
                     color = Color(0xFF505664)
-
                 )
 
                 Spacer(modifier = Modifier.weight(1f))
@@ -225,148 +232,107 @@ fun generalCard() {
                     painter = painterResource(id = R.drawable.right),
                     contentDescription = "Go to Dark Mode",
                     tint = Color.Black,
-                    modifier = Modifier.size(30.dp)
+                    modifier = Modifier.size(30.dp * scale)
                 )
             }
         }
     }
 }
 
+
+
+
 @Composable
-fun supportCard() {
+fun supportCard(fontSizeViewModel: FontSizeViewModel) {
+    val scale = fontSizeViewModel.fontScale.value
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = Color.White
-        ),
+            .padding(horizontal = 16.dp * scale),
+        colors = CardDefaults.cardColors(containerColor = Color.White),
         shape = shapes.large
     ) {
-        Column(
-            modifier = Modifier.padding(vertical = 8.dp)
-        ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 16.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = "Terms of Services",
-                    fontFamily = FontFamily(Font(R.font.staatliches_regular)),
-                    fontSize = 20.sp,
-                    color = Color(0xFF505664)
+        Column(modifier = Modifier.padding(vertical = 8.dp * scale)) {
 
-                )
+            val items = listOf("Terms of Services", "Contact Us", "Report a Problem")
+            val colors = listOf(Color(0xFF505664), Color(0xFF505664), Color.Black)
 
-                Spacer(modifier = Modifier.weight(1f))
+            items.forEachIndexed { index, text ->
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp * scale, vertical = 16.dp * scale),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = text,
+                        fontFamily = FontFamily(Font(R.font.staatliches_regular)),
+                        fontSize = 20.sp * scale,
+                        color = colors[index]
+                    )
 
-                Icon(
-                    painter = painterResource(id = R.drawable.right),
-                    contentDescription = "Go to Dark Mode",
-                    tint = Color(0xFF505664),
-                    modifier = Modifier.size(30.dp)
-                )
+                    Spacer(modifier = Modifier.weight(1f))
+
+                    Icon(
+                        painter = painterResource(id = R.drawable.right),
+                        contentDescription = null,
+                        tint = colors[index],
+                        modifier = Modifier.size(30.dp * scale)
+                    )
+                }
+
+                if (index != items.lastIndex) {
+                    HorizontalDivider(
+                        modifier = Modifier.padding(horizontal = 16.dp * scale),
+                        thickness = 2.dp * scale,
+                        color = Color.Gray.copy(alpha = 0.8f)
+                    )
+                }
             }
 
-            HorizontalDivider(
-                modifier = Modifier.padding(horizontal = 16.dp),
-                thickness = 2.dp,
-                color = Color.Gray.copy(alpha = 0.8f)
-            )
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 16.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = "Contact Us",
-                    fontFamily = FontFamily(Font(R.font.staatliches_regular)),
-                    fontSize = 20.sp,
-                    color = Color(0xFF505664)
-
-                )
-
-                Spacer(modifier = Modifier.weight(1f))
-
-                Icon(
-                    painter = painterResource(id = R.drawable.right),
-                    contentDescription = "Go to Dark Mode",
-                    tint =Color(0xFF505664),
-                    modifier = Modifier.size(30.dp)
-                )
-            }
-
-            HorizontalDivider(
-                modifier = Modifier.padding(horizontal = 16.dp),
-                thickness = 2.dp,
-                color = Color.Gray.copy(alpha = 0.8f)
-            )
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 16.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = "Report a Problem",
-                    fontFamily = FontFamily(Font(R.font.staatliches_regular)),
-                    fontSize = 20.sp,
-                    color = Color(0xFF505664)
-                )
-
-                Spacer(modifier = Modifier.weight(1f))
-
-                Icon(
-                    painter = painterResource(id = R.drawable.right),
-                    contentDescription = "Go to Dark Mode",
-                    tint = Color.Black,
-                    modifier = Modifier.size(30.dp)
-                )
-            }
             Spacer(modifier = Modifier.weight(1f))
         }
     }
 }
 
+
+
+
 @Composable
-fun accountCard() {
+fun accountCard(fontSizeViewModel: FontSizeViewModel) {
+    val scale = fontSizeViewModel.fontScale.value
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(100.dp)
-            .padding(10.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = Color.White
-        ),
+            .height(100.dp * scale)
+            .padding(10.dp * scale),
+        colors = CardDefaults.cardColors(containerColor = Color.White),
         shape = shapes.large
     ) {
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(10.dp),
+                .padding(10.dp * scale),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
                 painter = painterResource(id = R.drawable.profile_icon),
-                contentDescription = "Profile Picture",
+                contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .size(60.dp)
+                    .size(60.dp * scale)
                     .clip(CircleShape)
             )
 
-            Spacer(modifier = Modifier.padding(horizontal = 6.dp))
+            Spacer(modifier = Modifier.width(6.dp * scale))
 
             Column(verticalArrangement = Arrangement.Center) {
                 Text(
                     text = "Welcome, Riju Basu",
                     fontFamily = FontFamily(Font(R.font.poppins_medium)),
-                    fontSize = 18.sp,
+                    fontSize = 18.sp * scale,
                     color = Color.Black
                 )
             }
@@ -375,13 +341,14 @@ fun accountCard() {
 
             Icon(
                 painter = painterResource(id = R.drawable.exit_icon),
-                contentDescription = "Exit to App",
+                contentDescription = null,
                 tint = Color.Black,
-                modifier = Modifier.size(24.dp)
+                modifier = Modifier.size(24.dp * scale)
             )
         }
     }
 }
+
 
 // ---------- Service Functions ----------
 fun startNotificationService(context: Context) {
@@ -401,8 +368,4 @@ fun stopNotificationService(context: Context) {
     Toast.makeText(context, "Notification Stopped", Toast.LENGTH_SHORT).show()
 }
 
-@Preview(showBackground = true)
-@Composable
-fun SettingScreenPreview() {
-    SettingScreen()
-}
+

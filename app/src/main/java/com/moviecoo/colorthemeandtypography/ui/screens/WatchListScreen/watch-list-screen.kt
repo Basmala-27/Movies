@@ -11,6 +11,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.moviecoo.colorthemeandtypography.R
 import com.moviecoo.colorthemeandtypography.common_components.TopAppBar
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.NetworkModule.provideMovieApi
@@ -19,13 +20,14 @@ import com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen.model.Mov
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.model.MovieDataModel
 
 import com.moviecoo.colorthemeandtypography.mapper.toMoviesUiModel
+import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.FontSizeViewModel
 import com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen.component.MovieWatchListItem
 import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 import com.moviecoo.colorthemeandtypography.ui.theme.Surface
 
 
 @Composable
-fun WatchListScreen() {
+fun WatchListScreen( fontSizeViewModel: FontSizeViewModel = hiltViewModel()) {
     val movieListState = remember {
         mutableStateOf<MovieDataModel?>(null)
     }
@@ -51,7 +53,8 @@ fun WatchListScreen() {
         ) {
             movieListState.value?.let {
             items(it.toMoviesUiModel()) { movie ->
-                MovieWatchListItem(movieUiModel = movie)
+                MovieWatchListItem(movieUiModel = movie,
+                    fontSizeViewModel = fontSizeViewModel)
             }
             }
         }

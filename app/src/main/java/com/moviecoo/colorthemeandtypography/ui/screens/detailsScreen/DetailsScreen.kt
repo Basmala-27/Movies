@@ -25,11 +25,14 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.moviecoo.colorthemeandtypography.R
 import com.moviecoo.colorthemeandtypography.common_components.TopAppBar
+import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.FontSizeViewModel
+import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.LocalFontScale
 import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.data.MovieDetailsUiModel
 
 
 @Composable
-fun MovieDetailsUiScreen(movie: MovieDetailsUiModel) {
+fun MovieDetailsUiScreen(movie: MovieDetailsUiModel, fontSizeViewModel: FontSizeViewModel) {
+    val scale = fontSizeViewModel.fontScale.value
 
     Scaffold(topBar = {
         TopAppBar(
@@ -48,6 +51,8 @@ fun MovieDetailsUiScreen(movie: MovieDetailsUiModel) {
                 )
         ) {
             Column {
+
+                // Poster image with gradient overlay
                 Box(
                     modifier = Modifier
                         .weight(1f)
@@ -65,56 +70,59 @@ fun MovieDetailsUiScreen(movie: MovieDetailsUiModel) {
                             .background(
                                 brush = Brush.verticalGradient(
                                     colors = listOf(Color.Transparent, Color(0xC0061E3B)),
-                                    startY = 300f,
-                                    endY = 1200f
+                                    startY = 300f * scale,
+                                    endY = 1200f * scale
                                 )
                             )
                     )
                 }
 
+                // Movie details
                 Column(
                     modifier = Modifier
                         .weight(1f)
                         .fillMaxWidth()
-                        .padding(horizontal = 20.dp, vertical = 12.dp),
+                        .padding(horizontal = 20.dp * scale, vertical = 12.dp * scale),
                     verticalArrangement = Arrangement.SpaceBetween
                 ) {
                     Column {
+
                         Text(
                             text = movie.title,
                             color = Color.White,
-                            fontSize = 30.sp,
+                            fontSize = 30.sp * scale,
                             fontWeight = FontWeight.Bold,
                             modifier = Modifier.fillMaxWidth(),
                             textAlign = TextAlign.Center
                         )
-                        Spacer(modifier = Modifier.height(16.dp))
+                        Spacer(modifier = Modifier.height(16.dp * scale))
+
                         Text(
                             text = "${movie.year} | ${movie.rating}+min",
                             color = Color(0xFFCCCCCC),
-                            fontSize = 20.sp,
+                            fontSize = 20.sp * scale,
                             textAlign = TextAlign.Center,
                             modifier = Modifier.fillMaxWidth()
                         )
-                        Spacer(modifier = Modifier.height(16.dp))
+                        Spacer(modifier = Modifier.height(16.dp * scale))
+
                         Text(
                             text = movie.overview,
                             color = Color(0xFFCCCCCC),
-                            fontSize = 18.sp,
+                            fontSize = 18.sp * scale,
                             fontWeight = FontWeight.Light,
-                            lineHeight = 21.sp,
+                            lineHeight = 21.sp * scale,
                             maxLines = 5
                         )
-                        Spacer(modifier = Modifier.height(20.dp))
+                        Spacer(modifier = Modifier.height(20.dp * scale))
 
                         Text(
                             text = "Cast",
                             color = Color.White,
-                            fontSize = 16.sp,
+                            fontSize = 16.sp * scale,
                             fontWeight = FontWeight.Bold
                         )
-
-                        Spacer(modifier = Modifier.height(10.dp))
+                        Spacer(modifier = Modifier.height(10.dp * scale))
 
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -122,14 +130,14 @@ fun MovieDetailsUiScreen(movie: MovieDetailsUiModel) {
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Row(
-                                horizontalArrangement = Arrangement.spacedBy(-20.dp)
+                                horizontalArrangement = Arrangement.spacedBy((-20).dp * scale)
                             ) {
                                 movie.castImages.forEach {
                                     Image(
                                         painter = painterResource(id = it),
                                         contentDescription = "Cast Member",
                                         modifier = Modifier
-                                            .size(48.dp)
+                                            .size(48.dp * scale)
                                             .clip(CircleShape)
                                     )
                                 }
@@ -138,52 +146,53 @@ fun MovieDetailsUiScreen(movie: MovieDetailsUiModel) {
                             Text(
                                 text = "Trailer",
                                 color = Color(0xFF0096FF),
-                                fontSize = 18.sp,
+                                fontSize = 18.sp * scale,
                                 fontWeight = FontWeight.Bold
                             )
                         }
                     }
 
-
+                    // Bottom action row
                     Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.End,
-                            verticalAlignment = Alignment.CenterVertically
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.End,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        IconButton(onClick = { /* TODO: Save movie */ }) {
+                            Icon(
+                                imageVector = Icons.Default.BookmarkBorder,
+                                contentDescription = "Save",
+                                tint = Color.White,
+                                modifier = Modifier.size(40.dp * scale)
+                            )
+                        }
+                        Spacer(modifier = Modifier.width(20.dp * scale))
+
+                        Button(
+                            onClick = { /* TODO: Watch now */ },
+                            modifier = Modifier
+                                .width(230.dp * scale)
+                                .height(65.dp * scale)
+                                .shadow(
+                                    elevation = 20.dp * scale,
+                                    shape = RoundedCornerShape(20.dp * scale),
+                                    ambientColor = Color(0xFFEC255A),
+                                    spotColor = Color(0xFFEC255A)
+                                ),
+                            shape = RoundedCornerShape(16.dp * scale),
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEC255A))
                         ) {
-                            IconButton(onClick = { /* TODO: Save movie */ }) {
-                                Icon(
-                                    imageVector = Icons.Default.BookmarkBorder,
-                                    contentDescription = "Save",
-                                    tint = Color.White,
-                                    modifier = Modifier.size(40.dp)
-                                )
-                            }
-                            Spacer(modifier = Modifier.width(20.dp))
-                            Button(
-                                onClick = { /* TODO: Watch now */ },
-                                modifier = Modifier
-                                    .width(230.dp)
-                                    .height(65.dp)
-                                    .shadow(
-                                        elevation = 20.dp,
-                                        shape = RoundedCornerShape(20.dp),
-                                        ambientColor = Color(0xFFEC255A),
-                                        spotColor = Color(0xFFEC255A)
-                                    ),
-                                shape = RoundedCornerShape(16.dp),
-                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEC255A))
-                            ) {
-                                Text(
-                                    text = "Watch Now",
-                                    color = Color.White,
-                                    fontSize = 18.sp,
-                                    fontWeight = FontWeight.Bold
-                                )
-                            }
+                            Text(
+                                text = "Watch Now",
+                                color = Color.White,
+                                fontSize = 18.sp * scale,
+                                fontWeight = FontWeight.Bold
+                            )
                         }
                     }
                 }
             }
         }
     }
+}
 

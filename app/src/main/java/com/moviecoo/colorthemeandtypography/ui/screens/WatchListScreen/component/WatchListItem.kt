@@ -30,9 +30,11 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.moviecoo.colorthemeandtypography.R
+import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.FontSizeViewModel
 import com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen.WatchListScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen.model.MovieDataUiModel
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.model.MovieUiModel
@@ -41,65 +43,59 @@ import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 @Composable
 fun MovieWatchListItem(
     modifier: Modifier = Modifier,
-    movieUiModel: MovieUiModel
+    movieUiModel: MovieUiModel,
+    fontSizeViewModel: FontSizeViewModel
 ) {
+    val scale = fontSizeViewModel.fontScale.value
+
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFF09274C))
-            .padding(vertical = 8.dp)
+            .padding(vertical = 8.dp * scale)
     ){
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp),
+                .padding(horizontal = 16.dp * scale, vertical = 8.dp * scale),
             shape = MaterialTheme.shapes.large,
             elevation = CardDefaults.cardElevation(4.dp),
             colors = CardDefaults.cardColors(containerColor = Primary)
 
         ) {
-
             Row(
-                modifier = Modifier.padding(12.dp)
+                modifier = Modifier.padding(12.dp * scale)
                     .background(Color(0xFF09274C)),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Image(
-
                     modifier = Modifier
-                        .size(width = 120.dp, height = 150.dp)
+                        .size(width = 120.dp * scale, height = 150.dp * scale)
                         .clip(MaterialTheme.shapes.large),
-                    //painter = painterResource(id = movieDataUiModel.poster),
                     contentDescription = movieUiModel.title,
                     contentScale = ContentScale.Crop,
-
                     painter = rememberAsyncImagePainter(
                         ImageRequest.Builder(LocalContext.current)
                             .data(movieUiModel.image)
                             .crossfade(1000)
                             .build()
-
                     ),
-
-
-
                 )
-                Spacer(modifier = Modifier.width(12.dp))
+                Spacer(modifier = Modifier.width(12.dp * scale))
 
-                Column( verticalArrangement = Arrangement.Center,
+                Column(
+                    verticalArrangement = Arrangement.Center,
                     modifier = Modifier.weight(1f)
                 ){
                     Text(
                         text = movieUiModel.title,
-                        style = MaterialTheme.typography.titleLarge,
                         fontFamily = FontFamily(Font(R.font.poppins_regular)),
+                        fontSize = 18.sp * scale, // مثال
                         color = Color.White,
                         maxLines = 1
-
                     )
 
-                    Spacer(Modifier.height(12.dp))
-
+                    Spacer(Modifier.height(12.dp * scale))
 
                     Row(
                         horizontalArrangement = Arrangement.Center,
@@ -108,22 +104,18 @@ fun MovieWatchListItem(
                         Image(
                             painterResource(R.drawable.baseline_star_border_24),
                             contentDescription = null,
-                            Modifier.size(20.dp)
+                            Modifier.size(20.dp * scale)
                         )
 
                         Text(
-                            modifier = Modifier.padding(horizontal = 6.dp),
+                            modifier = Modifier.padding(horizontal = 6.dp * scale),
                             text = movieUiModel.rating.toString(),
-                            style = MaterialTheme.typography.bodyLarge,
+                            fontSize = 14.sp * scale,
                             color = Color(0xFFFF8700)
                         )
-
-
                     }
 
-                    Spacer(modifier = Modifier.height(6.dp))
-
-
+                    Spacer(modifier = Modifier.height(6.dp * scale))
 
                     Row(
                         horizontalArrangement = Arrangement.Center,
@@ -132,20 +124,18 @@ fun MovieWatchListItem(
                         Image(
                             painterResource(R.drawable.ticket),
                             contentDescription = null,
-                            Modifier.size(20.dp)
+                            Modifier.size(20.dp * scale)
                         )
 
                         Text(
-                            modifier = Modifier.padding(horizontal = 6.dp),
+                            modifier = Modifier.padding(horizontal = 6.dp * scale),
                             text = movieUiModel.genre,
-                            style = MaterialTheme.typography.bodyLarge,
+                            fontSize = 14.sp * scale,
                             color = Color.White
                         )
                     }
-                    Spacer(modifier = Modifier.height(6.dp))
 
-
-
+                    Spacer(modifier = Modifier.height(6.dp * scale))
 
                     Row(
                         horizontalArrangement = Arrangement.Center,
@@ -154,17 +144,18 @@ fun MovieWatchListItem(
                         Image(
                             painterResource(R.drawable.calendar),
                             contentDescription = null,
-                            Modifier.size(20.dp)
+                            Modifier.size(20.dp * scale)
                         )
 
                         Text(
-                            modifier = Modifier.padding(horizontal = 6.dp),
+                            modifier = Modifier.padding(horizontal = 6.dp * scale),
                             text = movieUiModel.year,
-                            style = MaterialTheme.typography.bodyLarge,
+                            fontSize = 14.sp * scale,
                             color = Color.White
                         )
                     }
-                    Spacer(modifier = Modifier.height(6.dp))
+
+                    Spacer(modifier = Modifier.height(6.dp * scale))
 
                     Row(
                         horizontalArrangement = Arrangement.Center,
@@ -173,32 +164,19 @@ fun MovieWatchListItem(
                         Image(
                             painterResource(R.drawable.clock),
                             contentDescription = null,
-                            Modifier.size(20.dp)
+                            Modifier.size(20.dp * scale)
                         )
 
                         Text(
-                            modifier = Modifier.padding(horizontal = 6.dp),
+                            modifier = Modifier.padding(horizontal = 6.dp * scale),
                             text = "${movieUiModel.description} minutes",
-                            style = MaterialTheme.typography.bodyLarge,
-                            color = Color.White ,
+                            fontSize = 14.sp * scale,
+                            color = Color.White,
                             maxLines = 1
                         )
-
-
-
                     }
-
-
-
-
                 }
             }
-
-
         }
-
-
     }
-
-
 }

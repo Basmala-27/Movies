@@ -32,43 +32,58 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.FontSizeViewModel
+import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.LocalFontScale
 import com.moviecoo.colorthemeandtypography.ui.screens.movieContentScreen.data.sampleMovie
 
 @Composable
-fun VideoPlayerSection(thumbnailRes: Int) {
+fun VideoPlayerSection(thumbnailRes: Int,fontSizeViewModel: FontSizeViewModel) {
+    val scale = fontSizeViewModel.fontScale.value
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(210.dp)
+            .height(210.dp * scale)
     ) {
+        // Thumbnail
         Image(
             painter = painterResource(id = thumbnailRes),
             contentDescription = "Video Thumbnail",
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
         )
+
+        // Close Icon
         Icon(
             imageVector = Icons.Filled.KeyboardArrowDown,
             contentDescription = "Close",
             tint = Color.White,
             modifier = Modifier
                 .align(Alignment.TopStart)
-                .padding(16.dp)
-                .size(28.dp) // حجم مناسب
+                .padding(16.dp * scale)
+                .size(28.dp * scale)
         )
+
+        // Play / Skip Row
         Row(
             modifier = Modifier.align(Alignment.Center),
             verticalAlignment = Alignment.CenterVertically
         ) {
+            // Skip Previous
             Box(
                 modifier = Modifier
-                    .size(40.dp)
-                    .shadow(elevation = 12.dp, shape = CircleShape,
-                        ambientColor = Color.White.copy(alpha = 0.3f))
+                    .size(40.dp * scale)
+                    .shadow(
+                        elevation = 12.dp * scale,
+                        shape = CircleShape,
+                        ambientColor = Color.White.copy(alpha = 0.3f)
+                    )
                     .clip(CircleShape)
                     .background(
                         Brush.radialGradient(
-                            colors = listOf(Color.White.copy(alpha = 0.3f), Color.White.copy(alpha = 0.1f)),
+                            colors = listOf(
+                                Color.White.copy(alpha = 0.3f),
+                                Color.White.copy(alpha = 0.1f)
+                            )
                         )
                     ),
                 contentAlignment = Alignment.Center
@@ -77,19 +92,28 @@ fun VideoPlayerSection(thumbnailRes: Int) {
                     imageVector = Icons.Filled.SkipPrevious,
                     contentDescription = "Skip Previous",
                     tint = Color.White,
-                    modifier = Modifier.size(28.dp)
+                    modifier = Modifier.size(28.dp * scale)
                 )
             }
-            Spacer(modifier = Modifier.width(24.dp))
+
+            Spacer(modifier = Modifier.width(24.dp * scale))
+
+            // Play Button
             Box(
                 modifier = Modifier
-                    .size(50.dp)
-                    .shadow(elevation = 16.dp, shape = CircleShape, ambientColor = Color.White.copy(alpha = 0.4f))
+                    .size(50.dp * scale)
+                    .shadow(
+                        elevation = 16.dp * scale,
+                        shape = CircleShape,
+                        ambientColor = Color.White.copy(alpha = 0.4f)
+                    )
                     .clip(CircleShape)
                     .background(
                         Brush.radialGradient(
-                            colors = listOf(Color.White.copy(alpha = 0.4f),
-                                Color.White.copy(alpha = 0.15f)),
+                            colors = listOf(
+                                Color.White.copy(alpha = 0.4f),
+                                Color.White.copy(alpha = 0.15f)
+                            )
                         )
                     ),
                 contentAlignment = Alignment.Center
@@ -98,18 +122,28 @@ fun VideoPlayerSection(thumbnailRes: Int) {
                     imageVector = Icons.Filled.PlayArrow,
                     contentDescription = "Play",
                     tint = Color.White,
-                    modifier = Modifier.size(32.dp)
+                    modifier = Modifier.size(32.dp * scale)
                 )
             }
-            Spacer(modifier = Modifier.width(24.dp))
+
+            Spacer(modifier = Modifier.width(24.dp * scale))
+
+            // Skip Next
             Box(
                 modifier = Modifier
-                    .size(40.dp)
-                    .shadow(elevation = 12.dp, shape = CircleShape, ambientColor = Color.White.copy(alpha = 0.3f))
+                    .size(40.dp * scale)
+                    .shadow(
+                        elevation = 12.dp * scale,
+                        shape = CircleShape,
+                        ambientColor = Color.White.copy(alpha = 0.3f)
+                    )
                     .clip(CircleShape)
                     .background(
                         Brush.radialGradient(
-                            colors = listOf(Color.White.copy(alpha = 0.3f), Color.White.copy(alpha = 0.1f)),
+                            colors = listOf(
+                                Color.White.copy(alpha = 0.3f),
+                                Color.White.copy(alpha = 0.1f)
+                            )
                         )
                     ),
                 contentAlignment = Alignment.Center
@@ -118,15 +152,17 @@ fun VideoPlayerSection(thumbnailRes: Int) {
                     imageVector = Icons.Filled.SkipNext,
                     contentDescription = "Skip Next",
                     tint = Color.White,
-                    modifier = Modifier.size(28.dp)
+                    modifier = Modifier.size(28.dp * scale)
                 )
             }
         }
+
+        // Slider + Fullscreen Row
         Row(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
+                .padding(horizontal = 16.dp * scale, vertical = 12.dp * scale),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Slider(
@@ -139,12 +175,12 @@ fun VideoPlayerSection(thumbnailRes: Int) {
                     inactiveTrackColor = Color.White.copy(alpha = 0.3f)
                 )
             )
-            Spacer(modifier = Modifier.width(12.dp))
+            Spacer(modifier = Modifier.width(12.dp * scale))
             Icon(
                 imageVector = Icons.Filled.Fullscreen,
                 contentDescription = "Fullscreen",
                 tint = Color.White,
-                modifier = Modifier.size(28.dp)
+                modifier = Modifier.size(28.dp * scale)
             )
         }
     }

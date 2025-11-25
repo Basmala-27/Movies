@@ -19,6 +19,7 @@ import com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen.model.Mov
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.model.MovieDataModel
 
 import com.moviecoo.colorthemeandtypography.mapper.toMoviesUiModel
+import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.FontSizeViewModel
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.model.MovieUiModel
 import com.moviecoo.colorthemeandtypography.ui.screens.seeAllScree.component.MovieSeeAllItem
 import com.moviecoo.colorthemeandtypography.ui.theme.Primary
@@ -26,31 +27,38 @@ import com.moviecoo.colorthemeandtypography.ui.theme.Surface
 
 
 @Composable
-fun SeeAllScreen(title : String ="" , onMovieClick: (MovieUiModel) -> Unit = {}) {
+fun SeeAllScreen(
+    title: String = "",
+    fontSizeViewModel: FontSizeViewModel,
+    onMovieClick: (MovieUiModel) -> Unit = {}
+) {
     val movieListState = remember {
         mutableStateOf<MovieDataModel?>(null)
     }
-    LaunchedEffect(Unit) {
-        if (title == "Trending Now"){
-            val response = provideMovieApi().fetchMovies()
-            movieListState.value = response.body() as MovieDataModel
-        }
-        else if (title == "New Releases"){
-            val response = provideMovieApi().fetchNowPlayingMovies()
-            movieListState.value = response.body() as MovieDataModel
-        }
-        else if (title == "Upcoming"){
-            val response = provideMovieApi().fetchUpcomingMovies()
-            movieListState.value = response.body() as MovieDataModel
 
-        }
-        else if (title == "Top Rated"){
-            val response = provideMovieApi().fetchTopRatingMovies()
-            movieListState.value = response.body() as MovieDataModel
+    LaunchedEffect(Unit) {
+        when (title) {
+            "Trending Now" -> {
+                val response = provideMovieApi().fetchMovies()
+                movieListState.value = response.body() as MovieDataModel
+            }
+
+            "New Releases" -> {
+                val response = provideMovieApi().fetchNowPlayingMovies()
+                movieListState.value = response.body() as MovieDataModel
+            }
+
+            "Upcoming" -> {
+                val response = provideMovieApi().fetchUpcomingMovies()
+                movieListState.value = response.body() as MovieDataModel
+            }
+
+            "Top Rated" -> {
+                val response = provideMovieApi().fetchTopRatingMovies()
+                movieListState.value = response.body() as MovieDataModel
+            }
         }
     }
-
-
 
     Scaffold(
         topBar = {
@@ -66,24 +74,14 @@ fun SeeAllScreen(title : String ="" , onMovieClick: (MovieUiModel) -> Unit = {})
             modifier = Modifier.padding(innerPadding)
         ) {
             movieListState.value?.let {
-            items(it.toMoviesUiModel()) { movie ->
-                MovieSeeAllItem(movieUiModel = movie , onMovieClick = { onMovieClick(movie) } )
-            }
+                items(it.toMoviesUiModel()) { movie ->
+                    MovieSeeAllItem(
+                        movieUiModel = movie,
+                        fontSizeViewModel = fontSizeViewModel,
+                        onMovieClick = { onMovieClick(movie) }
+                    )
+                }
             }
         }
     }
-
-
-
-
-}
-
-
-
-
-@Preview(showBackground = true,
-    showSystemUi = true)
-@Composable
-private fun PreviewSeeAllScreen() {
-    SeeAllScreen()
 }

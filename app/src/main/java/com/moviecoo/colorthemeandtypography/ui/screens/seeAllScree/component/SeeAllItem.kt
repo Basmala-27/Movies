@@ -33,172 +33,140 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.moviecoo.colorthemeandtypography.R
+import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.FontSizeViewModel
+import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.LocalFontScale
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.model.MovieUiModel
 import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 
 @Composable
 fun MovieSeeAllItem(
     modifier: Modifier = Modifier,
-    movieUiModel: MovieUiModel ,
+    movieUiModel: MovieUiModel,
+    fontSizeViewModel: FontSizeViewModel,
     onMovieClick: (MovieUiModel) -> Unit = {}
 ) {
+    val scale = fontSizeViewModel.fontScale.value
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFF09274C))
-            .padding(vertical = 8.dp)
+            .padding(vertical = 8.dp * scale)
             .clickable { onMovieClick(movieUiModel) }
-    ){
+    ) {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp),
+                .padding(horizontal = 16.dp * scale, vertical = 8.dp * scale),
             shape = MaterialTheme.shapes.large,
-            elevation = CardDefaults.cardElevation(4.dp),
+            elevation = CardDefaults.cardElevation(4.dp * scale),
             colors = CardDefaults.cardColors(containerColor = Primary)
-
         ) {
 
             Row(
-                modifier = Modifier.padding(12.dp)
+                modifier = Modifier
+                    .padding(12.dp * scale)
                     .background(Color(0xFF09274C)),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Image(
-
                     modifier = Modifier
-                        .size(width = 120.dp, height = 150.dp)
+                        .size(width = 120.dp * scale, height = 150.dp * scale)
                         .clip(MaterialTheme.shapes.large),
-                    //painter = painterResource(id = movieDataUiModel.poster),
                     contentDescription = movieUiModel.title,
                     contentScale = ContentScale.Crop,
-
                     painter = rememberAsyncImagePainter(
                         ImageRequest.Builder(LocalContext.current)
                             .data(movieUiModel.image)
                             .crossfade(1000)
                             .build()
-
                     ),
-
-
-
                 )
-                Spacer(modifier = Modifier.width(12.dp))
 
-                Column( verticalArrangement = Arrangement.Center,
+                Spacer(modifier = Modifier.width(12.dp * scale))
+
+                Column(
+                    verticalArrangement = Arrangement.Center,
                     modifier = Modifier.weight(1f)
-                ){
+                ) {
                     Text(
                         text = movieUiModel.title,
-                        style = MaterialTheme.typography.titleLarge,
                         fontFamily = FontFamily(Font(R.font.poppins_regular)),
                         color = Color.White,
+                        fontSize = (MaterialTheme.typography.titleLarge.fontSize * scale),
                         maxLines = 1
-
                     )
 
-                    Spacer(Modifier.height(12.dp))
-
+                    Spacer(Modifier.height(12.dp * scale))
 
                     Row(
-                        horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Image(
                             painterResource(R.drawable.baseline_star_border_24),
                             contentDescription = null,
-                            Modifier.size(20.dp)
+                            Modifier.size(20.dp * scale)
                         )
 
                         Text(
-                            modifier = Modifier.padding(horizontal = 6.dp),
+                            modifier = Modifier.padding(horizontal = 6.dp * scale),
                             text = movieUiModel.rating.toString(),
-                            style = MaterialTheme.typography.bodyLarge,
+                            fontSize = (MaterialTheme.typography.bodyLarge.fontSize * scale),
                             color = Color(0xFFFF8700)
                         )
-
-
                     }
 
-                    Spacer(modifier = Modifier.height(6.dp))
+                    Spacer(modifier = Modifier.height(6.dp * scale))
 
-
-
-                    Row(
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
                         Image(
                             painterResource(R.drawable.ticket),
                             contentDescription = null,
-                            Modifier.size(20.dp)
+                            Modifier.size(20.dp * scale)
                         )
 
                         Text(
-                            modifier = Modifier.padding(horizontal = 6.dp),
+                            modifier = Modifier.padding(horizontal = 6.dp * scale),
                             text = movieUiModel.genre,
-                            style = MaterialTheme.typography.bodyLarge,
+                            fontSize = (MaterialTheme.typography.bodyLarge.fontSize * scale),
                             color = Color.White
                         )
                     }
-                    Spacer(modifier = Modifier.height(6.dp))
 
+                    Spacer(modifier = Modifier.height(6.dp * scale))
 
-
-
-                    Row(
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
                         Image(
                             painterResource(R.drawable.calendar),
                             contentDescription = null,
-                            Modifier.size(20.dp)
+                            Modifier.size(20.dp * scale)
                         )
 
                         Text(
-                            modifier = Modifier.padding(horizontal = 6.dp),
+                            modifier = Modifier.padding(horizontal = 6.dp * scale),
                             text = movieUiModel.year,
-                            style = MaterialTheme.typography.bodyLarge,
+                            fontSize = (MaterialTheme.typography.bodyLarge.fontSize * scale),
                             color = Color.White
                         )
                     }
-                    Spacer(modifier = Modifier.height(6.dp))
 
-                    Row(
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
+                    Spacer(modifier = Modifier.height(6.dp * scale))
+
+                    Row(verticalAlignment = Alignment.CenterVertically) {
                         Image(
                             painterResource(R.drawable.clock),
                             contentDescription = null,
-                            Modifier.size(20.dp)
+                            Modifier.size(20.dp * scale)
                         )
 
                         Text(
-                            modifier = Modifier.padding(horizontal = 6.dp),
+                            modifier = Modifier.padding(horizontal = 6.dp * scale),
                             text = "${movieUiModel.rating} minutes",
-                            style = MaterialTheme.typography.bodyLarge,
+                            fontSize = (MaterialTheme.typography.bodyLarge.fontSize * scale),
                             color = Color.White
                         )
-
-
-
                     }
-
-
-
-
                 }
             }
-
-
         }
-
-
     }
-
-
 }
-

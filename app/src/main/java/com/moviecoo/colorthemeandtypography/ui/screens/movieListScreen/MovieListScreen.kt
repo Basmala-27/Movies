@@ -57,16 +57,21 @@ import com.moviecoo.colorthemeandtypography.ui.theme.OrangeAccent
 import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 import com.moviecoo.colorthemeandtypography.ui.theme.Secondary
 import com.moviecoo.colorthemeandtypography.mapper.toMoviesUiModel
+import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.FontSizeViewModel
+import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.LocalFontScale
 
 @Composable
 fun MovieListScreen(
     navController: NavController,
+    fontSizeViewModel: FontSizeViewModel,
     onFeaturedClick: () -> Unit = {},
     onRandomClick: () -> Unit = {},
     onGuessClick: () -> Unit = {},
     onSeeAllClick: (String) -> Unit = { _ -> },
     onMovieClick: (MovieUiModel) -> Unit = {}
 ) {
+    val scale = fontSizeViewModel.fontScale.value
+
     val viewModel: MovieListViewModel = hiltViewModel()
 
     // Features
@@ -84,21 +89,24 @@ fun MovieListScreen(
                 .verticalScroll(rememberScrollState())
                 .padding(innerPadding)
         ) {
-            Spacer(modifier = Modifier.height(25.dp))
+            Spacer(modifier = Modifier.height(25.dp * scale))
             AppScreenHeader(navController = navController)
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(16.dp * scale))
 
             LazyRow(
-                modifier = Modifier.fillMaxWidth().padding(end = 2.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(end = 2.dp * scale),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 items(featuresList) { item ->
-                    FeaturedMovieitem(onClick = item.onClick, image = item.image)
+                    FeaturedMovieitem(onClick = item.onClick, image = item.image, scale = scale)
                 }
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
+
+            Spacer(modifier = Modifier.height(24.dp * scale))
 
             // Movie Sections
             listOf(
@@ -107,8 +115,14 @@ fun MovieListScreen(
                 "Top Rated" to true,
                 "New Releases" to false
             ).forEach { (title, showRating) ->
-                Spacer(modifier = Modifier.height(24.dp))
-                MovieSection(title = title, showRating = showRating, onMovieClick = onMovieClick , onSeeAllClick = onSeeAllClick)
+                Spacer(modifier = Modifier.height(24.dp * scale))
+                MovieSection(
+                    title = title,
+                    showRating = showRating,
+                    onMovieClick = onMovieClick,
+                    onSeeAllClick = onSeeAllClick,
+                    scale = scale
+                )
             }
         }
     }
@@ -125,41 +139,34 @@ data class features(
 
 
 @Composable
-fun FeaturedMovieitem(onClick: () -> Unit , image: Int){
+fun FeaturedMovieitem(onClick: () -> Unit , image: Int, scale: Float){
     Card(
         modifier = Modifier
-            .width(400.dp)
-            .height(220.dp)
-            .padding(horizontal = 16.dp)
-            .clip(RoundedCornerShape(12.dp))
+            .width(400.dp * scale)
+            .height(220.dp * scale)
+            .padding(horizontal = 16.dp * scale)
+            .clip(RoundedCornerShape(12.dp * scale))
             .clickable { onClick() }
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
-
-            Box(
-                modifier = Modifier
-                    .matchParentSize()
-
-            ) {
-                Image(
-                    painter = painterResource(image),
-                    contentDescription = "Movie Image",
-                    contentScale = ContentScale.FillBounds,
-                    modifier = Modifier.fillMaxSize()
-                )
-            }
+            Image(
+                painter = painterResource(image),
+                contentDescription = "Movie Image",
+                contentScale = ContentScale.FillBounds,
+                modifier = Modifier.fillMaxSize()
+            )
         }
     }
-
-
 }
+
 
 @Composable
 fun MovieSection(
     title: String,
     showRating: Boolean,
     onSeeAllClick: (String) -> Unit = {},
-    onMovieClick: (MovieUiModel) -> Unit = {}
+    onMovieClick: (MovieUiModel) -> Unit = {},
+    scale: Float
 ) {
     val movieListState = remember { mutableStateOf<MovieDataModel?>(null) }
 
@@ -177,42 +184,44 @@ fun MovieSection(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp),
+            .padding(horizontal = 16.dp * scale, vertical = 8.dp * scale),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(title, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold, color = Color.White)
+        Text(title, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold, fontSize = 20.sp * scale, color = Color.White)
         TextButton(onClick = { onSeeAllClick(title) }) {
-            Text("See All >", color = OrangeAccent, fontSize = 14.sp)
+            Text("See All >", color = OrangeAccent, fontSize = 14.sp * scale)
         }
     }
 
     LazyRow(
-        contentPadding = PaddingValues(horizontal = 16.dp),
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
+        contentPadding = PaddingValues(horizontal = 16.dp * scale),
+        horizontalArrangement = Arrangement.spacedBy(12.dp * scale)
     ) {
         movieListState.value?.toMoviesUiModel()?.let { list ->
             items(list) { movie ->
-                MovieListItem(movie = movie, showRating = showRating, onClick = { onMovieClick(movie) })
+                MovieListItem(movie = movie, showRating = showRating, onClick = { onMovieClick(movie) }, scale = scale)
             }
         }
     }
 }
 
 
+
 @Composable
 fun MovieListItem(
-movie: MovieUiModel,
-showRating: Boolean,
-onClick: () -> Unit ={} ,
-modifier: Modifier = Modifier
+    movie: MovieUiModel,
+    showRating: Boolean,
+    onClick: () -> Unit ={} ,
+    modifier: Modifier = Modifier,
+    scale: Float
 ) {
-    Column(modifier = Modifier.width(160.dp)) {
+    Column(modifier = modifier.width(160.dp * scale)) {
         Card(
             modifier = Modifier
-                .height(200.dp)
+                .height(200.dp * scale)
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(8.dp))
+                .clip(RoundedCornerShape(8.dp * scale))
                 .clickable { onClick() },
             colors = CardDefaults.cardColors(containerColor = OnPrimary)
         ) {
@@ -222,49 +231,37 @@ modifier: Modifier = Modifier
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Crop
             )
-            if (showRating) RatingBadge(movie.rating)
+            if (showRating) RatingBadge(movie.rating, scale)
         }
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(movie.title, color = Color.White, fontWeight = FontWeight.SemiBold, maxLines = 1)
+        Spacer(modifier = Modifier.height(8.dp * scale))
+        Text(movie.title, color = Color.White, fontWeight = FontWeight.SemiBold, fontSize = 14.sp * scale, maxLines = 1)
     }
 }
 
 @Composable
-fun RatingBadge(rating: Double) {
+fun RatingBadge(rating: Double, scale: Float) {
     Row(
         modifier = Modifier
-            .padding(8.dp)
-            .clip(RoundedCornerShape(4.dp))
+            .padding(8.dp * scale)
+            .clip(RoundedCornerShape(4.dp * scale))
             .background(Color.Black.copy(alpha = 0.6f))
-            .padding(horizontal = 6.dp, vertical = 4.dp),
+            .padding(horizontal = 6.dp * scale, vertical = 4.dp * scale),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
             Icons.Default.Star,
             contentDescription = "Rating Star",
             tint = OrangeAccent,
-            modifier = Modifier.size(14.dp)
+            modifier = Modifier.size(14.dp * scale)
         )
-        Spacer(modifier = Modifier.width(4.dp))
+        Spacer(modifier = Modifier.width(4.dp * scale))
         Text(
             text = rating.toString(),
             color = Color.White,
-            fontSize = 12.sp,
+            fontSize = 12.sp * scale,
             fontWeight = FontWeight.Bold
         )
     }
 }
 
 
-
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewMovieAppScreen() {
-    ColorThemeandTypographyTheme {
-        MovieListScreen(
-            onSeeAllClick = TODO(),
-            navController = TODO()
-        )
-    }
-}
