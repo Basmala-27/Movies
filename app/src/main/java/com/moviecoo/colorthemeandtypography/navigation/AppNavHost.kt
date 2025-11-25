@@ -157,7 +157,7 @@ fun AppNavHost(modifier: Modifier = Modifier) {
                 arguments = listOf(navArgument("title") { type = NavType.StringType })
             ) { backStackEntry ->
                 val title = backStackEntry.arguments?.getString("title") ?: ""
-                SeeAllScreen(title = title)
+                SeeAllScreen(title = title , onMovieClick = { movie -> navController.navigate("movie_details/${movie.id}") })
             }
 
             composable("Watch_List_Screen") { WatchListScreen() }
@@ -174,7 +174,6 @@ fun AppNavHost(modifier: Modifier = Modifier) {
 
                 DetailsScreen(movieId = movieId, viewModel = viewModel)
             }
-
 
 
 
