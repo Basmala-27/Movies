@@ -3,6 +3,7 @@ package com.moviecoo.colorthemeandtypography.ui.screens.seeAllScree.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -38,13 +39,15 @@ import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 @Composable
 fun MovieSeeAllItem(
     modifier: Modifier = Modifier,
-    movieUiModel: MovieUiModel
+    movieUiModel: MovieUiModel ,
+    onMovieClick: (MovieUiModel) -> Unit = {}
 ) {
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFF09274C))
             .padding(vertical = 8.dp)
+            .clickable { onMovieClick(movieUiModel) }
     ){
         Card(
             modifier = Modifier

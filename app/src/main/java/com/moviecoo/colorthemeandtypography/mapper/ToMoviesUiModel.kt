@@ -11,6 +11,7 @@ import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.model.Mov
 fun MovieDataModel.toMoviesUiModel(): List<MovieUiModel>{
     return this.results.map { results ->
         MovieUiModel(
+            id = results.id,
             title = results.title,
             year = results.release_date.substring(0,4),
             description = results.overview,
@@ -22,3 +23,4 @@ fun MovieDataModel.toMoviesUiModel(): List<MovieUiModel>{
     }
 
 }
+

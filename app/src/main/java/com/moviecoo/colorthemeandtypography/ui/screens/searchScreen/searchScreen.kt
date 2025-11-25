@@ -112,7 +112,8 @@ private fun PreviewSearchScreen() {
             year = "2015",
             description = "",
             genre = "",
-            image = "TODO()"
+            image = "TODO()",
+            id = 1
         ),
 
     )

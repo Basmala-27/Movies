@@ -4,8 +4,10 @@ import com.moviecoo.colorthemeandtypography.data.Constants.Companion.MOVIE_NOW_P
 import com.moviecoo.colorthemeandtypography.data.Constants.Companion.MOVIE_TOP_RATED_ENDPOINT
 import com.moviecoo.colorthemeandtypography.data.Constants.Companion.MOVIE_UPCOMING_ENDPOINT
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.model.MovieDataModel
+import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.data.MovieDetailsDataModel
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface MovieApi {
@@ -25,4 +27,10 @@ interface MovieApi {
         @Query("language") language: String = "en-US",
         @Query("page") page: Int = 1
     ): Response<MovieDataModel>
+
+    @GET("movie/{movie_id}")
+    suspend fun getMovieDetails(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String = "c49820c55b9cfe9e135e6427800d7597"
+    ): Response<MovieDetailsDataModel>
 }

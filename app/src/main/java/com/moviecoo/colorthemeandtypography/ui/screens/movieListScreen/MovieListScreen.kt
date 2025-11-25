@@ -59,25 +59,22 @@ import com.moviecoo.colorthemeandtypography.ui.theme.Secondary
 import com.moviecoo.colorthemeandtypography.mapper.toMoviesUiModel
 
 @Composable
-fun MovieListScreen(onSeeAllClick: (String) -> Unit = { _ -> },
-                    navController: NavController,
-                    onFeaturedClick: () -> Unit = {} ,
-                    onRandomClick: () -> Unit = {} ,
-                    onGuessClick: () -> Unit = {}) {
-//    val viewmodel: MovieListViewModel = viewModel()
+fun MovieListScreen(
+    navController: NavController,
+    onFeaturedClick: () -> Unit = {},
+    onRandomClick: () -> Unit = {},
+    onGuessClick: () -> Unit = {},
+    onSeeAllClick: (String) -> Unit = { _ -> },
+    onMovieClick: (MovieUiModel) -> Unit = {}
+) {
+    val viewModel: MovieListViewModel = hiltViewModel()
 
-
-    val viewModel: MovieListViewModel = hiltViewModel() // لو Compose
-
-    val featuresList = remember {  listOf(
-        features("Movie to Mood" , R.drawable.moodtomovie , onFeaturedClick),
-        features("Random Movie" , R.drawable.randommovie , onRandomClick),
-        features("Guess The Movie", R.drawable.guess , onGuessClick)
-
-        )}
-
-
-
+    // Features
+    val featuresList = listOf(
+        features("Movie to Mood", R.drawable.moodtomovie, onFeaturedClick),
+        features("Random Movie", R.drawable.randommovie, onRandomClick),
+        features("Guess The Movie", R.drawable.guess, onGuessClick)
+    )
 
     Scaffold { innerPadding ->
         Column(
@@ -86,35 +83,33 @@ fun MovieListScreen(onSeeAllClick: (String) -> Unit = { _ -> },
                 .background(Primary)
                 .verticalScroll(rememberScrollState())
                 .padding(innerPadding)
-            )
-         {
-
-
-             Spacer(modifier = Modifier.height(25.dp))
-             AppScreenHeader(navController = navController)
+        ) {
+            Spacer(modifier = Modifier.height(25.dp))
+            AppScreenHeader(navController = navController)
             Spacer(modifier = Modifier.height(16.dp))
 
-             LazyRow(
-                 modifier = Modifier.fillMaxWidth().padding(end = 5.dp),
+            LazyRow(
+                modifier = Modifier.fillMaxWidth().padding(end = 2.dp),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                items(featuresList) { item ->
+                    FeaturedMovieitem(onClick = item.onClick, image = item.image)
+                }
+            }
 
-                 horizontalArrangement = Arrangement.Center,
-                 verticalAlignment = Alignment.CenterVertically
-             ) {
-                 items(featuresList) { item ->
-                     FeaturedMovieitem(onClick = item.onClick, image = item.image)
-                 }
-             }
-            Spacer(modifier = Modifier.height(24.dp))
-             MovieSection(title = "Upcoming", onSeeAllClick = onSeeAllClick, showRating = false)
-             Spacer(modifier = Modifier.height(24.dp))
-            MovieSection(title = "Trending Now",onSeeAllClick, showRating = true)
             Spacer(modifier = Modifier.height(24.dp))
 
-             MovieSection(title = "Top Rated", onSeeAllClick,showRating = true)
-             Spacer(modifier = Modifier.height(24.dp))
-
-            MovieSection(title = "New Releases",  onSeeAllClick ,showRating = false)
-            Spacer(modifier = Modifier.height(24.dp))
+            // Movie Sections
+            listOf(
+                "Upcoming" to false,
+                "Trending Now" to true,
+                "Top Rated" to true,
+                "New Releases" to false
+            ).forEach { (title, showRating) ->
+                Spacer(modifier = Modifier.height(24.dp))
+                MovieSection(title = title, showRating = showRating, onMovieClick = onMovieClick , onSeeAllClick = onSeeAllClick)
+            }
         }
     }
 }
@@ -160,31 +155,25 @@ fun FeaturedMovieitem(onClick: () -> Unit , image: Int){
 }
 
 @Composable
+fun MovieSection(
+    title: String,
+    showRating: Boolean,
+    onSeeAllClick: (String) -> Unit = {},
+    onMovieClick: (MovieUiModel) -> Unit = {}
+) {
+    val movieListState = remember { mutableStateOf<MovieDataModel?>(null) }
 
-fun MovieSection(title: String,onSeeAllClick:(String) -> Unit = {_ -> },showRating: Boolean) {
+    LaunchedEffect(Unit) {
+        val response = when(title) {
+            "Trending Now" -> provideMovieApi().fetchMovies()
+            "New Releases" -> provideMovieApi().fetchNowPlayingMovies()
+            "Upcoming" -> provideMovieApi().fetchUpcomingMovies()
+            "Top Rated" -> provideMovieApi().fetchTopRatingMovies()
+            else -> null
+        }
+        movieListState.value = response?.body() as? MovieDataModel
+    }
 
-    val movieListState = remember {
-       mutableStateOf<MovieDataModel?>(null)
-      }
-LaunchedEffect(Unit) {
-    if (title == "Trending Now"){
-    val response = provideMovieApi().fetchMovies()
-    movieListState.value = response.body() as MovieDataModel
-}
-    else if (title == "New Releases"){
-        val response = provideMovieApi().fetchNowPlayingMovies()
-        movieListState.value = response.body() as MovieDataModel
-    }
-    else if (title == "Upcoming"){
-        val response = provideMovieApi().fetchUpcomingMovies()
-        movieListState.value = response.body() as MovieDataModel
-
-    }
-    else if (title == "Top Rated"){
-        val response = provideMovieApi().fetchTopRatingMovies()
-        movieListState.value = response.body() as MovieDataModel
-    }
-}
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -198,71 +187,45 @@ LaunchedEffect(Unit) {
         }
     }
 
-
     LazyRow(
         contentPadding = PaddingValues(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        movieListState.value?.let {
-            items( it.toMoviesUiModel()) {  movieUiModelItem->
-            MovieListItem(movie = movieUiModelItem, showRating = showRating)
+        movieListState.value?.toMoviesUiModel()?.let { list ->
+            items(list) { movie ->
+                MovieListItem(movie = movie, showRating = showRating, onClick = { onMovieClick(movie) })
+            }
         }
-        }
-
     }
 }
 
 
-
 @Composable
-fun MovieListItem(movie: MovieUiModel, showRating: Boolean  = true, modifier: Modifier = Modifier , onClick: (MovieUiModel) -> Unit = {}) {
+fun MovieListItem(
+movie: MovieUiModel,
+showRating: Boolean,
+onClick: () -> Unit ={} ,
+modifier: Modifier = Modifier
+) {
     Column(modifier = Modifier.width(160.dp)) {
-
         Card(
             modifier = Modifier
                 .height(200.dp)
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(8.dp))
-                .clickable{onClick},
-            colors = CardDefaults.cardColors(containerColor =  OnPrimary)
+                .clickable { onClick() },
+            colors = CardDefaults.cardColors(containerColor = OnPrimary)
         ) {
-            Box(modifier = Modifier.fillMaxSize()) {
-               Image ( painter=rememberAsyncImagePainter(
-                    ImageRequest.Builder(LocalContext.current)
-                        .data(movie.image).crossfade(1000)
-                        .build()),
-
-                    contentDescription = movie.title,
-                    modifier = Modifier.fillMaxSize() ,
-                    contentScale = ContentScale.FillBounds
-                )
-
-
-                if (showRating) {
-                    RatingBadge(rating = movie.rating)
-                }
-            }
+            AsyncImage(
+                model = movie.image,
+                contentDescription = movie.title,
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop
+            )
+            if (showRating) RatingBadge(movie.rating)
         }
-
         Spacer(modifier = Modifier.height(8.dp))
-
-
         Text(movie.title, color = Color.White, fontWeight = FontWeight.SemiBold, maxLines = 1)
-
-        Row {
-            Text(movie.year, color = Color.Gray, fontSize = 12.sp)
-            Spacer(modifier = Modifier.width(4.dp))
-            Text("•", color = Color.Gray, fontSize = 12.sp)
-            Spacer(modifier = Modifier.width(4.dp))
-            Text("${movie.rating}", color = Color.Gray, fontSize = 12.sp)
-
-            if (showRating) {
-                Spacer(modifier = Modifier.width(4.dp))
-                Text("•", color = Color.Gray, fontSize = 12.sp)
-                Spacer(modifier = Modifier.width(4.dp))
-                Text(movie.description, color = Color.Gray, fontSize = 12.sp , maxLines = 1)
-            }
-        }
     }
 }
 

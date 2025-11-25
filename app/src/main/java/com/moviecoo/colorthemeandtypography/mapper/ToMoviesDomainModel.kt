@@ -6,6 +6,7 @@ import com.moviecoo.colorthemeandtypography.domain.model.MoviesDomainModel
 fun MovieDataModel.toMoviesDomainModel(): List<MoviesDomainModel>{
     return this.results.map { results ->
        MoviesDomainModel(
+           id = results.id,
            title = results.title,
            year = results.release_date.substring(0,4),
            durationMin = 0,

@@ -19,13 +19,14 @@ import com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen.model.Mov
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.model.MovieDataModel
 
 import com.moviecoo.colorthemeandtypography.mapper.toMoviesUiModel
+import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.model.MovieUiModel
 import com.moviecoo.colorthemeandtypography.ui.screens.seeAllScree.component.MovieSeeAllItem
 import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 import com.moviecoo.colorthemeandtypography.ui.theme.Surface
 
 
 @Composable
-fun SeeAllScreen(title : String ="") {
+fun SeeAllScreen(title : String ="" , onMovieClick: (MovieUiModel) -> Unit = {}) {
     val movieListState = remember {
         mutableStateOf<MovieDataModel?>(null)
     }
@@ -66,7 +67,7 @@ fun SeeAllScreen(title : String ="") {
         ) {
             movieListState.value?.let {
             items(it.toMoviesUiModel()) { movie ->
-                MovieSeeAllItem(movieUiModel = movie)
+                MovieSeeAllItem(movieUiModel = movie , onMovieClick = { onMovieClick(movie) } )
             }
             }
         }

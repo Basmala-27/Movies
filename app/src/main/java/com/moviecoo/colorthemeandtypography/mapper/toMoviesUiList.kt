@@ -8,6 +8,7 @@ import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.model.Mov
 fun List<MoviesDomainModel>.toMovieUiList(): List<MovieUiModel> {
     return this.map { domain ->
         MovieUiModel(
+            id = domain.id,
             title = domain.title,
             year = domain.year,
             description = domain.description ?: "",

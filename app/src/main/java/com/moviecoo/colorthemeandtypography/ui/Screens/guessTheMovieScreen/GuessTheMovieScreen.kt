@@ -1,11 +1,13 @@
 package com.moviecoo.colorthemeandtypography.ui.screens.guessTheMovieScreen
 
 import android.R
+import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.NavigateNext
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -36,17 +38,40 @@ val TextLight = Color(0xFFFFFFFF)
 fun GuessMovieScreen(viewModel: GuessMovieViewModel) {
     val movie = viewModel.movies[viewModel.currentIndex]
     val selectedOption = viewModel.selectedAnswer
+    val backDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
+
+
+
+
 
     Scaffold(
+
         modifier = Modifier.background(BackgroundDeepBlue),
         topBar = {
-            ScoreBanner(score = viewModel.score)
+            Column {
+                IconButton(modifier = Modifier.padding(top = 10.dp),onClick = {
+
+                    backDispatcher?.onBackPressed()
+                }) {
+
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = null,
+                        tint = Color.White
+                    )
+
+
+                }
+
+                ScoreBanner(score = viewModel.score)
+            }
         },
         bottomBar = {
             NextMovieButton(onClick = viewModel::nextMovie)
         },
         containerColor = BackgroundDeepBlue,
         content = { paddingValues ->
+
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -55,7 +80,7 @@ fun GuessMovieScreen(viewModel: GuessMovieViewModel) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
-                // Movie Poster Section (Using more vertical space)
+
                 MoviePoster(posterUrl = movie.poster, contentDescription = movie.title)
 
                 Spacer(Modifier.height(28.dp))
@@ -80,6 +105,7 @@ fun GuessMovieScreen(viewModel: GuessMovieViewModel) {
 fun ScoreBanner(score: Int) {
     TopAppBar(
         modifier = Modifier.padding(top = 10.dp),
+
         title = {
 
             Text(
@@ -92,7 +118,7 @@ fun ScoreBanner(score: Int) {
                 )
         },
         actions = {
-            // Score Card: Clean, high-contrast display
+
             Card(
                 shape = RoundedCornerShape(10.dp),
                 colors = CardDefaults.cardColors(
@@ -119,7 +145,7 @@ fun ScoreBanner(score: Int) {
 
 @Composable
 fun MoviePoster(posterUrl: String, contentDescription: String) {
-    // Large, rounded, and elevated card
+
     Card(
         shape = RoundedCornerShape(16.dp), // More rounded corners
         elevation = CardDefaults.cardElevation(defaultElevation = 10.dp), // Deeper shadow

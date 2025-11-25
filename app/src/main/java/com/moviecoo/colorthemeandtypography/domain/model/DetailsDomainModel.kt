@@ -1,6 +1,7 @@
 package com.moviecoo.colorthemeandtypography.domain.model
 
 data class DetailsDomainModel(
+    val id : Int,
     val title: String,
     val year: String,
     val genre: String,

@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -22,16 +21,18 @@ import androidx.navigation.navArgument
 import com.moviecoo.colorthemeandtypography.common_components.AnimatedBottomBar
 import com.moviecoo.colorthemeandtypography.ui.screens.splashScreen.SplashScreen
 
-import com.moviecoo.colorthemeandtypography.common_components.MovieBottomBar
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.NetworkModule.provideMovieApi
 import com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen.WatchListScreen
+import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.DetailsScreen
+import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.repository.MovieDetailsRepository
+import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.MovieDetailsViewModel
+import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.factory.MovieDetailsViewModelFactory
 import com.moviecoo.colorthemeandtypography.ui.screens.guessTheMovieScreen.GuessMovieScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.moodToMovieScreen.MoodToMovieScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.moodToMovieScreen.moodToMovieViweModel.MoodSelectionScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.MovieListScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.moodToMovie.MoodToMovieRepository
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.viewmodel.MovieListViewModel
-import com.moviecoo.colorthemeandtypography.ui.screens.randomMovieScreen.RandomMovieSpinScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.searchScreen.SearchScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.seeAllScree.SeeAllScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.settingScreen.SettingScreen
@@ -125,7 +126,10 @@ fun AppNavHost(modifier: Modifier = Modifier) {
                     },
                     onRandomClick = { navController.navigate("randomMovie")
                     },
-                    onGuessClick = { navController.navigate("guessTheMovie") }
+                    onGuessClick = { navController.navigate("guessTheMovie") } ,
+                    onMovieClick = { movie -> navController.navigate("movie_details/${movie.id}") }
+
+
                 )
             }
             composable("guessTheMovie") {
@@ -153,11 +157,23 @@ fun AppNavHost(modifier: Modifier = Modifier) {
                 arguments = listOf(navArgument("title") { type = NavType.StringType })
             ) { backStackEntry ->
                 val title = backStackEntry.arguments?.getString("title") ?: ""
-                SeeAllScreen(title = title)
+                SeeAllScreen(title = title , onMovieClick = { movie -> navController.navigate("movie_details/${movie.id}") })
             }
 
             composable("Watch_List_Screen") { WatchListScreen() }
             composable("Setting_Screen") { SettingScreen() }
+            composable(
+                "movie_details/{movieId}",
+                arguments = listOf(navArgument("movieId") { type = NavType.IntType })
+            ) { backStackEntry ->
+                val movieId = backStackEntry.arguments?.getInt("movieId") ?: 0
+                val repository = MovieDetailsRepository(provideMovieApi())
+                val viewModel: MovieDetailsViewModel = viewModel(
+                    factory = MovieDetailsViewModelFactory(repository)
+                )
+
+                DetailsScreen(movieId = movieId, viewModel = viewModel)
+            }
 
 
 
