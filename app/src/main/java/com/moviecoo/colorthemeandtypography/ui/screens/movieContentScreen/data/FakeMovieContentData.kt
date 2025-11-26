@@ -10,14 +10,17 @@ val sampleMovie = MovieContentData(
     description = "Eddie Brock attempts to reignite his career by interviewing serial killer Cletus Kasady," +
             " who becomes the host of the symbiote Carnage and escapes prison after a failed execution.",
     videoThumbnail = R.drawable.film_photo,
-    cast = listOf(R.drawable.actor1,
+    cast = listOf(
+        R.drawable.actor1,
         R.drawable.actor2,
         R.drawable.actor3,
-        R.drawable.actor4),
+        R.drawable.actor4
+    ),
     upNext = listOf(
-        UpNextMovie(R.drawable.movie_avengers, "Avengers"),
-        UpNextMovie(R.drawable.movie_bosslevel, "Boss Level"),
-        UpNextMovie(R.drawable.movie_wrathofman, "Wrath of Man"),
-        UpNextMovie(R.drawable.movie_notimetodie, "No Time To...")
-    )
+        UpNextMovie(posterRes = R.drawable.movie_avengers, title1 =  "Avengers"),
+        UpNextMovie(posterRes = R.drawable.movie_bosslevel, title1 = "Boss Level"),
+        UpNextMovie(posterRes = R.drawable.movie_wrathofman, title1 =  "Wrath of Man"),
+        UpNextMovie(posterRes = R.drawable.movie_notimetodie, title1 =  "No Time To...")
+    ),
+    id = 1
 )

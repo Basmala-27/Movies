@@ -1,6 +1,7 @@
 package com.moviecoo.colorthemeandtypography.navigation
 
 import android.os.Build
+import androidx.annotation.OptIn
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -22,6 +23,7 @@ import com.moviecoo.colorthemeandtypography.common_components.AnimatedBottomBar
 import com.moviecoo.colorthemeandtypography.ui.screens.splashScreen.SplashScreen
 
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.NetworkModule.provideMovieApi
+import com.moviecoo.colorthemeandtypography.mapper.toMovieUiList
 import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.FontSizeViewModel
 import com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen.WatchListScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.DetailsScreen
@@ -31,6 +33,8 @@ import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.factory.Mov
 import com.moviecoo.colorthemeandtypography.ui.screens.guessTheMovieScreen.GuessMovieScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.moodToMovieScreen.MoodToMovieScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.moodToMovieScreen.moodToMovieViweModel.MoodSelectionScreen
+import com.moviecoo.colorthemeandtypography.ui.screens.movieContentScreen.codeOfScreen.MovieContentScreen
+import com.moviecoo.colorthemeandtypography.ui.screens.movieContentScreen.data.sampleMovie
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.MovieListScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.moodToMovie.MoodToMovieRepository
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.viewmodel.MovieListViewModel
@@ -40,7 +44,9 @@ import com.moviecoo.colorthemeandtypography.ui.screens.settingScreen.SettingScre
 import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.SignInScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.signInSignUpScreen.SignInSignUpScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.signUpScreen.SignUpScreen
+import dagger.hilt.android.UnstableApi
 
+@OptIn(UnstableApi::class)
 @Composable
 @RequiresApi(Build.VERSION_CODES.S)
 fun AppNavHost(modifier: Modifier = Modifier, fontSizeViewModel: FontSizeViewModel) {
@@ -178,7 +184,7 @@ fun AppNavHost(modifier: Modifier = Modifier, fontSizeViewModel: FontSizeViewMod
                     factory = MovieDetailsViewModelFactory(repository)
                 )
 
-                DetailsScreen(movieId = movieId, viewModel = viewModel,fontSizeViewModel = fontSizeViewModel)
+                DetailsScreen(movieId = movieId, viewModel = viewModel,fontSizeViewModel = fontSizeViewModel, navController = navController)
             }
 
 
@@ -190,20 +196,32 @@ fun AppNavHost(modifier: Modifier = Modifier, fontSizeViewModel: FontSizeViewMod
 
 
                 val viewModel: MovieListViewModel = hiltViewModel()
-                val moviesList by viewModel.movies.collectAsState()
-
-
-
-                LaunchedEffect(Unit) {
-                    viewModel.fetchMovies()
-                }
 
                 SearchScreen(
                     navController = navController,
-                    moviesList = moviesList,
+                    fontSizeViewModel = fontSizeViewModel
+                )
+
+
+            }
+            composable(
+                "movie_content/{movieId}",
+                arguments = listOf(navArgument("movieId") { type = NavType.IntType })
+            ) { backStackEntry ->
+                val movieId = backStackEntry.arguments?.getInt("movieId") ?: 0
+                val repository = MovieDetailsRepository(provideMovieApi())
+                val viewModel: MovieDetailsViewModel = viewModel(
+                    factory = MovieDetailsViewModelFactory(repository)
+                )
+
+                MovieContentScreen(
+                    // لو عندك بيانات جاهزة
+                    movieId = movieId,
+                    viewModel = viewModel,
                     fontSizeViewModel = fontSizeViewModel
                 )
             }
+
         }
     }
 }

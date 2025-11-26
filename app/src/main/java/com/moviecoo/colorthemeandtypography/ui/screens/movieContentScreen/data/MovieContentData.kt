@@ -3,6 +3,7 @@ package com.moviecoo.colorthemeandtypography.ui.screens.movieContentScreen.data
 import androidx.annotation.DrawableRes
 
 data class MovieContentData(
+    val id: Int,
 val title: String,
 val rating: Double,
 val year: Int,

@@ -7,6 +7,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.FontSizeViewModel
 import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.shimmerEffect.DetailsLoadingScreen
 
@@ -14,6 +15,7 @@ import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.shimmerEffe
 fun DetailsScreen(
     viewModel: MovieDetailsViewModel,
     movieId: Int, fontSizeViewModel: FontSizeViewModel
+    , navController: NavController,
 ) {
     val scale = fontSizeViewModel.fontScale.value
     val movie by viewModel.movieDetails.collectAsState()
@@ -23,7 +25,7 @@ fun DetailsScreen(
     }
 
     movie?.let {
-        MovieDetailsUiScreen(movie = it, fontSizeViewModel = fontSizeViewModel)
+        MovieDetailsUiScreen(movie = it, fontSizeViewModel = fontSizeViewModel , navController)
     } ?: run {
         DetailsLoadingScreen()
     }

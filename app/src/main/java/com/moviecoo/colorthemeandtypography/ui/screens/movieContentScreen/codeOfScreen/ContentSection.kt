@@ -36,17 +36,28 @@ import androidx.compose.ui.unit.sp
 import com.moviecoo.colorthemeandtypography.R
 import com.moviecoo.colorthemeandtypography.common_components.RatingRow
 import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.FontSizeViewModel
+
 import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.LocalFontScale
 import com.moviecoo.colorthemeandtypography.ui.screens.movieContentScreen.data.MovieContentData
 import com.moviecoo.colorthemeandtypography.ui.theme.UserAccount
 
 @Composable
-fun ContentSection(movieContentData: MovieContentData ,fontSizeViewModel: FontSizeViewModel) {
+fun ContentSection(
+    title: String,
+    rating: Double,
+    year: String,
+    genre: String,
+    duration: String,
+    description: String,
+    staticData: MovieContentData, // Supplies the static cast/upnext lists
+    fontSizeViewModel: FontSizeViewModel
+) {
     val scale = fontSizeViewModel.fontScale.value
     Column(modifier = Modifier.padding(16.dp * scale)) {
-        // Title
+
+        // 💡 DYNAMIC DATA
         Text(
-            text = movieContentData.title,
+            text = title,
             color = Color.White,
             fontSize = 32.sp * scale,
             fontWeight = FontWeight.Normal,
@@ -55,20 +66,23 @@ fun ContentSection(movieContentData: MovieContentData ,fontSizeViewModel: FontSi
         Spacer(modifier = Modifier.height(12.dp * scale))
 
         // Rating
-        RatingRow(movieContentData.rating)
+        // NOTE: Assuming RatingRow takes a Float or Double
+        RatingRow(rating)
         Spacer(modifier = Modifier.height(8.dp * scale))
 
         // Movie Info
+        // 💡 DYNAMIC DATA
         Text(
-            text = "${movieContentData.year} | ${movieContentData.genre} | ${movieContentData.duration}",
+            text = "$year | $genre | $duration",
             color = UserAccount,
             fontSize = 18.sp * scale
         )
         Spacer(modifier = Modifier.height(16.dp * scale))
 
         // Description
+        // 💡 DYNAMIC DATA
         Text(
-            text = movieContentData.description,
+            text = description,
             color = UserAccount,
             fontSize = 18.sp * scale,
             lineHeight = 22.sp * scale
@@ -84,9 +98,9 @@ fun ContentSection(movieContentData: MovieContentData ,fontSizeViewModel: FontSi
             fontWeight = FontWeight.Bold
         )
 
-        // Cast List
+        // Cast List (STATIC DATA)
         LazyRow(modifier = Modifier.padding(top = 12.dp * scale)) {
-            items(movieContentData.cast) { actorRes ->
+            items(staticData.cast) { actorRes -> // Use staticData.cast
                 Image(
                     painter = painterResource(actorRes),
                     contentDescription = "Cast member",
@@ -109,7 +123,7 @@ fun ContentSection(movieContentData: MovieContentData ,fontSizeViewModel: FontSi
             fontWeight = FontWeight.Bold
         )
 
-        // Up Next List
+        // Up Next List (STATIC DATA)
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -119,7 +133,7 @@ fun ContentSection(movieContentData: MovieContentData ,fontSizeViewModel: FontSi
                 modifier = Modifier.fillMaxWidth(),
                 contentPadding = PaddingValues(end = 50.dp * scale)
             ) {
-                items(movieContentData.upNext) { movie ->
+                items(staticData.upNext) { movie -> // Use staticData.upNext
                     Column(
                         modifier = Modifier.padding(end = 12.dp * scale),
                         horizontalAlignment = Alignment.CenterHorizontally
@@ -142,8 +156,7 @@ fun ContentSection(movieContentData: MovieContentData ,fontSizeViewModel: FontSi
                     }
                 }
             }
-
-            // Scroll Icon
+            // Scroll Icon (omitted for brevity, but stays here)
             Box(
                 modifier = Modifier
                     .align(Alignment.CenterEnd)

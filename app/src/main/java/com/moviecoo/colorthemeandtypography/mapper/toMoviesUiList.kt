@@ -1,6 +1,7 @@
 package com.moviecoo.colorthemeandtypography.mapper
 
 import com.moviecoo.colorthemeandtypography.data.Constants.Companion.BASE_URL
+import com.moviecoo.colorthemeandtypography.data.Constants.Companion.IMAGE_ENDPOINT
 import com.moviecoo.colorthemeandtypography.domain.model.MoviesDomainModel
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.model.MovieUiModel
 
@@ -14,7 +15,7 @@ fun List<MoviesDomainModel>.toMovieUiList(): List<MovieUiModel> {
             description = domain.description ?: "",
             genre = domain.genre,
             rating = domain.rating,
-            image = BASE_URL + domain.image
+            image = IMAGE_ENDPOINT + domain.image
         )
     }
 }

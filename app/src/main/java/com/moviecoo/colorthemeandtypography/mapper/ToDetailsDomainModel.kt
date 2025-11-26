@@ -1,5 +1,6 @@
 package com.moviecoo.colorthemeandtypography.mapper
 
+import com.moviecoo.colorthemeandtypography.data.Constants.Companion.IMAGE_ENDPOINT
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.model.MovieDataModel
 import com.moviecoo.colorthemeandtypography.domain.model.DetailsDomainModel
 import com.moviecoo.colorthemeandtypography.domain.model.MoviesDomainModel
@@ -13,7 +14,7 @@ fun MovieDataModel.toDetailsDomainModel(): List<DetailsDomainModel>{
             duration = "0",
             genre = results.genre_ids.toString(),
             rating = results.vote_average,
-            image = results.poster_path,
+            image = IMAGE_ENDPOINT + results.poster_path,
             overview = results.overview,
             castImages = emptyList()
         )

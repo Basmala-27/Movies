@@ -22,6 +22,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.moviecoo.colorthemeandtypography.R
 import com.moviecoo.colorthemeandtypography.common_components.TopAppBar
@@ -31,7 +32,7 @@ import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.data.MovieD
 
 
 @Composable
-fun MovieDetailsUiScreen(movie: MovieDetailsUiModel, fontSizeViewModel: FontSizeViewModel) {
+fun MovieDetailsUiScreen(movie: MovieDetailsUiModel, fontSizeViewModel: FontSizeViewModel , navController: NavController) {
     val scale = fontSizeViewModel.fontScale.value
 
     Scaffold(topBar = {
@@ -169,7 +170,7 @@ fun MovieDetailsUiScreen(movie: MovieDetailsUiModel, fontSizeViewModel: FontSize
                         Spacer(modifier = Modifier.width(20.dp * scale))
 
                         Button(
-                            onClick = { /* TODO: Watch now */ },
+                            onClick = {  navController.navigate("movie_content/${movie.id}") },
                             modifier = Modifier
                                 .width(230.dp * scale)
                                 .height(65.dp * scale)

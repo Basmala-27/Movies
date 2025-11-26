@@ -4,6 +4,8 @@ import com.moviecoo.colorthemeandtypography.data.Constants.Companion.MOVIE_NOW_P
 import com.moviecoo.colorthemeandtypography.data.Constants.Companion.MOVIE_TOP_RATED_ENDPOINT
 import com.moviecoo.colorthemeandtypography.data.Constants.Companion.MOVIE_UPCOMING_ENDPOINT
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.model.MovieDataModel
+import com.moviecoo.colorthemeandtypography.mapper.MovieContentDto
+import com.moviecoo.colorthemeandtypography.mapper.VideoResponse
 import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.data.MovieDetailsDataModel
 import retrofit2.Response
 import retrofit2.http.GET
@@ -33,4 +35,20 @@ interface MovieApi {
         @Path("movie_id") movieId: Int,
         @Query("api_key") apiKey: String = "c49820c55b9cfe9e135e6427800d7597"
     ): Response<MovieDetailsDataModel>
+
+
+        @GET("movie/{id}")
+        suspend fun getMovieContent(
+            @Path("id") movieId: Int,
+            @Query("api_key") apiKey: String = "YOUR_API_KEY"
+        ): MovieContentDto
+
+
+    @GET("movie/{movie_id}/videos")
+    suspend fun getMovieVideos(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String = "c49820c55b9cfe9e135e6427800d7597"
+    ): Response<VideoResponse>
+
+
 }
