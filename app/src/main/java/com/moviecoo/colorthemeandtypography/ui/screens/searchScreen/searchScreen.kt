@@ -53,7 +53,6 @@ import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 fun SearchScreen(
     navController: NavController,
     fontSizeViewModel: FontSizeViewModel,
-    moviesList: List<MovieUiModel>,
     modifier: Modifier
 ) {
     val movieListState = remember { mutableStateOf<MovieDataModel?>(null) }
@@ -168,33 +167,33 @@ fun SearchScreen(
     }
 
 }
-@Preview(
-   showBackground = true,
-    showSystemUi = true
-
-)
-@Composable
-private fun PreviewSearchScreen() {
-    val dummyMovies = listOf(
-        MovieUiModel(
-           title = "Inception", rating = 8.8,
-           year = "2015",
-            description = "",
-           genre = "",
-           image = "TODO()",
-            id = 1
-        ),
-
-        )
-
-    val fakeNavController = rememberNavController()
-
-
-   SearchScreen(
-      navController = fakeNavController,
-       moviesList = dummyMovies ,
-       fontSizeViewModel = TODO() ,
-       modifier = Modifier.fillMaxSize()
-    )
-
-}
+//@Preview(
+//   showBackground = true,
+//    showSystemUi = true
+//
+//)
+//@Composable
+//private fun PreviewSearchScreen() {
+//    val dummyMovies = listOf(
+//        MovieUiModel(
+//           title = "Inception", rating = 8.8,
+//           year = "2015",
+//            description = "",
+//           genre = "",
+//           image = "TODO()",
+//            id = 1
+//        ),
+//
+//        )
+//
+//    val fakeNavController = rememberNavController()
+//
+//
+//   SearchScreen(
+//      navController = fakeNavController,
+//       moviesList = dummyMovies ,
+//       fontSizeViewModel = TODO() ,
+//       modifier = Modifier.fillMaxSize()
+//    )
+//
+//}
