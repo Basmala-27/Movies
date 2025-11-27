@@ -2,8 +2,10 @@ package com.moviecoo.colorthemeandtypography.ui.screens.movieContentScreen.codeO
 
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -13,7 +15,11 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.Button
+import androidx.compose.material.icons.automirrored.filled.VolumeUp
+import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.RecordVoiceOver
+import androidx.compose.material.icons.filled.Stop
+import androidx.compose.material.icons.filled.VolumeUp
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -21,42 +27,57 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.FontSizeViewModel
+import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.fontSizeViewModel.FontSizeViewModel
 import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.MovieDetailsViewModel
 import com.moviecoo.colorthemeandtypography.ui.screens.movieContentScreen.data.MovieContentData
 import com.moviecoo.colorthemeandtypography.ui.screens.movieContentScreen.data.sampleMovie
 import com.moviecoo.colorthemeandtypography.ui.theme.GradientBackground
+import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.moviecoo.colorthemeandtypography.ui.screens.movieContentScreen.speechViewModel.SpeechViewModel
 
-
-import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.data.MovieDetailsUiModel // Assuming you have this model
 
 @Composable
 fun MovieContentScreen(
     movieContentData: MovieContentData = sampleMovie,
     movieId: Int,
     viewModel: MovieDetailsViewModel,
-    fontSizeViewModel: FontSizeViewModel
+    fontSizeViewModel: FontSizeViewModel,
+    speechViewModel: SpeechViewModel = viewModel()
 ) {
     val scale = fontSizeViewModel.fontScale.value
     val movieDetails by viewModel.movieDetails.collectAsState()
     val videoKey by viewModel.videoKey.collectAsState()
 
 
+    val speechViewModel: SpeechViewModel = hiltViewModel()
+
+
+//    val context = LocalContext.current
 
     LaunchedEffect(Unit) {
+//        speechViewModel.initTextToSpeech(context)
         viewModel.fetchMovieDetails(movieId)
         viewModel.fetchTrailer(movieId)
     }
 
     val backDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
     val isReady = movieDetails != null
+
+    val isSpeaking by speechViewModel.isSpeaking.collectAsState()
+
+
+
 
     Column(
         modifier = Modifier
@@ -107,6 +128,82 @@ fun MovieContentScreen(
             val details = movieDetails!!
 
 
+
+
+
+//            if (isReady) {
+//                Row(
+//                    modifier = Modifier.fillMaxWidth(),
+//                    horizontalArrangement = Arrangement.End
+//                ) {
+//                    IconButton(
+//                        onClick = {
+//                            val description = movieDetails?.overview ?: ""
+//                            if (!isSpeaking)
+//                                speechViewModel.speak(description)
+//                            else
+//                                speechViewModel.stopSpeaking()
+//                        }
+//                    ) {
+//                        Icon(
+//                            imageVector = if (isSpeaking) Icons.Default.Stop else Icons.Default.PlayArrow,
+//                            contentDescription = null,
+//                            tint = Color.White
+//                        )
+//                    }
+//                }
+//            }
+
+
+
+
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+
+                // Read Description
+                IconButton(onClick = {
+                    speechViewModel.speak(details.overview)
+                }) {
+                    Icon(
+                        imageVector = Icons.Default.VolumeUp,
+                        contentDescription = "Read Description",
+                        tint = Color.White
+                    )
+                }
+
+                // Read All Details
+                IconButton(onClick = {
+                    val fullText = """
+            Title: ${details.title}.
+            Release Year: ${details.year}.
+            Genre: ${details.genre}.
+            Rating: ${details.rating}.
+            Description: ${details.overview}
+        """.trimIndent()
+
+                    speechViewModel.speak(fullText)
+                }) {
+                    Icon(
+                        imageVector = Icons.Default.RecordVoiceOver,
+                        contentDescription = "Read Full Details",
+                        tint = Color.White
+                    )
+                }
+
+                // Stop Speech
+                IconButton(onClick = {
+                    speechViewModel.stopSpeaking()
+                }) {
+                    Icon(
+                        imageVector = Icons.Default.Stop,
+                        contentDescription = "Stop speaking",
+                        tint = Color.Red
+                    )
+                }
+            }
+
+
+
+
             ContentSection(
                 title = details.title,
                 rating = details.rating,
@@ -117,6 +214,13 @@ fun MovieContentScreen(
                 staticData = movieContentData,
                 fontSizeViewModel = fontSizeViewModel
             )
+
+
+
+
+
+
+
 
         }
     }

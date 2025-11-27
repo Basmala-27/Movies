@@ -1,4 +1,4 @@
-package com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel
+package com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.fontSizeViewModel
 
 import androidx.compose.runtime.staticCompositionLocalOf
 

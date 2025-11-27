@@ -2,9 +2,7 @@ package com.moviecoo.colorthemeandtypography.ui.screens.searchScreen
 
 import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,7 +17,6 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -30,7 +27,6 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -42,23 +38,23 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.NetworkModule.provideMovieApi
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.model.MovieDataModel
 import com.moviecoo.colorthemeandtypography.mapper.toMoviesUiModel
-import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.FontSizeViewModel
+import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.fontSizeViewModel.FontSizeViewModel
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.MovieListItem
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.model.MovieUiModel
-import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.viewmodel.MovieListViewModel
 import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 
 
 @Composable
 fun SearchScreen(
     navController: NavController,
-    fontSizeViewModel: FontSizeViewModel
+    fontSizeViewModel: FontSizeViewModel,
+    moviesList: List<MovieUiModel>,
+    modifier: Modifier
 ) {
     val movieListState = remember { mutableStateOf<MovieDataModel?>(null) }
 
@@ -77,8 +73,7 @@ fun SearchScreen(
         var searchedMovies by remember { mutableStateOf(moviesList) }
 
         Column(
-            modifier = Modifier
-                .fillMaxSize()
+            modifier = modifier
                 .background(Primary)
                 .padding(16.dp)
         ) {
@@ -173,35 +168,33 @@ fun SearchScreen(
     }
 
 }
+@Preview(
+   showBackground = true,
+    showSystemUi = true
 
-//@Preview(
-//    showBackground = true,
-//    showSystemUi = true
-//
-//)
+)
+@Composable
+private fun PreviewSearchScreen() {
+    val dummyMovies = listOf(
+        MovieUiModel(
+           title = "Inception", rating = 8.8,
+           year = "2015",
+            description = "",
+           genre = "",
+           image = "TODO()",
+            id = 1
+        ),
 
-//@Composable
-//private fun PreviewSearchScreen() {
-//    val dummyMovies = listOf(
-//        MovieUiModel(
-//            title = "Inception", rating = 8.8,
-//            year = "2015",
-//            description = "",
-//            genre = "",
-//            image = "TODO()",
-//            id = 1
-//        ),
-//
-//        )
-//
-//    val fakeNavController = rememberNavController()
-//
-//
-//    SearchScreen(
-//        navController = fakeNavController,
-//        moviesList = dummyMovies ,
-//        fontSizeViewModel = FontSizeViewModel() ,
-//        modifier = Modifier.fillMaxSize()
-//    )
-//
-//}
+        )
+
+    val fakeNavController = rememberNavController()
+
+
+   SearchScreen(
+      navController = fakeNavController,
+       moviesList = dummyMovies ,
+       fontSizeViewModel = TODO() ,
+       modifier = Modifier.fillMaxSize()
+    )
+
+}

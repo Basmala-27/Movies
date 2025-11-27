@@ -20,10 +20,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.moviecoo.colorthemeandtypography.common_components.TopAppBar
-import com.moviecoo.colorthemeandtypography.R
-import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.FontSizeViewModel
-import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.LocalFontScale
+import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.fontSizeViewModel.FontSizeViewModel
+import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.fontSizeViewModel.LocalFontScale
 
 val DarkBackground = Color(0xFF1E1E2C)
 val CardBackground = Color(0xFF2C2C3E)

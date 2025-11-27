@@ -4,8 +4,6 @@ package com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen
 import androidx.compose.foundation.Image
 import com.moviecoo.colorthemeandtypography.R
 
-import androidx.lifecycle.viewmodel.compose.viewModel
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -20,45 +18,30 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
-import coil.compose.rememberAsyncImagePainter
-import coil.request.ImageRequest
-import com.google.android.material.bottomappbar.BottomAppBar
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.model.MovieUiModel
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.viewmodel.MovieListViewModel
-import com.moviecoo.colorthemeandtypography.common_components.MovieBottomBar
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.NetworkModule.provideMovieApi
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.model.MovieDataModel
-import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.model.Result
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.componant.AppScreenHeader
-import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.data.Movies
-import com.moviecoo.colorthemeandtypography.ui.theme.ColorThemeandTypographyTheme
 import com.moviecoo.colorthemeandtypography.ui.theme.OnPrimary
 import com.moviecoo.colorthemeandtypography.ui.theme.OrangeAccent
 import com.moviecoo.colorthemeandtypography.ui.theme.Primary
-import com.moviecoo.colorthemeandtypography.ui.theme.Secondary
 import com.moviecoo.colorthemeandtypography.mapper.toMoviesUiModel
-import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.FontSizeViewModel
-import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.LocalFontScale
+import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.fontSizeViewModel.FontSizeViewModel
 
 @Composable
 fun MovieListScreen(

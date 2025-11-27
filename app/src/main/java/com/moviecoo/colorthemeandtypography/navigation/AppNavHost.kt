@@ -20,11 +20,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.moviecoo.colorthemeandtypography.common_components.AnimatedBottomBar
-import com.moviecoo.colorthemeandtypography.ui.screens.splashScreen.SplashScreen
+
 
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.NetworkModule.provideMovieApi
-import com.moviecoo.colorthemeandtypography.mapper.toMovieUiList
-import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.FontSizeViewModel
+import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.fontSizeViewModel.FontSizeViewModel
 import com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen.WatchListScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.DetailsScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.repository.MovieDetailsRepository
@@ -34,7 +33,6 @@ import com.moviecoo.colorthemeandtypography.ui.screens.guessTheMovieScreen.Guess
 import com.moviecoo.colorthemeandtypography.ui.screens.moodToMovieScreen.MoodToMovieScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.moodToMovieScreen.moodToMovieViweModel.MoodSelectionScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.movieContentScreen.codeOfScreen.MovieContentScreen
-import com.moviecoo.colorthemeandtypography.ui.screens.movieContentScreen.data.sampleMovie
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.MovieListScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.moodToMovie.MoodToMovieRepository
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.viewmodel.MovieListViewModel
@@ -44,6 +42,7 @@ import com.moviecoo.colorthemeandtypography.ui.screens.settingScreen.SettingScre
 import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.SignInScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.signInSignUpScreen.SignInSignUpScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.signUpScreen.SignUpScreen
+import com.moviecoo.colorthemeandtypography.ui.screens.splashScreen.SplashScreen
 import dagger.hilt.android.UnstableApi
 
 @OptIn(UnstableApi::class)
@@ -196,10 +195,19 @@ fun AppNavHost(modifier: Modifier = Modifier, fontSizeViewModel: FontSizeViewMod
 
 
                 val viewModel: MovieListViewModel = hiltViewModel()
+                val moviesList by viewModel.movies.collectAsState()
+
+
+
+                LaunchedEffect(Unit) {
+                    viewModel.fetchMovies()
+                }
 
                 SearchScreen(
                     navController = navController,
-                    fontSizeViewModel = fontSizeViewModel
+                    moviesList = moviesList,
+                    fontSizeViewModel = fontSizeViewModel,
+                    modifier = modifier
                 )
 
 
