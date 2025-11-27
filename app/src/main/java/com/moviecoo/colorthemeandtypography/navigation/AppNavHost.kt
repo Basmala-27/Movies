@@ -63,6 +63,7 @@ fun AppNavHost(modifier: Modifier = Modifier, fontSizeViewModel: FontSizeViewMod
 
     val selectedIndex = when (currentRoute) {
         "Movie_List_Screen" -> 0
+        "search_screen"-> 1
         "Watch_List_Screen" -> 3
         "Setting_Screen" -> 4
         else -> 0
@@ -77,7 +78,7 @@ fun AppNavHost(modifier: Modifier = Modifier, fontSizeViewModel: FontSizeViewMod
                     onItemSelected = { index ->
                         val route = when(index) {
                             0 -> "Movie_List_Screen"
-                            1 -> "Movie_List_Screen"
+                            1 -> "search_screen"
                             2 -> "Movie_List_Screen"
                             3 -> "Watch_List_Screen"
                             4 -> "Setting_Screen"
@@ -153,12 +154,12 @@ fun AppNavHost(modifier: Modifier = Modifier, fontSizeViewModel: FontSizeViewMod
                 val genreId = backStackEntry.arguments?.getString("genreId")
                 val repository = MoodToMovieRepository(provideMovieApi())
                 MoodToMovieScreen(viewModel = repository, genreId = genreId,
-                    fontSizeViewModel = fontSizeViewModel )
+                    fontSizeViewModel = fontSizeViewModel  , navController = navController)
             }
 
             composable("randomMovie") {
                 val repository = MoodToMovieRepository(provideMovieApi())
-                MoodToMovieScreen(viewModel = repository, fontSizeViewModel = fontSizeViewModel )// تمرير الحجم المشترك)
+                MoodToMovieScreen(viewModel = repository, fontSizeViewModel = fontSizeViewModel  , navController = navController)// تمرير الحجم المشترك)
             }
             composable(
                 "See_All_Screen/{title}",
@@ -195,8 +196,6 @@ fun AppNavHost(modifier: Modifier = Modifier, fontSizeViewModel: FontSizeViewMod
 //              val moviesList = viewModel.movies.collectAsState().value
 
 
-                val viewModel: MovieListViewModel = hiltViewModel()
-
                 SearchScreen(
                     navController = navController,
                     fontSizeViewModel = fontSizeViewModel
@@ -215,7 +214,7 @@ fun AppNavHost(modifier: Modifier = Modifier, fontSizeViewModel: FontSizeViewMod
                 )
 
                 MovieContentScreen(
-                    // لو عندك بيانات جاهزة
+
                     movieId = movieId,
                     viewModel = viewModel,
                     fontSizeViewModel = fontSizeViewModel
