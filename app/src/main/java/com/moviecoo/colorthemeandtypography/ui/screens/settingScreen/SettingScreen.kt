@@ -58,14 +58,14 @@ fun SettingScreen(fontSizeViewModel: FontSizeViewModel) {
     val scrollState = rememberScrollState()
     val scale = fontSizeViewModel.fontScale.value
     Scaffold(
-        topBar = { TopAppBar(showBackButton = true, title = R.string.setting) }
-    ) { innerPadding ->
+        topBar = { TopAppBar(showBackButton = true, title = R.string.setting) } ,
+        ) { innerPadding ->
+
+        Box(modifier = Modifier.fillMaxSize().background(Primary)){
         Column(
             modifier = Modifier
                 .padding(top = innerPadding.calculateTopPadding())
                 .verticalScroll(scrollState)
-                .fillMaxSize()
-                .background(Primary)
                 .padding(vertical = 12.dp * scale)
         ) {
             // ---------- Account Section ----------
@@ -108,6 +108,7 @@ fun SettingScreen(fontSizeViewModel: FontSizeViewModel) {
             Spacer(modifier = Modifier.height(24.dp * scale))
         }
     }
+        }
 }
 
 

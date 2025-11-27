@@ -3,6 +3,7 @@ package com.moviecoo.colorthemeandtypography.ui.screens.moodToMovieScreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.BookmarkBorder
 import androidx.compose.material3.*
@@ -22,6 +23,8 @@ import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.moodToMov
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.navigation.NavController
 import com.moviecoo.colorthemeandtypography.R
 import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.fontSizeViewModel.FontSizeViewModel
 import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.fontSizeViewModel.LocalFontScale
@@ -31,7 +34,8 @@ import com.moviecoo.colorthemeandtypography.ui.screens.randomMovieScreen.RandomM
 fun MoodToMovieScreen(
     viewModel: MoodToMovieRepository,
     genreId: String? = null,
-    fontSizeViewModel: FontSizeViewModel
+    fontSizeViewModel: FontSizeViewModel ,
+    navController: NavController
 ) {
     val scale = LocalFontScale.current
     val movies = remember { mutableStateOf<List<MovieUiModel>>(emptyList()) }
@@ -96,7 +100,8 @@ fun MoodToMovieScreen(
                         modifier = Modifier
                             .weight(1f)
                             .fillMaxWidth()
-                            .padding(horizontal = 20.dp * scale, vertical = 12.dp * scale),
+                            .padding(horizontal = 20.dp * scale, vertical = 12.dp * scale)
+                            .verticalScroll(rememberScrollState()),
                         verticalArrangement = Arrangement.SpaceBetween
                     ) {
                         Column {
@@ -105,6 +110,7 @@ fun MoodToMovieScreen(
                                 color = Color.White,
                                 fontSize = 30.sp * scale,
                                 fontWeight = FontWeight.Bold,
+                                lineHeight = 36.sp * scale,
                                 modifier = Modifier.fillMaxWidth(),
                                 textAlign = TextAlign.Center
                             )
@@ -122,8 +128,7 @@ fun MoodToMovieScreen(
                                 color = Color(0xFFCCCCCC),
                                 fontSize = 18.sp * scale,
                                 fontWeight = FontWeight.Light,
-                                lineHeight = 21.sp * scale,
-                                maxLines = 5
+                                lineHeight = 21.sp * scale
                             )
                             Spacer(modifier = Modifier.height(20.dp * scale))
 
@@ -142,7 +147,7 @@ fun MoodToMovieScreen(
                                 }
                                 Spacer(modifier = Modifier.width(20.dp * scale))
                                 Button(
-                                    onClick = { /* TODO: Watch now */ },
+                                    onClick = { navController.navigate("movie_content/${movie.id}" ) },
                                     modifier = Modifier
                                         .width(230.dp * scale)
                                         .height(65.dp * scale)
