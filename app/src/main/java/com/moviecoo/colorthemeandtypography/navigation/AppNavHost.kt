@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -40,6 +41,7 @@ import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.MovieList
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.moodToMovie.MoodToMovieRepository
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.viewmodel.MovieListViewModel
 import com.moviecoo.colorthemeandtypography.ui.screens.searchScreen.SearchScreen
+import com.moviecoo.colorthemeandtypography.ui.screens.searchScreen.viewModel.SearchViewModel
 import com.moviecoo.colorthemeandtypography.ui.screens.seeAllScree.SeeAllScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.settingScreen.SettingScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.SignInScreen
@@ -50,11 +52,44 @@ import dagger.hilt.android.UnstableApi
 @OptIn(UnstableApi::class)
 @Composable
 @RequiresApi(Build.VERSION_CODES.S)
-fun AppNavHost(modifier: Modifier = Modifier, fontSizeViewModel: FontSizeViewModel) {
+fun AppNavHost(
+    modifier: Modifier = Modifier,
+    fontSizeViewModel: FontSizeViewModel,
+    onLaunchSpeechRecognizer: (vm: MovieListViewModel) -> Unit, // Existing
+    onLaunchSearchVoice: (vm: SearchViewModel) -> Unit // NEW: Voice Search Handler
+) {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
+// --- VOICE NAVIGATION: Retrieve the ViewModel instance ---
 
+    val movieListViewModel: MovieListViewModel = hiltViewModel()
+    // --- VOICE NAVIGATION: Observe Navigation Commands ---
+    val navigationEvent by movieListViewModel.navigationEvent.observeAsState()
+
+    LaunchedEffect(navigationEvent) {
+        navigationEvent?.getContentIfNotHandled()?.let { command ->
+            when (command) {
+                NavigationCommand.ToMovieList -> navController.navigate("Movie_List_Screen") {
+                    popUpTo("Movie_List_Screen") { inclusive = true } // Clear back stack to here
+                }
+                NavigationCommand.ToSettings -> navController.navigate("Setting_Screen")
+                NavigationCommand.ToWatchList -> navController.navigate("Watch_List_Screen")
+                NavigationCommand.ToMoodSelection -> navController.navigate("moodSelection")
+                NavigationCommand.ToRandomMovie -> navController.navigate("randomMovie")
+                NavigationCommand.ToGuessGame -> navController.navigate("guessTheMovie")
+                NavigationCommand.ToSearch -> navController.navigate("search_screen")
+
+                is NavigationCommand.ToDetail -> navController.navigate("movie_details/${command.movieId}")
+                is NavigationCommand.ToSearchByTitle -> {
+                    // Encode the query in case of special characters
+                    val encodedQuery = java.net.URLEncoder.encode(command.query, "UTF-8")
+                    navController.navigate("search_screen?query=")
+                }
+                NavigationCommand.None -> { /* Do nothing */ }
+            }
+        }
+    }
 
     val showBottomBar = currentRoute in listOf(
         "Movie_List_Screen",
@@ -64,6 +99,7 @@ fun AppNavHost(modifier: Modifier = Modifier, fontSizeViewModel: FontSizeViewMod
 
     val selectedIndex = when (currentRoute) {
         "Movie_List_Screen" -> 0
+        "search_screen?query=" -> 1
         "Watch_List_Screen" -> 3
         "Setting_Screen" -> 4
         else -> 0
@@ -78,10 +114,11 @@ fun AppNavHost(modifier: Modifier = Modifier, fontSizeViewModel: FontSizeViewMod
                     onItemSelected = { index ->
                         val route = when(index) {
                             0 -> "Movie_List_Screen"
-                            1 -> "Movie_List_Screen"
+                            1 ->  "search_screen?query="
                             2 -> "Movie_List_Screen"
                             3 -> "Watch_List_Screen"
                             4 -> "Setting_Screen"
+
                             else -> "Movie_List_Screen"
                         }
                         if (route != currentRoute) {
@@ -129,11 +166,11 @@ fun AppNavHost(modifier: Modifier = Modifier, fontSizeViewModel: FontSizeViewMod
             composable("Movie_List_Screen") {
                 MovieListScreen(
                     navController = navController,
+                    viewModel = movieListViewModel, // PASS THE VM
+                    onVoiceCommand = onLaunchSpeechRecognizer, // PASS THE CALLBACK
                     onFeaturedClick = { navController.navigate("moodSelection") },
-                    onSeeAllClick = { title -> navController.navigate("See_All_Screen/$title")
-                    },
-                    onRandomClick = { navController.navigate("randomMovie")
-                    },
+                    onSeeAllClick = { title -> navController.navigate("See_All_Screen/$title") },
+                    onRandomClick = { navController.navigate("randomMovie") },
                     onGuessClick = { navController.navigate("guessTheMovie") } ,
                     onMovieClick = { movie -> navController.navigate("movie_details/${movie.id}") },
                     fontSizeViewModel = fontSizeViewModel
@@ -192,22 +229,22 @@ fun AppNavHost(modifier: Modifier = Modifier, fontSizeViewModel: FontSizeViewMod
 
 
 
-            composable("search_screen") {
-//              val viewModel: MovieListViewModel = viewModel()
-//              val moviesList = viewModel.movies.collectAsState().value
-
-
-
-
+            composable(
+                "search_screen?query={query}",
+                arguments = listOf(navArgument("query") {
+                    type = NavType.StringType
+                    nullable = true
+                    defaultValue = null // Allows navigation using the base route "search_screen"
+                })
+            ) { backStackEntry ->
+                val voiceQuery = backStackEntry.arguments?.getString("query")
                 SearchScreen(
                     navController = navController,
                     fontSizeViewModel = fontSizeViewModel,
                     modifier = Modifier.fillMaxSize(),
-
-                    )
-
-
-
+                    voiceQuery = voiceQuery,
+                    onVoiceSearchClick = onLaunchSearchVoice
+                )
             }
             composable(
                 "movie_content/{movieId}",

@@ -51,4 +51,11 @@ interface MovieApi {
     ): Response<VideoResponse>
 
 
+    @GET("search/movie")
+    suspend fun searchMovie(
+        @Query("api_key") apiKey: String = "c49820c55b9cfe9e135e6427800d7597",
+        @Query("query") query: String
+    ): Response<MovieDataModel>
+
+
 }

@@ -98,6 +98,7 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.52")
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.media3.common.ktx)
+    implementation(libs.androidx.compose.runtime.livedata)
 
     kapt("com.google.dagger:hilt-android-compiler:2.52")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0-alpha01")
@@ -123,8 +124,7 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
     implementation("com.airbnb.android:lottie-compose:6.3.0")
-    // Example: The actual dependency name might vary slightly
 
-    // Change the core dependency to the latest stable version
     implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:13.0.0")
 }
+//ndroidx.lifecycle:lifecycle-livedata-ktx:2.6.2  navigation-fragment

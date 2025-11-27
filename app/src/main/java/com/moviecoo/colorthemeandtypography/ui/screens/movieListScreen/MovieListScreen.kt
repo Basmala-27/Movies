@@ -44,9 +44,12 @@ import com.moviecoo.colorthemeandtypography.mapper.toMoviesUiModel
 import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.fontSizeViewModel.FontSizeViewModel
 
 @Composable
+@OptIn(ExperimentalMaterial3Api::class)
 fun MovieListScreen(
     navController: NavController,
     fontSizeViewModel: FontSizeViewModel,
+    viewModel: MovieListViewModel = hiltViewModel(),
+    onVoiceCommand: (vm: MovieListViewModel) -> Unit,
     onFeaturedClick: () -> Unit = {},
     onRandomClick: () -> Unit = {},
     onGuessClick: () -> Unit = {},
@@ -55,8 +58,6 @@ fun MovieListScreen(
 ) {
     val scale = fontSizeViewModel.fontScale.value
 
-    val viewModel: MovieListViewModel = hiltViewModel()
-
     // Features
     val featuresList = listOf(
         features("Movie to Mood", R.drawable.moodtomovie, onFeaturedClick),
@@ -64,7 +65,31 @@ fun MovieListScreen(
         features("Guess The Movie", R.drawable.guess, onGuessClick)
     )
 
-    Scaffold { innerPadding ->
+    Scaffold (topBar = {
+        TopAppBar(
+
+            title = {
+                AppScreenHeader(navController = navController)
+            },
+            actions = {
+
+                IconButton(
+                    onClick = { onVoiceCommand(viewModel) }
+                ) {
+                    Icon(
+                        Icons.Filled.Mic,
+                        contentDescription = "Voice Command",
+                        tint = OrangeAccent,
+                        modifier = Modifier.size(32.dp * scale)
+                    )
+                }
+            },
+            colors = TopAppBarDefaults.topAppBarColors(
+                containerColor = Primary // Use your background color
+            )
+        )
+    }
+    ){ innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -73,7 +98,8 @@ fun MovieListScreen(
                 .padding(innerPadding)
         ) {
             Spacer(modifier = Modifier.height(25.dp * scale))
-            AppScreenHeader(navController = navController)
+
+
             Spacer(modifier = Modifier.height(16.dp * scale))
 
             LazyRow(
