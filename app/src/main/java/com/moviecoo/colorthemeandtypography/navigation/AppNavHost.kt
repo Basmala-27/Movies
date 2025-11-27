@@ -24,7 +24,7 @@ import com.moviecoo.colorthemeandtypography.ui.screens.splashScreen.SplashScreen
 
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.NetworkModule.provideMovieApi
 import com.moviecoo.colorthemeandtypography.mapper.toMovieUiList
-import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.fontSizeViewModel.FontSizeViewModel
+import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.fontSizeViewModel.FontSizeViewModel
 import com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen.WatchListScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.DetailsScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.repository.MovieDetailsRepository
@@ -153,12 +153,12 @@ fun AppNavHost(modifier: Modifier = Modifier, fontSizeViewModel: FontSizeViewMod
                 val genreId = backStackEntry.arguments?.getString("genreId")
                 val repository = MoodToMovieRepository(provideMovieApi())
                 MoodToMovieScreen(viewModel = repository, genreId = genreId,
-                    fontSizeViewModel = fontSizeViewModel )
+                    fontSizeViewModel = fontSizeViewModel, navController = navController )
             }
 
             composable("randomMovie") {
                 val repository = MoodToMovieRepository(provideMovieApi())
-                MoodToMovieScreen(viewModel = repository, fontSizeViewModel = fontSizeViewModel )// تمرير الحجم المشترك)
+                MoodToMovieScreen(viewModel = repository, fontSizeViewModel = fontSizeViewModel , navController = navController)// تمرير الحجم المشترك)
             }
             composable(
                 "See_All_Screen/{title}",
@@ -196,14 +196,22 @@ fun AppNavHost(modifier: Modifier = Modifier, fontSizeViewModel: FontSizeViewMod
 
 
                 val viewModel: MovieListViewModel = hiltViewModel()
+                val moviesList by viewModel.movies.collectAsState()
+
+
+
+                LaunchedEffect(Unit) {
+                    viewModel.fetchMovies()
+                }
 
                 SearchScreen(
                     navController = navController,
-                    fontSizeViewModel = fontSizeViewModel
+                    moviesList = moviesList,
+                    fontSizeViewModel = fontSizeViewModel,
+                    modifier = modifier
                 )
-
-
             }
+
             composable(
                 "movie_content/{movieId}",
                 arguments = listOf(navArgument("movieId") { type = NavType.IntType })
