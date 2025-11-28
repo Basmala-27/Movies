@@ -1,3 +1,12 @@
+import java.io.File
+import java.io.FileInputStream
+import java.util.Properties
+
+val properties = Properties()
+properties.load(FileInputStream(rootProject.file("local.properties")))
+
+rootProject.ext.set("GEMINI_API_KEY", properties.getProperty("GEMINI_API_KEY"))
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -12,13 +21,15 @@ android {
     namespace = "com.moviecoo.colorthemeandtypography"
     compileSdk = 36
 
+
     defaultConfig {
         applicationId = "com.moviecoo.colorthemeandtypography"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
-
+        val geminiApiKey = project.findProperty("GEMINI_API_KEY") as String? ?: ""
+        buildConfigField("String", "GEMINI_API_KEY", "\"$geminiApiKey\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -43,6 +54,7 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 
     composeOptions {
