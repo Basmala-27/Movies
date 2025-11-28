@@ -1,5 +1,5 @@
 package com.moviecoo.colorthemeandtypography.ui.screens.geminiAssist.repository
-
+import com.moviecoo.colorthemeandtypography.BuildConfig
 import com.google.ai.client.generativeai.GenerativeModel
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -7,13 +7,10 @@ import javax.inject.Singleton
 @Singleton
 class GeminiRepository @Inject constructor() {
 
-    // ⚠️ HARDCODED KEY. USE SECURE BuildConfig IN PRODUCTION.
-    private val GEMINI_API_KEY = "AIzaSyARUihBIOiF-Dm3Aoz_M2vwIBAEVLzlc7I"
-
     // Initialize the Generative Model
     private val generativeModel = GenerativeModel(
         modelName = "gemini-2.5-flash", // Use modelName parameter
-        apiKey = GEMINI_API_KEY
+        apiKey = BuildConfig.GEMINI_API_KEY
     )
 
     suspend fun generateContent(prompt: String): String {
