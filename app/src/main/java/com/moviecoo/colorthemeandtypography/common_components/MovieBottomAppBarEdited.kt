@@ -65,7 +65,6 @@ fun AnimatedBottomBar(
     val items = listOf(
         BottomNavItem("Home", Icons.Default.Home, Color(0xFF428EC2)),
         BottomNavItem("Chat", Icons.Outlined.ChatBubbleOutline, Color(0xFF5CDAB6)),
-        BottomNavItem("Find", Icons.Default.Search, Color(0xFF5CDAB6)),
         BottomNavItem(
             "Feed",
             Icons.Default.Favorite,

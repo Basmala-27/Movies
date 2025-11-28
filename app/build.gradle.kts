@@ -1,3 +1,12 @@
+import java.io.File
+import java.io.FileInputStream
+import java.util.Properties
+
+val properties = Properties()
+properties.load(FileInputStream(rootProject.file("local.properties")))
+
+rootProject.ext.set("GEMINI_API_KEY", properties.getProperty("GEMINI_API_KEY"))
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -18,6 +27,9 @@ android {
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
+
+        val geminiApiKey = project.findProperty("GEMINI_API_KEY") as String? ?: ""
+        buildConfigField("String", "GEMINI_API_KEY", "\"$geminiApiKey\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -43,6 +55,7 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 
     composeOptions {
@@ -51,6 +64,28 @@ android {
 }
 
 dependencies {
+
+    implementation(libs.androidx.compose.runtime.livedata)
+    implementation("androidx.compose.animation:animation:1.7.4")
+    implementation("androidx.compose.material:material-icons-extended:1.7.5") // Latest
+
+    // Compose & Navigation
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.navigation.compose)
+
+    // Gemini AI SDK (FIXED DEPENDENCY)
+    implementation("com.google.ai.client.generativeai:generativeai:0.9.0")
+
+    // Coroutines (Ensures compatibility)
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1") // Updated version
+
+    // Core Android/Kotlin
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.coil.compose)
     implementation(libs.coil)
     implementation("com.google.code.gson:gson:2.13.2")
@@ -135,5 +170,17 @@ dependencies {
 
     implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
     implementation("com.google.firebase:firebase-firestore-ktx")
+
+
+    // Image Loading
+    implementation("io.coil-kt:coil-compose:2.6.0")
+
+    // Firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
+    implementation("com.google.firebase:firebase-auth-ktx")
+
+    // YouTube/Lottie/Other
+    implementation("com.airbnb.android:lottie-compose:6.3.0")
+    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:13.0.0")
 
 }
