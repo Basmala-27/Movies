@@ -54,7 +54,8 @@ fun MovieListScreen(
     onRandomClick: () -> Unit = {},
     onGuessClick: () -> Unit = {},
     onSeeAllClick: (String) -> Unit = { _ -> },
-    onMovieClick: (MovieUiModel) -> Unit = {}
+    onMovieClick: (MovieUiModel) -> Unit = {} ,
+    onAssistantClick: () -> Unit,
 ) {
     val scale = fontSizeViewModel.fontScale.value
 
@@ -72,6 +73,16 @@ fun MovieListScreen(
                 AppScreenHeader(navController = navController)
             },
             actions = {
+                IconButton(
+                    onClick = onAssistantClick // Call the navigation function
+                ) {
+                    Icon(
+                        Icons.Filled.HelpOutline, // Using a help or chat icon
+                        contentDescription = "AI Assistant",
+                        tint = OrangeAccent,
+                        modifier = Modifier.size(32.dp * scale)
+                    )
+                }
 
                 IconButton(
                     onClick = { onVoiceCommand(viewModel) }

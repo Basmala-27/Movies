@@ -16,10 +16,10 @@ import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
-import androidx.media3.common.Timeline
 import com.moviecoo.colorthemeandtypography.helpers.PermissionHelper
 import com.moviecoo.colorthemeandtypography.navigation.AppNavHost
 import com.moviecoo.colorthemeandtypography.services.ServiceStarter
+import com.moviecoo.colorthemeandtypography.ui.screens.geminiAssist.viewModel.AssistantViewModel
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.viewmodel.MovieListViewModel
 import com.moviecoo.colorthemeandtypography.ui.screens.searchScreen.viewModel.SearchViewModel
 import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.fontSizeViewModel.FontSizeViewModel
@@ -84,6 +84,30 @@ class MainActivity : ComponentActivity() {
     }
 
 
+    private var assistantVoiceViewModel: AssistantViewModel? = null
+    private val assistantRecognizerLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val spokenText: String? = result.data?.getStringArrayListExtra(
+                RecognizerIntent.EXTRA_RESULTS)?.get(0)
+
+            spokenText?.let { command ->
+                assistantVoiceViewModel?.sendPrompt(command) // Call the VM's sendPrompt
+            }
+        }
+    }
+
+    private fun handleAssistantVoiceLaunch(vm: AssistantViewModel) {
+        assistantVoiceViewModel = vm
+
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak your movie question...")
+        }
+        assistantRecognizerLauncher.launch(intent)
+    }
+
 
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -111,7 +135,8 @@ class MainActivity : ComponentActivity() {
                     AppNavHost(
                         fontSizeViewModel = fontSizeViewModel,
                         onLaunchSpeechRecognizer = ::handleVoiceCommandLaunch, // Main Nav
-                        onLaunchSearchVoice = ::handleSearchVoiceLaunch       // NEW: Search Voice
+                        onLaunchSearchVoice = ::handleSearchVoiceLaunch ,
+                        onLaunchAssistantVoice = ::handleAssistantVoiceLaunch// NEW: Search Voice
                     )
                 }
             }

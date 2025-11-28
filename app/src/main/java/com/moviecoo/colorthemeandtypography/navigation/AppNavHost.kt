@@ -32,6 +32,8 @@ import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.DetailsScre
 import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.repository.MovieDetailsRepository
 import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.MovieDetailsViewModel
 import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.factory.MovieDetailsViewModelFactory
+import com.moviecoo.colorthemeandtypography.ui.screens.geminiAssist.AssistantScreen
+import com.moviecoo.colorthemeandtypography.ui.screens.geminiAssist.viewModel.AssistantViewModel
 import com.moviecoo.colorthemeandtypography.ui.screens.guessTheMovieScreen.GuessMovieScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.moodToMovieScreen.MoodToMovieScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.moodToMovieScreen.moodToMovieViweModel.MoodSelectionScreen
@@ -55,8 +57,9 @@ import dagger.hilt.android.UnstableApi
 fun AppNavHost(
     modifier: Modifier = Modifier,
     fontSizeViewModel: FontSizeViewModel,
-    onLaunchSpeechRecognizer: (vm: MovieListViewModel) -> Unit, // Existing
-    onLaunchSearchVoice: (vm: SearchViewModel) -> Unit // NEW: Voice Search Handler
+    onLaunchSpeechRecognizer: (vm: MovieListViewModel) -> Unit,
+    onLaunchSearchVoice: (vm: SearchViewModel) -> Unit,
+    onLaunchAssistantVoice: (vm: AssistantViewModel) -> Unit // NEW HANDLER
 ) {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -173,7 +176,10 @@ fun AppNavHost(
                     onRandomClick = { navController.navigate("randomMovie") },
                     onGuessClick = { navController.navigate("guessTheMovie") } ,
                     onMovieClick = { movie -> navController.navigate("movie_details/${movie.id}") },
-                    fontSizeViewModel = fontSizeViewModel
+                    fontSizeViewModel = fontSizeViewModel ,
+                    onAssistantClick = {
+                        navController.navigate("assistant_screen")
+                    },
                 )
             }
             composable("guessTheMovie") {
@@ -261,6 +267,11 @@ fun AppNavHost(
                     movieId = movieId,
                     viewModel = viewModel,
                     fontSizeViewModel = fontSizeViewModel
+                )
+            }
+            composable("assistant_screen") {
+                AssistantScreen(
+                    onVoiceInputClicked = onLaunchAssistantVoice
                 )
             }
 
