@@ -44,18 +44,20 @@ import com.moviecoo.colorthemeandtypography.mapper.toMoviesUiModel
 import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.fontSizeViewModel.FontSizeViewModel
 
 @Composable
+@OptIn(ExperimentalMaterial3Api::class)
 fun MovieListScreen(
     navController: NavController,
     fontSizeViewModel: FontSizeViewModel,
+    viewModel: MovieListViewModel = hiltViewModel(),
+    onVoiceCommand: (vm: MovieListViewModel) -> Unit,
     onFeaturedClick: () -> Unit = {},
     onRandomClick: () -> Unit = {},
     onGuessClick: () -> Unit = {},
     onSeeAllClick: (String) -> Unit = { _ -> },
-    onMovieClick: (MovieUiModel) -> Unit = {}
+    onMovieClick: (MovieUiModel) -> Unit = {} ,
+    onAssistantClick: () -> Unit,
 ) {
     val scale = fontSizeViewModel.fontScale.value
-
-    val viewModel: MovieListViewModel = hiltViewModel()
 
     // Features
     val featuresList = listOf(
@@ -64,7 +66,41 @@ fun MovieListScreen(
         features("Guess The Movie", R.drawable.guess, onGuessClick)
     )
 
-    Scaffold { innerPadding ->
+    Scaffold (topBar = {
+        TopAppBar(
+
+            title = {
+                AppScreenHeader(navController = navController)
+            },
+            actions = {
+                IconButton(
+                    onClick = onAssistantClick // Call the navigation function
+                ) {
+                    Icon(
+                        Icons.Filled.HelpOutline, // Using a help or chat icon
+                        contentDescription = "AI Assistant",
+                        tint = OrangeAccent,
+                        modifier = Modifier.size(32.dp * scale)
+                    )
+                }
+
+                IconButton(
+                    onClick = { onVoiceCommand(viewModel) }
+                ) {
+                    Icon(
+                        Icons.Filled.Mic,
+                        contentDescription = "Voice Command",
+                        tint = OrangeAccent,
+                        modifier = Modifier.size(32.dp * scale)
+                    )
+                }
+            },
+            colors = TopAppBarDefaults.topAppBarColors(
+                containerColor = Primary // Use your background color
+            )
+        )
+    }
+    ){ innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -73,7 +109,8 @@ fun MovieListScreen(
                 .padding(innerPadding)
         ) {
             Spacer(modifier = Modifier.height(25.dp * scale))
-            AppScreenHeader(navController = navController)
+
+
             Spacer(modifier = Modifier.height(16.dp * scale))
 
             LazyRow(
