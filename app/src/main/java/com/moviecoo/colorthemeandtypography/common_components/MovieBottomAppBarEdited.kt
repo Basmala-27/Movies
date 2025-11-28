@@ -41,8 +41,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.BlurredEdgeTreatment
-
-
+import androidx.compose.material.icons.filled.Forum
+import androidx.compose.material.icons.outlined.ChatBubbleOutline
 
 
 // ---------------------------------------------
@@ -64,11 +64,12 @@ fun AnimatedBottomBar(
 ) {
     val items = listOf(
         BottomNavItem("Home", Icons.Default.Home, Color(0xFF428EC2)),
+        BottomNavItem("Chat", Icons.Outlined.ChatBubbleOutline, Color(0xFF5CDAB6)),
         BottomNavItem("Find", Icons.Default.Search, Color(0xFF5CDAB6)),
         BottomNavItem(
             "Feed",
             Icons.Default.Favorite,
-            Color(0xFFFF1E1E), // أحمر ناري
+            Color(0xFFFF1E1E),
             badgeCount = feedItemCount
         ),
         BottomNavItem("Saved", Icons.Outlined.BookmarkBorder, Color(0xFFB34CC5)),

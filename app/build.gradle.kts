@@ -127,4 +127,13 @@ dependencies {
 
     // Change the core dependency to the latest stable version
     implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:13.0.0")
+
+
+
+    implementation("com.google.ai.client.generativeai:generativeai:0.7.0")
+
+
+    implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
+    implementation("com.google.firebase:firebase-firestore-ktx")
+
 }

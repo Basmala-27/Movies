@@ -30,6 +30,7 @@ import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.DetailsScre
 import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.repository.MovieDetailsRepository
 import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.MovieDetailsViewModel
 import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.factory.MovieDetailsViewModelFactory
+import com.moviecoo.colorthemeandtypography.ui.screens.generalChat.ChatScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.guessTheMovieScreen.GuessMovieScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.moodToMovieScreen.MoodToMovieScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.moodToMovieScreen.moodToMovieViweModel.MoodSelectionScreen
@@ -58,11 +59,13 @@ fun AppNavHost(modifier: Modifier = Modifier, fontSizeViewModel: FontSizeViewMod
     val showBottomBar = currentRoute in listOf(
         "Movie_List_Screen",
         "Watch_List_Screen",
-      "Setting_Screen"
+        "Setting_Screen",
+        "chat_screen"
     )
 
     val selectedIndex = when (currentRoute) {
         "Movie_List_Screen" -> 0
+        "chat_screen" -> 1
         "Watch_List_Screen" -> 3
         "Setting_Screen" -> 4
         else -> 0
@@ -77,7 +80,7 @@ fun AppNavHost(modifier: Modifier = Modifier, fontSizeViewModel: FontSizeViewMod
                     onItemSelected = { index ->
                         val route = when(index) {
                             0 -> "Movie_List_Screen"
-                            1 -> "Movie_List_Screen"
+                            1 -> "chat_screen"
                             2 -> "Movie_List_Screen"
                             3 -> "Watch_List_Screen"
                             4 -> "Setting_Screen"
@@ -125,6 +128,14 @@ fun AppNavHost(modifier: Modifier = Modifier, fontSizeViewModel: FontSizeViewMod
                     onSignInClick = { navController.navigate("Sign_In_Screen") }
                 )
             }
+
+
+
+            composable("chat_screen") {
+                ChatScreen()
+            }
+
+
             composable("Movie_List_Screen") {
                 MovieListScreen(
                     navController = navController,
@@ -158,7 +169,7 @@ fun AppNavHost(modifier: Modifier = Modifier, fontSizeViewModel: FontSizeViewMod
 
             composable("randomMovie") {
                 val repository = MoodToMovieRepository(provideMovieApi())
-                MoodToMovieScreen(viewModel = repository, fontSizeViewModel = fontSizeViewModel , navController = navController)// تمرير الحجم المشترك)
+                MoodToMovieScreen(viewModel = repository, fontSizeViewModel = fontSizeViewModel , navController = navController)
             }
             composable(
                 "See_All_Screen/{title}",
