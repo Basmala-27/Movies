@@ -17,10 +17,10 @@ val sampleMovie = MovieContentData(
         R.drawable.actor4
     ),
     upNext = listOf(
-        UpNextMovie(posterRes = R.drawable.movie_avengers, title1 =  "Avengers"),
-        UpNextMovie(posterRes = R.drawable.movie_bosslevel, title1 = "Boss Level"),
-        UpNextMovie(posterRes = R.drawable.movie_wrathofman, title1 =  "Wrath of Man"),
-        UpNextMovie(posterRes = R.drawable.movie_notimetodie, title1 =  "No Time To...")
+        UpNextMovie(1,posterUrl = "https://image.tmdb.org/t/p/w500/avengers.jpg", title1 = "Avengers"),
+        UpNextMovie(2,posterUrl = "https://image.tmdb.org/t/p/w500/bosslevel.jpg", title1 = "Boss Level"),
+        UpNextMovie(3,posterUrl = "https://image.tmdb.org/t/p/w500/wrathofman.jpg", title1 = "Wrath of Man"),
+        UpNextMovie(4,posterUrl = "https://image.tmdb.org/t/p/w500/notimetodie.jpg", title1 = "No Time To...")
     ),
     id = 1
 )

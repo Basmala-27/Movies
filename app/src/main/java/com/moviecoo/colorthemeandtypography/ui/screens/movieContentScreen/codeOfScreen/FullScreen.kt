@@ -44,6 +44,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.moviecoo.colorthemeandtypography.ui.screens.movieContentScreen.speechViewModel.SpeechViewModel
 
 
@@ -53,7 +54,9 @@ fun MovieContentScreen(
     movieId: Int,
     viewModel: MovieDetailsViewModel,
     fontSizeViewModel: FontSizeViewModel,
-    speechViewModel: SpeechViewModel = viewModel()
+    speechViewModel: SpeechViewModel = viewModel(),
+    detailsViewModel: MovieDetailsViewModel = viewModel() ,
+    navController: NavController  // ← هنا أضفتي NavController// <--- النوع محدد صراحة
 ) {
     val scale = fontSizeViewModel.fontScale.value
     val movieDetails by viewModel.movieDetails.collectAsState()
@@ -69,6 +72,9 @@ fun MovieContentScreen(
 //        speechViewModel.initTextToSpeech(context)
         viewModel.fetchMovieDetails(movieId)
         viewModel.fetchTrailer(movieId)
+        viewModel.fetchCast(movieId)   // ← هنا التصحيح
+        viewModel.fetchSimilarMovies(movieId)   // ← أضفها هنا
+
     }
 
     val backDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
@@ -212,7 +218,9 @@ fun MovieContentScreen(
                 duration = details.duration + "min",
                 description = details.overview,
                 staticData = movieContentData,
-                fontSizeViewModel = fontSizeViewModel
+                fontSizeViewModel = fontSizeViewModel,
+                detailsViewModel = viewModel,
+                navController = navController   // مرري نفس الـ ViewModel
             )
 
 

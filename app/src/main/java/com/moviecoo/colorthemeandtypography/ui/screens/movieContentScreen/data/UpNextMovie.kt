@@ -8,6 +8,7 @@ import androidx.annotation.DrawableRes
 //    val title1: String
 //)
 data class UpNextMovie(
+    val id: Int,
     val title1: String,
-    val posterRes: Int
+    val posterUrl: String?
 )
