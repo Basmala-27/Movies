@@ -1,9 +1,11 @@
 package com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.repository
 
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.api.MovieApi
+import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.model.CastMember
 import com.moviecoo.colorthemeandtypography.mapper.toMovieDetailsUiModel
+import com.moviecoo.colorthemeandtypography.ui.Screens.detailsScreen.data.CastUiModel
 import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.data.MovieDetailsUiModel
-import dagger.hilt.android.lifecycle.HiltViewModel
+import com.moviecoo.colorthemeandtypography.ui.screens.movieContentScreen.data.UpNextMovie
 
 
 class MovieDetailsRepository(private val api: MovieApi) {
@@ -41,4 +43,42 @@ class MovieDetailsRepository(private val api: MovieApi) {
         // Return null if API call was unsuccessful
         return null
     }
+    suspend fun getMovieCredits(movieId: Int): List<CastUiModel> {
+        val response = api.getMovieCredits(movieId)
+
+        if (response.isSuccessful) {
+            val body = response.body() ?: throw Exception("Empty credits response")
+            return body.cast.map { it.toDomainModel() }.take(10)   // أول 10 فقط
+        } else {
+            throw Exception("API Error: ${response.code()}")
+        }
+    }
+
+    fun CastMember.toDomainModel(): CastUiModel {
+        return CastUiModel(
+            name = name,
+            imageUrl = profile_path?.let { "https://image.tmdb.org/t/p/w200$it" }
+        )
+    }
+
+
+
+    suspend fun getSimilarMovies(movieId: Int): List<UpNextMovie> {
+        val response = api.getSimilarMovies(movieId)
+
+        return if (response.isSuccessful) {
+            val movies = response.body()?.results ?: emptyList()
+
+            movies.map { movie ->
+                UpNextMovie(
+                    id = movie.id ?: 0,
+                    title1 = movie.title ?: "",
+                    posterUrl = movie.poster_path
+                )
+            }
+        } else {
+            emptyList()
+        }
+    }
+
 }

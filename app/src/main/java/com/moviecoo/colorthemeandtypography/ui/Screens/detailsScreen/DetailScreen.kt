@@ -3,6 +3,8 @@ package com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen
 import androidx.compose.runtime.*
 import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavController
+import com.moviecoo.colorthemeandtypography.ui.Screens.WatchListScreen.component.WatchlistStorage
+import com.moviecoo.colorthemeandtypography.ui.Screens.WatchListScreen.component.WatchlistStorage.isSaved
 import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.fontSizeViewModel.FontSizeViewModel
 import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.shimmerEffect.DetailsLoadingScreen
 
@@ -17,6 +19,9 @@ fun DetailsScreen(
 
     LaunchedEffect(movieId) {
         viewModel.fetchMovieDetails(movieId)
+        viewModel.fetchCast(movieId)   // ← هنا التصحيح
+        viewModel.fetchSimilarMovies(movieId)   // ← أضفها هنا
+
     }
 
     movie?.let {

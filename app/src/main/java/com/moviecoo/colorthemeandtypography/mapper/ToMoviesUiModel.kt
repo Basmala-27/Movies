@@ -6,6 +6,7 @@ import com.moviecoo.colorthemeandtypography.data.Constants.Companion.BASE_URL
 import com.moviecoo.colorthemeandtypography.data.Constants.Companion.IMAGE_ENDPOINT
 import com.moviecoo.colorthemeandtypography.data.Constants.Companion.MOVIE_ENDPOINT
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.model.MovieDataModel
+import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.data.MovieDetailsUiModel
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.model.MovieUiModel
 
 fun MovieDataModel.toMoviesUiModel(): List<MovieUiModel>{

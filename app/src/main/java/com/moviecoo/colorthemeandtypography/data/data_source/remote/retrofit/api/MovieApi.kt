@@ -3,6 +3,7 @@ import com.moviecoo.colorthemeandtypography.data.Constants.Companion.MOVIE_ENDPO
 import com.moviecoo.colorthemeandtypography.data.Constants.Companion.MOVIE_NOW_PLAYING_ENDPOINT
 import com.moviecoo.colorthemeandtypography.data.Constants.Companion.MOVIE_TOP_RATED_ENDPOINT
 import com.moviecoo.colorthemeandtypography.data.Constants.Companion.MOVIE_UPCOMING_ENDPOINT
+import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.model.CreditsResponse
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.model.MovieDataModel
 import com.moviecoo.colorthemeandtypography.mapper.MovieContentDto
 import com.moviecoo.colorthemeandtypography.mapper.VideoResponse
@@ -57,5 +58,18 @@ interface MovieApi {
         @Query("query") query: String
     ): Response<MovieDataModel>
 
+    @GET("movie/{movie_id}/credits")
+    suspend fun getMovieCredits(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String = "c49820c55b9cfe9e135e6427800d7597"
+    ): Response<CreditsResponse>
+
+    @GET("movie/{movie_id}/similar")
+    suspend fun getSimilarMovies(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String = "c49820c55b9cfe9e135e6427800d7597",
+        @Query("language") language: String = "en-US",
+        @Query("page") page: Int = 1
+    ): Response<MovieDataModel>
 
 }

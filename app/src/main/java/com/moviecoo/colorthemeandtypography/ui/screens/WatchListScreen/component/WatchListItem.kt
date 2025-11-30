@@ -3,6 +3,7 @@ package com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen.componen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -36,25 +37,27 @@ import com.moviecoo.colorthemeandtypography.R
 import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.fontSizeViewModel.FontSizeViewModel
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.model.MovieUiModel
 import com.moviecoo.colorthemeandtypography.ui.theme.Primary
-
 @Composable
 fun MovieWatchListItem(
-    modifier: Modifier = Modifier,
     movieUiModel: MovieUiModel,
-    fontSizeViewModel: FontSizeViewModel
+    fontSizeViewModel: FontSizeViewModel,
+    onClick: () -> Unit
 ) {
     val scale = fontSizeViewModel.fontScale.value
 
     Box(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxWidth() // بدل fillMaxSize()
             .background(Color(0xFF09274C))
             .padding(vertical = 8.dp * scale)
+            .clickable { onClick() }   // ← هنا
+
     ){
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp * scale, vertical = 8.dp * scale),
+                .padding(horizontal = 16.dp * scale, vertical = 8.dp * scale)
+                .clickable { onClick() },   // ← هنا
             shape = MaterialTheme.shapes.large,
             elevation = CardDefaults.cardElevation(4.dp),
             colors = CardDefaults.cardColors(containerColor = Primary)

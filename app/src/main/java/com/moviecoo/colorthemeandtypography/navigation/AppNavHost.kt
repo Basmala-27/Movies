@@ -95,17 +95,19 @@ fun AppNavHost(
     val showBottomBar = currentRoute in listOf(
         "Movie_List_Screen",
         "Watch_List_Screen",
-        "Setting_Screen",
-        "chat_screen"
+        "Favorite_Screen",   // ← إضافة مهمة جدًا
+        "Setting_Screen"
     )
 
     val selectedIndex = when (currentRoute) {
         "Movie_List_Screen" -> 0
-        "chat_screen" -> 1
+        "search_screen?query=" -> 1
+        "Favorite_Screen" -> 2     // ← هنا
         "Watch_List_Screen" -> 3
         "Setting_Screen" -> 4
         else -> 0
     }
+
 
     Scaffold(
         bottomBar = {
@@ -116,12 +118,13 @@ fun AppNavHost(
                     onItemSelected = { index ->
                         val route = when(index) {
                             0 -> "Movie_List_Screen"
-                            1 -> "chat_screen"
-                            2 -> "Movie_List_Screen"
+                            1 -> "search_screen?query="
+                            2 -> "Favorite_Screen"   // ← هنا التعديل
                             3 -> "Watch_List_Screen"
                             4 -> "Setting_Screen"
                             else -> "Movie_List_Screen"
                         }
+
                         if (route != currentRoute) {
                             navController.navigate(route) {
                                 launchSingleTop = true
@@ -170,6 +173,7 @@ fun AppNavHost(
             composable("chat_screen") {
                 ChatScreen()
             }
+
 
 
             composable("Movie_List_Screen") {
@@ -221,7 +225,8 @@ fun AppNavHost(
                     onMovieClick = { movie -> navController.navigate("movie_details/${movie.id}") })
             }
 
-            composable("Watch_List_Screen") { WatchListScreen(fontSizeViewModel = fontSizeViewModel) }
+            composable("Watch_List_Screen") { WatchListScreen(navController = navController,
+                fontSizeViewModel = fontSizeViewModel) }
 
             composable("Setting_Screen") {
                 SettingScreen(fontSizeViewModel = fontSizeViewModel)
@@ -238,10 +243,6 @@ fun AppNavHost(
 
                 DetailsScreen(movieId = movieId, viewModel = viewModel,fontSizeViewModel = fontSizeViewModel, navController = navController)
             }
-
-
-
-
 
             composable(
                 "search_screen?query={query}",
@@ -277,10 +278,10 @@ fun AppNavHost(
                     // لو عندك بيانات جاهزة
                     movieId = movieId,
                     viewModel = viewModel,
-                    fontSizeViewModel = fontSizeViewModel
+                    fontSizeViewModel = fontSizeViewModel,
+                    navController = navController
+
                 )
-
-
             }
             composable("assistant_screen") {
                 AssistantScreen(

@@ -1,5 +1,6 @@
 package com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.data
 
+
 data class MovieDetailsUiModel(
     val id: Int,
     val title: String,
