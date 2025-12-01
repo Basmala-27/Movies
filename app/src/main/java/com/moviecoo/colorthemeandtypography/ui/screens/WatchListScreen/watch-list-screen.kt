@@ -57,7 +57,8 @@ fun WatchListScreen(navController: NavController, fontSizeViewModel: FontSizeVie
                 MovieWatchListItem(
                     movieUiModel = movie.toMovieUiModel(),
                     fontSizeViewModel = fontSizeViewModel,
-                    onClick = { navController.navigate("movie_details/${movie.id}") }
+                    onClick = { navController.navigate("movie_details/${movie.id}") },
+                    onFavoriteClick = {} // ← تمرير فارغ مؤقت
                 )
             }
         }

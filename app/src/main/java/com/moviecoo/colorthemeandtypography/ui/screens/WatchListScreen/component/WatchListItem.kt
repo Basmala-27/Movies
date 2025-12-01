@@ -41,7 +41,8 @@ import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 fun MovieWatchListItem(
     movieUiModel: MovieUiModel,
     fontSizeViewModel: FontSizeViewModel,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    onFavoriteClick: () -> Unit // ← أضيفي هنا
 ) {
     val scale = fontSizeViewModel.fontScale.value
 
