@@ -1,11 +1,13 @@
 package com.moviecoo.colorthemeandtypography.ui.screens.settingScreen
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,6 +22,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.navigation.NavController
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ExitToApp
+import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
@@ -50,14 +56,17 @@ import androidx.compose.ui.unit.sp
 import com.moviecoo.colorthemeandtypography.R
 import com.moviecoo.colorthemeandtypography.common_components.TopAppBar
 import com.moviecoo.colorthemeandtypography.services.notification.NotificationService
+import com.moviecoo.colorthemeandtypography.ui.Screens.settingScreen.inviteFriendRow
 import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.fontSizeViewModel.FontSizeViewModel
 import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 
 
 @Composable
-fun SettingScreen(fontSizeViewModel: FontSizeViewModel) {
+fun SettingScreen(fontSizeViewModel: FontSizeViewModel, navController: NavController) {
     val scrollState = rememberScrollState()
     val scale = fontSizeViewModel.fontScale.value
+    val context = LocalContext.current
+
     Scaffold(
         topBar = { TopAppBar(showBackButton = true, title = R.string.setting) } ,
         ) { innerPadding ->
@@ -104,7 +113,7 @@ fun SettingScreen(fontSizeViewModel: FontSizeViewModel) {
                 modifier = Modifier.padding(horizontal = 16.dp * scale)
             )
             Spacer(modifier = Modifier.height(12.dp * scale))
-            supportCard(fontSizeViewModel) // ✅ صح
+            supportCard(fontSizeViewModel, navController)
 
             Spacer(modifier = Modifier.height(24.dp * scale))
         }
@@ -208,28 +217,8 @@ fun generalCard(fontSizeViewModel: FontSizeViewModel, scale: Float) {
             )
 
             // ---------- Invite a Friend ----------
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp * scale, vertical = 16.dp * scale),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = "Invite a Friend",
-                    fontFamily = FontFamily(Font(R.font.staatliches_regular)),
-                    fontSize = 20.sp * scale,
-                    color = Color(0xFF505664)
-                )
+            inviteFriendRow(scale)  // استدعاء الـ Composable الجاهز
 
-                Spacer(modifier = Modifier.weight(1f))
-
-                Icon(
-                    painter = painterResource(id = R.drawable.right),
-                    contentDescription = "Go to Dark Mode",
-                    tint = Color.Black,
-                    modifier = Modifier.size(30.dp * scale)
-                )
-            }
         }
     }
 }
@@ -238,8 +227,9 @@ fun generalCard(fontSizeViewModel: FontSizeViewModel, scale: Float) {
 
 
 @Composable
-fun supportCard(fontSizeViewModel: FontSizeViewModel) {
+fun supportCard(fontSizeViewModel: FontSizeViewModel, navController: NavController) {
     val scale = fontSizeViewModel.fontScale.value
+    val context = LocalContext.current
 
     Card(
         modifier = Modifier
@@ -257,7 +247,30 @@ fun supportCard(fontSizeViewModel: FontSizeViewModel) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp * scale, vertical = 16.dp * scale),
+                        .padding(horizontal = 16.dp * scale, vertical = 16.dp * scale)
+                        .clickable {
+                            when (text) {
+                                "Terms of Services" -> {
+                                    navController.navigate("dummy_terms_screen")
+                                }
+                                "Contact Us" -> {
+                                    val emailIntent = Intent(Intent.ACTION_SEND).apply {
+                                        type = "text/plain"
+                                        putExtra(Intent.EXTRA_EMAIL, arrayOf("asmaasayed01278591728@gmail.com"))
+                                        putExtra(Intent.EXTRA_SUBJECT, "MovieCoo Inquiry")
+                                        putExtra(Intent.EXTRA_TEXT, "Hello MovieCoo team,")
+                                    }
+                                    try {
+                                        context.startActivity(Intent.createChooser(emailIntent, "Send email using:"))
+                                    } catch (e: Exception) {
+                                        Toast.makeText(context, "No email app found.", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                                "Report a Problem" -> {
+                                    navController.navigate("report_problem_screen")
+                                }
+                            }
+                        },
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
@@ -285,18 +298,14 @@ fun supportCard(fontSizeViewModel: FontSizeViewModel) {
                     )
                 }
             }
-
             Spacer(modifier = Modifier.weight(1f))
         }
     }
 }
-
-
-
-
 @Composable
 fun accountCard(fontSizeViewModel: FontSizeViewModel) {
     val scale = fontSizeViewModel.fontScale.value
+    val context = LocalContext.current
 
     Card(
         modifier = Modifier
@@ -312,33 +321,24 @@ fun accountCard(fontSizeViewModel: FontSizeViewModel) {
                 .padding(10.dp * scale),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.profile_icon),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .size(60.dp * scale)
-                    .clip(CircleShape)
+            Text(
+                text = "Welcome to MovieCoo! 🎬",
+                fontFamily = FontFamily(Font(R.font.poppins_medium)),
+                fontSize = 18.sp * scale,
+                color = Color.Black
             )
-
-            Spacer(modifier = Modifier.width(6.dp * scale))
-
-            Column(verticalArrangement = Arrangement.Center) {
-                Text(
-                    text = "Welcome, Riju Basu",
-                    fontFamily = FontFamily(Font(R.font.poppins_medium)),
-                    fontSize = 18.sp * scale,
-                    color = Color.Black
-                )
-            }
 
             Spacer(Modifier.weight(1f))
 
             Icon(
-                painter = painterResource(id = R.drawable.exit_icon),
-                contentDescription = null,
+                imageVector = Icons.Default.ExitToApp,
+                contentDescription = "Exit App",
                 tint = Color.Black,
-                modifier = Modifier.size(24.dp * scale)
+                modifier = Modifier
+                    .size(30.dp * scale)
+                    .clickable {
+                        (context as? Activity)?.finishAffinity()
+                    }
             )
         }
     }

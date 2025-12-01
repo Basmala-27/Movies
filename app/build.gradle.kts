@@ -134,6 +134,7 @@ dependencies {
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.media3.common.ktx)
     implementation(libs.firebase.crashlytics.buildtools)
+    implementation("androidx.compose.material3:material3:1.2.1")
 
     kapt("com.google.dagger:hilt-android-compiler:2.52")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0-alpha01")

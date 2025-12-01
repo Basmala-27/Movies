@@ -29,6 +29,8 @@ import com.moviecoo.colorthemeandtypography.ui.screens.geminiAssist.viewModel.As
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.NetworkModule.provideMovieApi
 import com.moviecoo.colorthemeandtypography.mapper.toMovieUiList
 import com.moviecoo.colorthemeandtypography.ui.Screens.favoriteScreen.FavoriteScreen
+import com.moviecoo.colorthemeandtypography.ui.Screens.settingScreen.ReportProblemScreen
+import com.moviecoo.colorthemeandtypography.ui.Screens.settingScreen.TermsScreenWithCard
 import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.fontSizeViewModel.FontSizeViewModel
 import com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen.WatchListScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.DetailsScreen
@@ -175,6 +177,9 @@ fun AppNavHost(
                 ChatScreen()
             }
 
+            composable("report_problem_screen") {
+                ReportProblemScreen(scale = fontSizeViewModel.fontScale.value)
+            }
 
 
             composable("Movie_List_Screen") {
@@ -226,12 +231,20 @@ fun AppNavHost(
                     onMovieClick = { movie -> navController.navigate("movie_details/${movie.id}") })
             }
 
+            composable("dummy_terms_screen") {
+                val fontSizeViewModel: FontSizeViewModel = hiltViewModel()
+                val scale = fontSizeViewModel.fontScale.value
+                TermsScreenWithCard(scale = scale)
+            }
+
+
             composable("Watch_List_Screen") { WatchListScreen(navController = navController,
                 fontSizeViewModel = fontSizeViewModel) }
 
             composable("Setting_Screen") {
-                SettingScreen(fontSizeViewModel = fontSizeViewModel)
+                SettingScreen(fontSizeViewModel = fontSizeViewModel, navController = navController)
             }
+
 
             composable("Favorite_Screen") {
                 FavoriteScreen(

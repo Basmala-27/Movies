@@ -7,5 +7,7 @@
     <string name="moodSelection">Mood to Movie</string>
     <string name="moodToMovie">" "</string>
     <string name="favoritelist">favoritelist</string>
+    <string name="termsOfMoviecoo">termsOfMoviecoo</string>
+    <string name="reportProblem">reportProblem</string>
 
 </resources>
