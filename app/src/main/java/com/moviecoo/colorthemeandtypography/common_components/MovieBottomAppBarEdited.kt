@@ -68,7 +68,7 @@ fun AnimatedBottomBar(
         BottomNavItem(
             "Feed",
             Icons.Default.Favorite,
-            Color(0xFFFF1E1E),
+            Color(0xFFFA1E1E),
             badgeCount = feedItemCount
         ),
         BottomNavItem("Saved", Icons.Outlined.BookmarkBorder, Color(0xFFB34CC5)),

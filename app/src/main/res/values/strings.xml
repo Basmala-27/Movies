@@ -6,5 +6,6 @@
     <string name="allMovies">All Movies</string>
     <string name="moodSelection">Mood to Movie</string>
     <string name="moodToMovie">" "</string>
+    <string name="favoritelist">favoritelist</string>
 
 </resources>

@@ -49,7 +49,9 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.moviecoo.colorthemeandtypography.R
 import com.moviecoo.colorthemeandtypography.common_components.TopAppBar
+import com.moviecoo.colorthemeandtypography.mapper.toMovieUiModel
 import com.moviecoo.colorthemeandtypography.ui.Screens.WatchListScreen.component.WatchlistStorage
+import com.moviecoo.colorthemeandtypography.ui.Screens.favoriteScreen.FavoriteStorage
 import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.fontSizeViewModel.FontSizeViewModel
 import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.data.MovieDetailsUiModel
 import com.moviecoo.colorthemeandtypography.ui.theme.UserAccount
@@ -68,6 +70,7 @@ fun MovieDetailsUiScreen(movie: MovieDetailsUiModel, fontSizeViewModel: FontSize
 
     LaunchedEffect(movie.id) {
         isSaved = WatchlistStorage.isSaved(context, movie.id)
+        isFavorite = FavoriteStorage.isSaved(context, movie.id)
     }
 
 
@@ -392,20 +395,22 @@ fun MovieDetailsUiScreen(movie: MovieDetailsUiModel, fontSizeViewModel: FontSize
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 // قلب للحفظ
+                // قلب للحفظ في المفضلات
                 IconButton(
                     onClick = {
-
+                        if (isFavorite) {
+                            FavoriteStorage.removeMovie(context, movie.id)
+                        } else {
+                            FavoriteStorage.saveMovie(context, movie.toMovieUiModel())
+                        }
+                        isFavorite = !isFavorite
                     }
                 ) {
                     Icon(
                         imageVector = Icons.Default.Favorite,
                         contentDescription = "Favorite",
                         tint = if (isFavorite) Color.Red else Color.White,
-                        modifier = Modifier
-                            .size(30.dp * scale)
-                            .clickable {
-                                isFavorite = !isFavorite
-                            }
+                        modifier = Modifier.size(30.dp * scale)
                     )
                 }
 

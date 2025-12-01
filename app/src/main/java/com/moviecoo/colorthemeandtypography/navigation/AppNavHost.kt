@@ -28,6 +28,7 @@ import com.moviecoo.colorthemeandtypography.ui.screens.geminiAssist.AssistantScr
 import com.moviecoo.colorthemeandtypography.ui.screens.geminiAssist.viewModel.AssistantViewModel
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.NetworkModule.provideMovieApi
 import com.moviecoo.colorthemeandtypography.mapper.toMovieUiList
+import com.moviecoo.colorthemeandtypography.ui.Screens.favoriteScreen.FavoriteScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.fontSizeViewModel.FontSizeViewModel
 import com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen.WatchListScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.DetailsScreen
@@ -231,6 +232,14 @@ fun AppNavHost(
             composable("Setting_Screen") {
                 SettingScreen(fontSizeViewModel = fontSizeViewModel)
             }
+
+            composable("Favorite_Screen") {
+                FavoriteScreen(
+                    navController = navController,
+                    fontSizeViewModel = fontSizeViewModel
+                )
+            }
+
             composable(
                 "movie_details/{movieId}",
                 arguments = listOf(navArgument("movieId") { type = NavType.IntType })

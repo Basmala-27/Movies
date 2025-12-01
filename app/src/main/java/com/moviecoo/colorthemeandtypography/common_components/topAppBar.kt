@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.moviecoo.colorthemeandtypography.R
 import com.moviecoo.colorthemeandtypography.ui.theme.Surface
@@ -29,7 +30,7 @@ import com.moviecoo.colorthemeandtypography.ui.theme.Surface
 fun TopAppBar(
     showBackButton: Boolean = false,
     @StringRes title: Int  = R.string.moodToMovie,
-    backgroundColor: Color = Surface,
+    backgroundColor: Color = Surface
 ) {
     val backDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
     CenterAlignedTopAppBar(
