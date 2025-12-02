@@ -23,7 +23,6 @@ fun FavoriteScreen(
     navController: NavController,
     fontSizeViewModel: FontSizeViewModel // من غير = hiltViewModel()
 ) {
-
     val context = LocalContext.current
     var favorites by remember { mutableStateOf(FavoriteStorage.getMovies(context)) }
 

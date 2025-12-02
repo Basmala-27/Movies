@@ -19,6 +19,7 @@ import androidx.compose.runtime.getValue
 import com.moviecoo.colorthemeandtypography.helpers.PermissionHelper
 import com.moviecoo.colorthemeandtypography.navigation.AppNavHost
 import com.moviecoo.colorthemeandtypography.services.ServiceStarter
+import com.moviecoo.colorthemeandtypography.ui.Screens.errorScreen.NetworkHandlerScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.geminiAssist.viewModel.AssistantViewModel
 import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.viewmodel.MovieListViewModel
 import com.moviecoo.colorthemeandtypography.ui.screens.searchScreen.viewModel.SearchViewModel
@@ -132,12 +133,14 @@ class MainActivity : ComponentActivity() {
                             WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
                     }
 
-                    AppNavHost(
-                        fontSizeViewModel = fontSizeViewModel,
-                        onLaunchSpeechRecognizer = ::handleVoiceCommandLaunch, // Main Nav
-                        onLaunchSearchVoice = ::handleSearchVoiceLaunch ,
-                        onLaunchAssistantVoice = ::handleAssistantVoiceLaunch// NEW: Search Voice
-                    )
+                    NetworkHandlerScreen {   // ← هنا
+                        AppNavHost(
+                            fontSizeViewModel = fontSizeViewModel,
+                            onLaunchSpeechRecognizer = ::handleVoiceCommandLaunch,
+                            onLaunchSearchVoice = ::handleSearchVoiceLaunch,
+                            onLaunchAssistantVoice = ::handleAssistantVoiceLaunch
+                        )
+                    }
                 }
             }
         }
