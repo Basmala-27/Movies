@@ -1,7 +1,7 @@
 # ![Kotlin](https://img.shields.io/badge/Kotlin-7F52FF?style=flat&logo=kotlin&logoColor=white)
 # Moveicoo — Movie Application
 
-> Moveicoo is a modern and user-friendly Android movie app that allows users to browse, save, and discover movies effortlessly. The app offers features like favorites, random movie roulette, mood-based suggestions, AI chatbot, voice navigation, and adjustable font sizes.
+> Moveicoo is a modern and user-friendly Android movie app that allows users to browse, save, and discover movies effortlessly. The app offers features like favorites, random movie roulette, mood-based suggestions, AI chatbot, voice navigation, search by voice, adjustable font sizes, and movie scene descriptions. The app also integrates **accessibility features** to ensure a seamless experience for all users, including voice guidance, large text support, and easy navigation for users with different needs.
 
 ---
 
@@ -105,34 +105,46 @@ Moveicoo helps movie lovers enjoy the latest films without going to the cinema. 
 ## Screenshots
 
 ### Splash Screen
-![Splash Screen](screenshots/splash.png)
+(![WhatsApp Image 2025-12-02 at 22 29 25_28ba39e5](https://github.com/user-attachments/assets/9b7ea94b-916c-450f-a805-1759de6a1de8)
+)
 
 ### Login / Signup
-![Login Screen](screenshots/login.png)
-![Signup Screen](screenshots/signup.png)
+![WhatsApp Image 2025-12-02 at 22 29 25_c13d584f](https://github.com/user-attachments/assets/123a9909-a3d4-405a-b70f-89762f4f4605)
+![WhatsApp Image 2025-12-02 at 22 29 25_66a0d9d7](https://github.com/user-attachments/assets/d09664c6-4836-43a1-adaa-e70b8ddd7a7f)
+![WhatsApp Image 2025-12-02 at 22 29 26_4aef2e3f](https://github.com/user-attachments/assets/a810b080-8440-41f6-b0d0-5e81d9c6ba65)
 
 ### Home Screen
-![Home Screen](screenshots/home.png)
+![WhatsApp Image 2025-12-02 at 22 29 26_12a55177](https://github.com/user-attachments/assets/9438ab00-850d-4f3d-96e1-083ec3fcbdeb)
 
 ### Movie Details
-![Movie Details](screenshots/movie_details.png)
+![WhatsApp Image 2025-12-02 at 22 29 27_5ce4d631](https://github.com/user-attachments/assets/44ecb2f6-cd25-4f08-a519-b97d0ddee2f9)
 
 ### Random Movie Wheel
-![Random Movie](screenshots/random_movie.png)
+![WhatsApp Image 2025-12-02 at 22 39 29_d52882a2](https://github.com/user-attachments/assets/1169baa1-c962-4611-9433-9cc59cc14223)
 
 ### Favorites & Saved
-![Favorites Screen](screenshots/favorites.png)
+![WhatsApp Image 2025-12-02 at 22 29 28_22b65740](https://github.com/user-attachments/assets/56bf126f-4971-4b6d-8fd0-3a2fdbc7592e)
 
 ### Mood-Based Movie
-![Mood Screen](screenshots/mood.png)
+![WhatsApp Image 2025-12-02 at 22 29 26_45d94a8b](https://github.com/user-attachments/assets/9c841667-e817-4d11-8b9e-0f9714c0fb95)
 
 ### ChatBot
-![ChatBot](screenshots/chatbot.png)
+![WhatsApp Image 2025-12-02 at 22 29 29_3e170e66](https://github.com/user-attachments/assets/a234fb24-1c89-4b7c-80a2-4c670df1e862)
 
 ### Quiz Screen
-![Quiz Screen](screenshots/quiz.png)
+![WhatsApp Image 2025-12-02 at 22 29 28_3adba9c4](https://github.com/user-attachments/assets/66cefb80-df1f-473f-8d1a-40781584a95c)
 
-> **Note:** ضع كل صورة في مجلد `screenshots/` داخل المشروع بنفس الأسماء.
+### General Chat Screen
+![WhatsApp Image 2025-12-02 at 22 29 27_4615be26](https://github.com/user-attachments/assets/11129a76-d471-4ec8-b0a1-e723feba31b4)
+
+### Watch Now Screen
+![WhatsApp Image 2025-12-03 at 00 03 26_7e332cdc](https://github.com/user-attachments/assets/34f66cf6-5038-4eb4-9168-94405906a11a)
+
+### Settings Screen
+![WhatsApp Image 2025-12-02 at 22 29 30_68c09b22](https://github.com/user-attachments/assets/b0ebfd6c-2fab-4c8a-a8c2-68f05587af09)
+
+### Search Screen
+![WhatsApp Image 2025-12-02 at 22 29 29_480b38b5](https://github.com/user-attachments/assets/80154cd8-c9bd-4bba-9bc3-07c6cb0ee33e)
 
 ---
 
