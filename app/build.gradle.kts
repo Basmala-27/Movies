@@ -168,7 +168,8 @@ dependencies {
 
 
     implementation("com.google.ai.client.generativeai:generativeai:0.7.0")
-
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation("androidx.datastore:datastore-core:1.0.0")
 
     implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
     implementation("com.google.firebase:firebase-firestore-ktx")

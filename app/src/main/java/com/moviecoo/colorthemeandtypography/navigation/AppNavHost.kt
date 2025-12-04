@@ -29,8 +29,10 @@ import com.moviecoo.colorthemeandtypography.ui.screens.geminiAssist.viewModel.As
 import com.moviecoo.colorthemeandtypography.data.data_source.remote.retrofit.NetworkModule.provideMovieApi
 import com.moviecoo.colorthemeandtypography.mapper.toMovieUiList
 import com.moviecoo.colorthemeandtypography.ui.Screens.favoriteScreen.FavoriteScreen
+import com.moviecoo.colorthemeandtypography.ui.Screens.onBoardingScreen.OnboardingScreen
 import com.moviecoo.colorthemeandtypography.ui.Screens.settingScreen.ReportProblemScreen
 import com.moviecoo.colorthemeandtypography.ui.Screens.settingScreen.TermsScreenWithCard
+import com.moviecoo.colorthemeandtypography.ui.Screens.splashScreen.SplashDestination
 import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.fontSizeViewModel.FontSizeViewModel
 import com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen.WatchListScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.detailsScreen.DetailsScreen
@@ -110,8 +112,6 @@ fun AppNavHost(
         "Setting_Screen" -> 4
         else -> 0
     }
-
-
     Scaffold(
         bottomBar = {
             if (showBottomBar) {
@@ -148,10 +148,28 @@ fun AppNavHost(
             modifier = modifierWithPadding
         ) {
             composable("splash_screen") {
-                SplashScreen(
-                    onTimeOut = { navController.navigate("Sign_In_Sign_Up_Screen") }
-                )
+                SplashScreen { destination ->
+                    when(destination) {
+                        SplashDestination.SIGN_IN -> {
+                            navController.navigate("sign_in_sign_up_screen") {
+                                popUpTo("splash_screen") { inclusive = true }
+                            }
+                        }
+                        SplashDestination.MOVIE_LIST -> {
+                            navController.navigate("movie_list_screen") {
+                                popUpTo("splash_screen") { inclusive = true }
+                            }
+                        }
+                        SplashDestination.ONBOARDING -> {
+                            navController.navigate("onboarding_screen") {
+                                popUpTo("splash_screen") { inclusive = true }
+                            }
+                        }
+                    }
+                }
             }
+
+
             composable("Sign_In_Sign_Up_Screen") {
                 SignInSignUpScreen(
                     onSignInClicked = { navController.navigate("Sign_In_Screen") },
@@ -310,6 +328,12 @@ fun AppNavHost(
                     onVoiceInputClicked = onLaunchAssistantVoice
                 )
             }
+
+            composable("onboarding_screen") {
+                OnboardingScreen(navController = navController)
+            }
+
+
 
         }
     }
