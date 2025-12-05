@@ -32,6 +32,7 @@ import com.moviecoo.colorthemeandtypography.ui.Screens.favoriteScreen.FavoriteSc
 import com.moviecoo.colorthemeandtypography.ui.Screens.onBoardingScreen.OnboardingScreen
 import com.moviecoo.colorthemeandtypography.ui.Screens.settingScreen.ReportProblemScreen
 import com.moviecoo.colorthemeandtypography.ui.Screens.settingScreen.TermsScreenWithCard
+import com.moviecoo.colorthemeandtypography.ui.Screens.signInScreen.signInScreen.SignInScreen
 import com.moviecoo.colorthemeandtypography.ui.Screens.splashScreen.SplashDestination
 import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.fontSizeViewModel.FontSizeViewModel
 import com.moviecoo.colorthemeandtypography.ui.screens.WatchListScreen.WatchListScreen
@@ -51,7 +52,6 @@ import com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen.viewmodel
 import com.moviecoo.colorthemeandtypography.ui.screens.searchScreen.SearchScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.seeAllScree.SeeAllScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.settingScreen.SettingScreen
-import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.SignInScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.signInSignUpScreen.SignInSignUpScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.signUpScreen.SignUpScreen
 import dagger.hilt.android.UnstableApi
@@ -270,7 +270,6 @@ fun AppNavHost(
                     fontSizeViewModel = fontSizeViewModel
                 )
             }
-
             composable(
                 "movie_details/{movieId}",
                 arguments = listOf(navArgument("movieId") { type = NavType.IntType })
@@ -332,8 +331,6 @@ fun AppNavHost(
             composable("onboarding_screen") {
                 OnboardingScreen(navController = navController)
             }
-
-
 
         }
     }

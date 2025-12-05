@@ -27,9 +27,15 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.sp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.moviecoo.colorthemeandtypography.R
+import com.moviecoo.colorthemeandtypography.common_components.AppNameAnimated
+import com.moviecoo.colorthemeandtypography.common_components.AuthButton
+import com.moviecoo.colorthemeandtypography.common_components.CustomOutlinedTextField
+import com.moviecoo.colorthemeandtypography.common_components.LoadingOverlay
 
 import com.moviecoo.colorthemeandtypography.ui.theme.OnPrimary
+import kotlinx.coroutines.suspendCancellableCoroutine
 
 
 @Composable
@@ -37,52 +43,31 @@ fun SignUpScreen(
     onSignUpClick: (String, String) -> Unit = { _, _ -> },
     onSignInClick: () -> Unit  = {  }
 ) {
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var emailError by remember { mutableStateOf("") }
+    var passwordError by remember { mutableStateOf("") }
+    var showPassword by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    var isLoadingScreen by remember { mutableStateOf(false) }
+    val auth = FirebaseAuth.getInstance()
+
     Scaffold { innerPadding ->
-        Box(
-            modifier = Modifier
-//                .padding(innerPadding)
-                .fillMaxSize()
-//             .padding(innerPadding)
-        ) {
+        Box(modifier = Modifier.fillMaxSize()) {
 
+            // Background image
+            Image(
+                painter = painterResource(R.drawable.signinsignupscreenbackgound),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize()
+            )
 
-            val context = LocalContext.current
-            val imageId = remember {
-                context.resources.getIdentifier("signin_signupscreen", "drawable", context.packageName)
-            }
-
-            if (imageId != 0) {
-                Image(
-                    painter = painterResource(id = imageId),
-                    contentDescription = null,
-                    modifier = Modifier.fillMaxSize(),
-                    contentScale = ContentScale.Crop
-                )
-            } else {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(MaterialTheme.colorScheme.surfaceVariant)
-                )
-            }
-
-            Box(
-                modifier = Modifier
-                    .absoluteOffset(x = 88.dp, y = 275.dp)
-                    .width(218.dp)
-                    .wrapContentHeight(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = "Moviecoo",
-                    fontSize = 96.sp,
-                    fontFamily = FontFamily(Font(R.font.romanesco_regular)),
-                    fontWeight = FontWeight.Normal,
-                    letterSpacing = 0.sp,
-                    lineHeight = 96.sp,
-                    color = OnPrimary
-                )
-            }
+            // App Name Animated
+            AppNameAnimated(
+                modifier = Modifier.absoluteOffset(x = 88.dp, y = 140.dp),
+                enablePulse = true
+            )
 
             Column(
                 modifier = Modifier
@@ -92,107 +77,167 @@ fun SignUpScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top
             ) {
-                var email by remember { mutableStateOf("") }
-                var password by remember { mutableStateOf("") }
 
                 Spacer(modifier = Modifier.weight(1.5f))
 
-                OutlinedTextField(
+                // Email Field
+                CustomOutlinedTextField(
                     value = email,
-                    onValueChange = { email = it },
-                    label = { Text("Email",fontSize = 20.sp,
-                        fontWeight = FontWeight.SemiBold) },
-                    modifier =  Modifier
-                        .width(351.dp)
-                        .height(57.dp),
-                    shape = RoundedCornerShape(13.dp),
-                    textStyle = TextStyle(color = Color.White)
-
+                    onValueChange = {
+                        email = it
+                        emailError = ""
+                    },
+                    labelText = "Email"
                 )
-                Spacer(modifier = Modifier.height(20.dp))
-
-                OutlinedTextField(
-                    value = password,
-                    onValueChange = { password = it },
-                    label = { Text("Password",fontSize = 20.sp,
-                        fontWeight = FontWeight.SemiBold) },
-                    modifier =  Modifier
-                        .width(351.dp)
-                        .height(57.dp),
-                    shape = RoundedCornerShape(13.dp) ,
-                     textStyle = TextStyle(color = Color.White),
-                    singleLine = true,
-                    visualTransformation = PasswordVisualTransformation()
-
-                )
-                Spacer(modifier = Modifier.height(20.dp))
-
-                val context = LocalContext.current
-                val auth = FirebaseAuth.getInstance()
-
-                Button(
-                    onClick = {
-                        if (email.isNotEmpty() && password.isNotEmpty()) {
-                            auth.createUserWithEmailAndPassword(email, password)
-                                .addOnCompleteListener { task ->
-                                    if (task.isSuccessful) {
-                                        val show = Toast.makeText(
-                                            context,
-                                            "Account created successfully!",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                        onSignUpClick(email, password)
-
-
-                                    } else {
-                                        Toast.makeText(context, "Error: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
-                                    }
-                                }
-                        } else {
-                            Toast.makeText(context, "Please fill all fields", Toast.LENGTH_SHORT).show()
-                        }
-                       },
-                    modifier =  Modifier
-                        .width(351.dp)
-                        .height(57.dp),
-                    shape = RoundedCornerShape(13.dp)
-
-
-
-                ) {
-                    Text("Sign Up",fontSize = 20.sp,
-                        fontWeight = FontWeight.Medium)
+                if (emailError.isNotEmpty()) {
+                    Text(
+                        text = emailError,
+                        color = Color.Red,
+                        fontSize = 12.sp,
+                        modifier = Modifier.padding(top = 4.dp)
+                    )
                 }
 
+                Spacer(modifier = Modifier.height(20.dp))
 
+                // Password Field
+                CustomOutlinedTextField(
+                    value = password,
+                    onValueChange = {
+                        password = it
+                        passwordError = ""
+                    },
+                    labelText = "Password",
+                    isPassword = !showPassword
+                )
+                if (passwordError.isNotEmpty()) {
+                    Text(
+                        text = passwordError,
+                        color = Color.Red,
+                        fontSize = 12.sp,
+                        modifier = Modifier.padding(top = 4.dp)
+                    )
+                }
 
+                // Password Strength
+                val passwordStrength = remember(password) {
+                    when {
+                        password.length < 8 -> "Weak"
+                        password.matches(Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}\$")) -> "Strong"
+                        else -> "Medium"
+                    }
+                }
+
+                if (password.isNotEmpty()) {
+                    Text(
+                        text = "Password strength: $passwordStrength",
+                        color = when(passwordStrength) {
+                            "Weak" -> Color.Red
+                            "Medium" -> Color.Yellow
+                            "Strong" -> Color.Green
+                            else -> Color.White
+                        },
+                        fontSize = 12.sp,
+                        modifier = Modifier.padding(top = 4.dp)
+                    )
+                }
+
+                // Password Checklist
+                Column(modifier = Modifier.padding(top = 4.dp)) {
+                    Text("Password must contain:", color = Color.White, fontSize = 12.sp)
+                    Text("• At least 8 characters", color = if(password.length>=8) Color.Green else Color.Red, fontSize = 12.sp)
+                    Text("• Uppercase letter", color = if(password.any { it.isUpperCase() }) Color.Green else Color.Red, fontSize = 12.sp)
+                    Text("• Lowercase letter", color = if(password.any { it.isLowerCase() }) Color.Green else Color.Red, fontSize = 12.sp)
+                    Text("• Number", color = if(password.any { it.isDigit() }) Color.Green else Color.Red, fontSize = 12.sp)
+                    Text("• Special character (!@#\$%^&*)", color = if(password.any { "!@#\$%^&*".contains(it) }) Color.Green else Color.Red, fontSize = 12.sp)
+                }
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                // Sign Up Button
+                AuthButton(
+                    buttonText = "Sign Up",
+                    email = email,
+                    password = password
+                ) {
+                    isLoadingScreen = true
+
+                    // Email validation
+                    if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                        emailError = "Please enter a valid email."
+                        isLoadingScreen = false
+                        return@AuthButton false
+                    }
+
+                    // Password validation
+                    val passwordPattern = Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#\$%^&*]).{8,}\$")
+                    if (!passwordPattern.matches(password)) {
+                        passwordError = "Password must be at least 8 characters and include uppercase, lowercase, number, and special character."
+                        isLoadingScreen = false
+                        return@AuthButton false
+                    }
+
+                    try {
+                        suspendCancellableCoroutine<Boolean> { cont ->
+                            auth.createUserWithEmailAndPassword(email, password)
+                                .addOnCompleteListener { task ->
+                                    isLoadingScreen = false
+                                    if (task.isSuccessful) {
+                                        Toast.makeText(context, "Account created successfully!", Toast.LENGTH_SHORT).show()
+                                        onSignUpClick(email, password)
+                                        cont.resume(true) {}
+                                    } else {
+                                        val errorMessage = when (task.exception) {
+                                            is FirebaseAuthUserCollisionException -> "Email already in use."
+                                            else -> task.exception?.message ?: "Something went wrong."
+                                        }
+                                        Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+                                        cont.resume(false) {}
+                                    }
+                                }
+                        }
+                    } catch (e: Exception) {
+                        isLoadingScreen = false
+                        Toast.makeText(context, "Something went wrong.", Toast.LENGTH_SHORT).show()
+                        return@AuthButton false
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                // Already have an account? Row
                 Row(
-                    verticalAlignment = Alignment.CenterVertically
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
-                        text = "Don't have an account? ",
-                        color = White,
-                        fontSize = 17.sp
+                        text = "Already have an account? ",
+                        color = Color.White,
+                        fontSize = 14.sp
                     )
-                    TextButton(
-                        onClick = onSignInClick,
-                        modifier = Modifier.padding(start = 0.dp, top = 0.dp, end = 0.dp, bottom = 0.dp)
-                    ) {
+                    TextButton(onClick = { onSignInClick() }) {
                         Text(
-                            "Sign In",
+                            text = "Sign In",
                             fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.primary ,
-                            fontSize = 17.sp
+                            color = MaterialTheme.colorScheme.primary,
+                            fontSize = 14.sp
                         )
                     }
                 }
             }
+
+            // Loading Overlay
+            if (isLoadingScreen) {
+                LoadingOverlay(
+                    overlayAlpha = 0.5f,
+                    indicatorStroke = 3f,
+                    indicatorSize = 64
+                )
+            }
+
         }
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun SignUpScreenPreview() {
-    SignUpScreen()
-}
+
