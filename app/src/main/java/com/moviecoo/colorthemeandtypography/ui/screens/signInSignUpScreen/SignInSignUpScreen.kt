@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.absoluteOffset
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -27,6 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.moviecoo.colorthemeandtypography.R
+import com.moviecoo.colorthemeandtypography.common_components.AppNameAnimated
 
 import com.moviecoo.colorthemeandtypography.ui.theme.ColorThemeandTypographyTheme
 import com.moviecoo.colorthemeandtypography.ui.theme.Primary
@@ -45,7 +47,10 @@ fun SignInSignUpScreen(
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Crop
             )
-
+            AppNameAnimated(
+                modifier = Modifier.absoluteOffset(x = 88.dp, y = 240.dp),
+                enablePulse = true
+            )
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -53,19 +58,6 @@ fun SignInSignUpScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center// Distributes content vertically
             ) {
-
-                Spacer(modifier = Modifier.height(200.dp))
-
-                val romanescoFontFamily = FontFamily(Font(R.font.romanesco_regular))
-                Text(
-                    text = "Moviecoo",
-                    color = Color.White,
-                    fontSize = 96.sp,
-                    fontWeight = FontWeight.Light,
-                    fontFamily = romanescoFontFamily,
-
-                    modifier = Modifier.padding(bottom = 100.dp)
-                )
 
 
                 Column(
