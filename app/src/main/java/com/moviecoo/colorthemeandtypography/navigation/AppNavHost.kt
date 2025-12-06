@@ -1,5 +1,6 @@
 package com.moviecoo.colorthemeandtypography.navigation
 
+import SignUpScreen
 import android.os.Build
 import androidx.annotation.OptIn
 import androidx.annotation.RequiresApi
@@ -53,7 +54,6 @@ import com.moviecoo.colorthemeandtypography.ui.screens.searchScreen.SearchScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.seeAllScree.SeeAllScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.settingScreen.SettingScreen
 import com.moviecoo.colorthemeandtypography.ui.screens.signInSignUpScreen.SignInSignUpScreen
-import com.moviecoo.colorthemeandtypography.ui.screens.signUpScreen.SignUpScreen
 import dagger.hilt.android.UnstableApi
 
 @OptIn(UnstableApi::class)
@@ -100,7 +100,7 @@ fun AppNavHost(
     val showBottomBar = currentRoute in listOf(
         "Movie_List_Screen",
         "Watch_List_Screen",
-        "Favorite_Screen",   // ← إضافة مهمة جدًا
+        "Favorite_Screen",
         "Setting_Screen"
     )
 
@@ -188,8 +188,6 @@ fun AppNavHost(
                     onSignInClick = { navController.navigate("Sign_In_Screen") }
                 )
             }
-
-
 
             composable("chat_screen") {
                 ChatScreen()

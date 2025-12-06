@@ -1,4 +1,4 @@
-# ![Kotlin](https://img.shields.io/badge/Kotlin-7F52FF?style=flat&logo=kotlin&logoColor=white)
+ # ![Kotlin](https://img.shields.io/badge/Kotlin-7F52FF?style=flat&logo=kotlin&logoColor=white)
 # Moveicoo — Movie Application
 
 > Moveicoo is a modern and user-friendly Android movie app that allows users to browse, save, and discover movies effortlessly. The app offers features like favorites, random movie roulette, mood-based suggestions, AI chatbot, voice navigation, search by voice, adjustable font sizes, and movie scene descriptions. The app also integrates **accessibility features** to ensure a seamless experience for all users, including voice guidance, large text support, and easy navigation for users with different needs.

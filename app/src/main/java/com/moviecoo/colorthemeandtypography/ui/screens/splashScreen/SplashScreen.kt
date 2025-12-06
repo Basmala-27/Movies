@@ -6,6 +6,7 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -28,7 +29,9 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -103,41 +106,52 @@ fun SplashScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(brush = GradientBackground)
         ) {
-            Column(
+
+            Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .scale(animatedScale),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                val moviecooFontFamily = FontFamily(Font(R.font.romanesco_regular))
-                val staatlichesFontFamily = FontFamily(Font(R.font.staatliches_regular))
-
-                val glowShadow = Shadow(
-                    color = animatedGlow,
-                    offset = Offset(0f, 0f),
-                    blurRadius = 15f
+                Image(
+                    painter = painterResource(id = R.drawable.splashscreen),
+                    contentDescription = null,
+                    modifier = Modifier.fillMaxSize(),
+                    contentScale = ContentScale.Crop
                 )
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .scale(animatedScale),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    val moviecooFontFamily = FontFamily(Font(R.font.romanesco_regular))
+                    val staatlichesFontFamily = FontFamily(Font(R.font.staatliches_regular))
 
-                Text(
-                    text = "Moviecoo",
-                    fontSize = 96.sp,
-                    color = OnPrimary,
-                    fontFamily = moviecooFontFamily,
-                    style = TextStyle(shadow = glowShadow)
-                )
+                    val glowShadow = Shadow(
+                        color = animatedGlow,
+                        offset = Offset(0f, 0f),
+                        blurRadius = 15f
+                    )
 
-                Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = "Moviecoo",
+                        fontSize = 96.sp,
+                        color = OnPrimary,
+                        fontFamily = moviecooFontFamily,
+                        style = TextStyle(shadow = glowShadow)
+                    )
 
-                Text(
-                    text = "WATCH AND FIND MOVIE THAT\nBRING YOUR MODE BACK",
-                    fontSize = 24.sp,
-                    color = Color.LightGray,
-                    fontFamily = staatlichesFontFamily,
-                    style = TextStyle(textAlign = TextAlign.Center)
-                )
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Text(
+                        text = "WATCH AND FIND MOVIE THAT\nBRING YOUR MODE BACK",
+                        fontSize = 24.sp,
+                        color = Color.LightGray,
+                        fontFamily = staatlichesFontFamily,
+                        style = TextStyle(textAlign = TextAlign.Center)
+                    )
+                }
             }
         }
     }

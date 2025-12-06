@@ -1,4 +1,3 @@
-package com.moviecoo.colorthemeandtypography.ui.screens.signUpScreen
 
 
 import android.widget.Toast
