@@ -1,11 +1,17 @@
 package com.moviecoo.colorthemeandtypography.ui.screens.movieListScreen
 
 
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import com.moviecoo.colorthemeandtypography.R
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.hoverable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.LazyRow
@@ -18,12 +24,16 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -226,9 +236,80 @@ fun MovieSection(
     }
 }
 
+@Composable
 
+fun AnimatedMovieCard(
+    corner: Int = 12,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {},
+    content: @Composable () -> Unit
+) {
+    var pressed by remember { mutableStateOf(false) }
+    var offsetX by remember { mutableStateOf(0f) }
+    var offsetY by remember { mutableStateOf(0f) }
+
+    val scale by animateFloatAsState(
+        targetValue = if (pressed) 0.94f else 1f,
+        animationSpec = tween(160)
+    )
+
+    val tiltX by animateFloatAsState(
+        targetValue = offsetY / 20f,
+        animationSpec = tween(150)
+    )
+
+    val tiltY by animateFloatAsState(
+        targetValue = -offsetX / 20f,
+        animationSpec = tween(150)
+    )
+
+    val shadow by animateFloatAsState(
+        targetValue = if (pressed) 20f else 6f,
+        animationSpec = tween(200)
+    )
+
+    Surface(
+        modifier = modifier
+            .graphicsLayer {
+                scaleX = scale
+                scaleY = scale
+                rotationX = tiltX
+                rotationY = tiltY
+                shadowElevation = shadow
+                clip = true
+            }
+            // Detect parallax movement (optional: remove on mobile if undesired)
+            .pointerInput(Unit) {
+                awaitPointerEventScope {
+                    while (true) {
+                        val event = awaitPointerEvent()
+                        val pos = event.changes.firstOrNull()?.position ?: continue
+                        offsetX = pos.x - size.width / 2f
+                        offsetY = pos.y - size.height / 2f
+                    }
+                }
+            }
+            // Detect tap only
+            .pointerInput(Unit) {
+                detectTapGestures(
+                    onTap = { onClick() },
+                    onPress = {
+                        pressed = true
+                        tryAwaitRelease()
+                        pressed = false
+                    }
+                )
+            },
+        shape = RoundedCornerShape(corner.dp)
+    ) {
+        Box(modifier = Modifier.fillMaxSize()) {
+            content()
+        }
+    }
+}
 
 @Composable
+
 fun MovieListItem(
     movie: MovieUiModel,
     showRating: Boolean,
@@ -237,26 +318,38 @@ fun MovieListItem(
     scale: Float
 ) {
     Column(modifier = modifier.width(160.dp * scale)) {
-        Card(
+        AnimatedMovieCard(
+            corner = 12,
             modifier = Modifier
                 .height(200.dp * scale)
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(8.dp * scale))
-                .clickable { onClick() },
-            colors = CardDefaults.cardColors(containerColor = OnPrimary)
+                .width(160.dp * scale),
+            onClick = { onClick() }
         ) {
-            AsyncImage(
-                model = movie.image,
-                contentDescription = movie.title,
-                modifier = Modifier.fillMaxSize(),
-                contentScale = ContentScale.Crop
-            )
-            if (showRating) RatingBadge(movie.rating, scale)
+            Box(modifier = Modifier.fillMaxSize()) {
+                AsyncImage(
+                    model = movie.image,
+                    contentDescription = movie.title,
+                    modifier = Modifier.fillMaxSize(),
+                    contentScale = ContentScale.Crop
+                )
+
+                if (showRating) {
+                    RatingBadge(rating = movie.rating, scale = scale)
+                }
+            }
         }
+
         Spacer(modifier = Modifier.height(8.dp * scale))
-        Text(movie.title, color = Color.White, fontWeight = FontWeight.SemiBold, fontSize = 14.sp * scale, maxLines = 1)
+        Text(
+            movie.title,
+            color = Color.White,
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 14.sp * scale,
+            maxLines = 1
+        )
     }
 }
+
 
 @Composable
 fun RatingBadge(rating: Double, scale: Float) {
