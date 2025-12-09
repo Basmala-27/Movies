@@ -29,9 +29,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.moviecoo.colorthemeandtypography.R
-import coil.compose.rememberAsyncImagePainter
-import java.time.format.TextStyle
+import androidx.compose.ui.text.TextStyle // Import the correct TextStyle
 
+/**
+ * ## NoInternetScreen
+ * A full-screen composable overlay displayed when the device has no internet connection.
+ *
+ * It provides a visual cue, a clear message, and a "Retry" button to prompt the user to check their network.
+ *
+ * @param onRetry Lambda function executed when the user taps the "Retry" button.
+ */
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun NoInternetScreen(
@@ -41,21 +48,23 @@ fun NoInternetScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF09274C)) // نفس الخلفية اللي في باقي الشاشة
-            .padding(20.dp ),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+            .background(Color(0xFF09274C)) // Uses a deep blue/dark background for the overlay
+            .padding(20.dp),
+        verticalArrangement = Arrangement.Center, // Centers content vertically
+        horizontalAlignment = Alignment.CenterHorizontally // Centers content horizontally
     ) {
-        // صورة أفضل يمكن اختيار صورة دائرية أو أيقونة مناسبة
+        // --- 1. Visual Indicator ---
         Image(
+            // Loads the local drawable asset for the no-internet indicator.
             painter = painterResource(id = R.drawable.nointernetscreen),
-            contentDescription = "No Internet",
+            contentDescription = "No Internet Connection",
             modifier = Modifier
                 .size(180.dp)
         )
 
-        Spacer(modifier = Modifier.height(24.dp ))
+        Spacer(modifier = Modifier.height(24.dp))
 
+        // --- 2. Primary Title Message ---
         Text(
             text = "No Internet Connection",
             color = Color.White,
@@ -65,19 +74,21 @@ fun NoInternetScreen(
 
         Spacer(modifier = Modifier.height(8.dp))
 
+        // --- 3. Secondary Descriptive Message ---
         Text(
             text = "Please check your connection and try again.",
-            color = Color(0xFFB0B0B0),
+            color = Color(0xFFB0B0B0), // Soft gray for subtitle
             fontFamily = FontFamily(Font(R.font.romanesco_regular)),
             fontSize = 24.sp
         )
 
         Spacer(modifier = Modifier.height(24.dp))
 
+        // --- 4. Call-to-Action Button ---
         Button(
             onClick = onRetry,
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFF0E3E62)  // نفس لون Sign In
+                containerColor = Color(0xFF0E3E62)
             ),
             shape = RoundedCornerShape(13.dp),
             modifier = Modifier
@@ -90,7 +101,8 @@ fun NoInternetScreen(
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Medium,
                 fontFamily = FontFamily(Font(R.font.inter_medium)),
-                style = androidx.compose.ui.text.TextStyle(
+                style = TextStyle(
+                    // Applies a subtle shadow/glow to the button text for emphasis.
                     shadow = Shadow(
                         color = Color.White,
                         offset = Offset(0f, 0f),
@@ -99,6 +111,5 @@ fun NoInternetScreen(
                 )
             )
         }
-
     }
 }

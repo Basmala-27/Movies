@@ -25,10 +25,19 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.rememberAsyncImagePainter
-import com.google.common.math.Quantiles.scale
 import com.moviecoo.colorthemeandtypography.R
+import androidx.compose.ui.text.TextStyle // Import the correct TextStyle
 
+/**
+ * ## PoorConnectionScreen
+ * A full-screen composable overlay displayed when the device has an active connection
+ * but the estimated bandwidth is too low for optimal app performance.
+ *
+ * It provides a clear notification and a "Retry" button. This is often less severe
+ * than a total disconnection.
+ *
+ * @param onRetry Lambda function executed when the user taps the "Retry" button.
+ */
 @Composable
 fun PoorConnectionScreen(
     onRetry: () -> Unit
@@ -36,26 +45,28 @@ fun PoorConnectionScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            // Assume the background is handled by the parent or is transparent to show the app background.
             .padding(20.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        verticalArrangement = Arrangement.Center, // Centers content vertically
+        horizontalAlignment = Alignment.CenterHorizontally // Centers content horizontally
     ) {
-
-        // نفس حجم الصورة ومصدرها زي NoInternetScreen
+        // --- 1. Visual Indicator ---
         Image(
-            painter = painterResource(id = R.drawable.poorinternetscreen), // صورة ضعيفة النت
-            contentDescription = "Poor Internet",
+            // Loads the local drawable asset for the poor connection indicator.
+            painter = painterResource(id = R.drawable.poorinternetscreen),
+            contentDescription = "Poor Internet Connection",
             modifier = Modifier.size(200.dp)
         )
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // نفس الخط واللون والحجم زي NoInternetScreen
+        // --- 2. Primary Title Message ---
         Text(
             "Weak Internet Connection",
             color = Color.White,
             fontSize = 22.sp
         )
+        // --- 3. Secondary Descriptive Message ---
         Text(
             "Your internet is slow. Please check your connection and try again.",
             fontFamily = FontFamily(Font(R.font.romanesco_regular)),
@@ -65,10 +76,11 @@ fun PoorConnectionScreen(
 
         Spacer(modifier = Modifier.height(20.dp))
 
+        // --- 4. Call-to-Action Button ---
         Button(
             onClick = onRetry,
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFF0E3E62)  // نفس لون Sign In
+                containerColor = Color(0xFF0E3E62) // Uses the primary theme color
             ),
             shape = RoundedCornerShape(13.dp),
             modifier = Modifier
@@ -81,7 +93,8 @@ fun PoorConnectionScreen(
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Medium,
                 fontFamily = FontFamily(Font(R.font.inter_medium)),
-                style = androidx.compose.ui.text.TextStyle(
+                style = TextStyle(
+                    // Applies a subtle shadow/glow to the button text.
                     shadow = Shadow(
                         color = Color.White,
                         offset = Offset(0f, 0f),
