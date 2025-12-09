@@ -69,25 +69,12 @@ fun MovieListScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { AppScreenHeader(navController = navController) },
-                actions = {
-                    IconButton(onClick = onAssistantClick) {
-                        Icon(
-                            Icons.Filled.HelpOutline,
-                            contentDescription = "AI Assistant",
-                            tint = OrangeAccent,
-                            modifier = Modifier.size(32.dp * scale)
-                        )
-                    }
-                    IconButton(onClick = { onVoiceCommand(viewModel) }) {
-                        Icon(
-                            Icons.Filled.Mic,
-                            contentDescription = "Voice Command",
-                            tint = OrangeAccent,
-                            modifier = Modifier.size(32.dp * scale)
-                        )
-                    }
-                },
+                title = { AppScreenHeader(navController = navController,
+                    fontSizeViewModel = fontSizeViewModel,
+                    onHelpClick = { navController.navigate("assistant_screen") },
+                    onMicClick = { onVoiceCommand(viewModel) },
+                    onSearchClick = { navController.navigate("search_screen?query=") }) }
+                ,
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Primary
                 )
@@ -102,8 +89,8 @@ fun MovieListScreen(
                 .padding(innerPadding)
         ) {
 
-            Spacer(modifier = Modifier.height(25.dp * scale))
-            Spacer(modifier = Modifier.height(16.dp * scale))
+
+            Spacer(modifier = Modifier.height(9.dp * scale))
 
             LazyRow(
                 modifier = Modifier.fillMaxWidth(),
@@ -119,7 +106,7 @@ fun MovieListScreen(
                 }
             }
 
-            Spacer(modifier = Modifier.height(24.dp * scale))
+            Spacer(modifier = Modifier.height(9.dp * scale))
 
             listOf(
                 "Upcoming" to false,
@@ -238,7 +225,6 @@ fun MovieSection(
             }
         }
 
-        // السهم اللي على اليمين
         Box(
             modifier = Modifier
                 .align(Alignment.CenterEnd)

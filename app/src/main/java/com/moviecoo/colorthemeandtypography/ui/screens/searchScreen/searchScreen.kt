@@ -83,7 +83,7 @@ fun SearchScreen(
     Column(
         modifier = modifier
             .background(Primary)
-            .padding(16.dp)
+            .padding(16.dp*scale)
     ) {
 
             Row(
@@ -97,20 +97,20 @@ fun SearchScreen(
                         tint = Color.White
                     )
                 }
-                Text("Search", color = Color.White, fontSize = 26.sp)
+                Text("Search", color = Color.White, fontSize = 26.sp*scale)
             }
 
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(10.dp*scale))
 
             Card(
-                shape = RoundedCornerShape(25.dp),
-                elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+                shape = RoundedCornerShape(25.dp*scale),
+                elevation = CardDefaults.cardElevation(defaultElevation = 8.dp*scale),
                 colors = CardDefaults.cardColors(containerColor = Color.White),
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.padding(12.dp)
+                    modifier = Modifier.padding(12.dp*scale)
                 ) {
                     Icon(Icons.Default.Search, "Search", tint = Primary)
 
@@ -155,11 +155,11 @@ fun SearchScreen(
                 }
             }
 
-            Spacer(modifier = Modifier.height(14.dp))
+            Spacer(modifier = Modifier.height(14.dp*scale))
 
             println("SEARCHED SIZE = ${searchedMovies.size}")
         LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(14.dp)
+            verticalArrangement = Arrangement.spacedBy(14.dp*scale)
         ) {
             items(searchedMovies) { movie -> // Use the ViewModel's state
                 Log.d("SEARCH", "IMAGE IN SEARCH: ${movie.image}")
@@ -177,33 +177,3 @@ fun SearchScreen(
     }
 
 
-//@Preview(
-//   showBackground = true,
-//    showSystemUi = true
-//
-//)
-//@Composable
-//private fun PreviewSearchScreen() {
-//    val dummyMovies = listOf(
-//        MovieUiModel(
-//           title = "Inception", rating = 8.8,
-//           year = "2015",
-//            description = "",
-//           genre = "",
-//           image = "TODO()",
-//            id = 1
-//        ),
-//
-//        )
-//
-//    val fakeNavController = rememberNavController()
-//
-//
-//   SearchScreen(
-//      navController = fakeNavController,
-//       moviesList = dummyMovies ,
-//       fontSizeViewModel = TODO() ,
-//       modifier = Modifier.fillMaxSize()
-//    )
-//
-//}

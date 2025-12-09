@@ -42,23 +42,23 @@ fun MovieWatchListItem(
     movieUiModel: MovieUiModel,
     fontSizeViewModel: FontSizeViewModel,
     onClick: () -> Unit,
-    onFavoriteClick: () -> Unit // ← أضيفي هنا
+    onFavoriteClick: () -> Unit
 ) {
     val scale = fontSizeViewModel.fontScale.value
 
     Box(
         modifier = Modifier
-            .fillMaxWidth() // بدل fillMaxSize()
+            .fillMaxWidth()
             .background(Color(0xFF09274C))
             .padding(vertical = 8.dp * scale)
-            .clickable { onClick() }   // ← هنا
+            .clickable { onClick() }
 
     ){
         Card(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp * scale, vertical = 8.dp * scale)
-                .clickable { onClick() },   // ← هنا
+                .clickable { onClick() },
             shape = MaterialTheme.shapes.large,
             elevation = CardDefaults.cardElevation(4.dp),
             colors = CardDefaults.cardColors(containerColor = Primary)
@@ -91,7 +91,7 @@ fun MovieWatchListItem(
                     Text(
                         text = movieUiModel.title,
                         fontFamily = FontFamily(Font(R.font.poppins_regular)),
-                        fontSize = 18.sp * scale, // مثال
+                        fontSize = 18.sp * scale,
                         color = Color.White,
                         maxLines = 1
                     )

@@ -35,7 +35,7 @@ import com.moviecoo.colorthemeandtypography.ui.theme.Surface
 fun WatchListScreen(navController: NavController, fontSizeViewModel: FontSizeViewModel = hiltViewModel()) {
     val context = LocalContext.current
     var movies by remember { mutableStateOf(WatchlistStorage.getMovies(context)) }
-
+    val scale = fontSizeViewModel.fontScale.value
     LaunchedEffect(navController.currentBackStackEntry) {
         movies = WatchlistStorage.getMovies(context)
     }
@@ -58,7 +58,7 @@ fun WatchListScreen(navController: NavController, fontSizeViewModel: FontSizeVie
                     movieUiModel = movie.toMovieUiModel(),
                     fontSizeViewModel = fontSizeViewModel,
                     onClick = { navController.navigate("movie_details/${movie.id}") },
-                    onFavoriteClick = {} // ← تمرير فارغ مؤقت
+                    onFavoriteClick = {}
                 )
             }
         }

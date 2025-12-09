@@ -217,7 +217,7 @@ fun generalCard(fontSizeViewModel: FontSizeViewModel, scale: Float) {
             )
 
             // ---------- Invite a Friend ----------
-            inviteFriendRow(scale)  // استدعاء الـ Composable الجاهز
+            inviteFriendRow(fontSizeViewModel)  // استدعاء الـ Composable الجاهز
 
         }
     }
