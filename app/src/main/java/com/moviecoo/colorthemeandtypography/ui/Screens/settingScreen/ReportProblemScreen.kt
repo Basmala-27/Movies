@@ -18,12 +18,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.moviecoo.colorthemeandtypography.R
 import com.moviecoo.colorthemeandtypography.common_components.TopAppBar
+import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.fontSizeViewModel.FontSizeViewModel
 import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 import com.moviecoo.colorthemeandtypography.ui.theme.Surface
 
 @Composable
-fun ReportProblemScreen(scale: Float) {
+fun ReportProblemScreen(fontSizeViewModel: FontSizeViewModel) {
     val context = LocalContext.current
+    val scale = fontSizeViewModel.fontScale.value
     var problemText by remember { mutableStateOf("") }
 
     Scaffold(
@@ -44,7 +46,7 @@ fun ReportProblemScreen(scale: Float) {
             Card(
                 modifier = Modifier.fillMaxSize(),
                 colors = CardDefaults.cardColors(containerColor = Primary),
-                elevation = CardDefaults.cardElevation(4.dp)
+                elevation = CardDefaults.cardElevation(4.dp*scale)
             ) {
                 Column(
                     modifier = Modifier

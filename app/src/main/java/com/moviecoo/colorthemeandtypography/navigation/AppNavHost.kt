@@ -106,8 +106,8 @@ fun AppNavHost(
 
     val selectedIndex = when (currentRoute) {
         "Movie_List_Screen" -> 0
-        "search_screen?query=" -> 1
-        "Favorite_Screen" -> 2     // ← هنا
+        "chat_screen"  -> 1
+        "Favorite_Screen" -> 2
         "Watch_List_Screen" -> 3
         "Setting_Screen" -> 4
         else -> 0
@@ -121,8 +121,8 @@ fun AppNavHost(
                     onItemSelected = { index ->
                         val route = when(index) {
                             0 -> "Movie_List_Screen"
-                            1 -> "search_screen?query="
-                            2 -> "Favorite_Screen"   // ← هنا التعديل
+                            1 -> "chat_screen"
+                            2 -> "Favorite_Screen"
                             3 -> "Watch_List_Screen"
                             4 -> "Setting_Screen"
                             else -> "Movie_List_Screen"
@@ -190,11 +190,11 @@ fun AppNavHost(
             }
 
             composable("chat_screen") {
-                ChatScreen()
+                ChatScreen(navController)
             }
 
             composable("report_problem_screen") {
-                ReportProblemScreen(scale = fontSizeViewModel.fontScale.value)
+                ReportProblemScreen(fontSizeViewModel = fontSizeViewModel)
             }
 
 
@@ -250,7 +250,7 @@ fun AppNavHost(
             composable("dummy_terms_screen") {
                 val fontSizeViewModel: FontSizeViewModel = hiltViewModel()
                 val scale = fontSizeViewModel.fontScale.value
-                TermsScreenWithCard(scale = scale)
+                TermsScreenWithCard(fontSizeViewModel = fontSizeViewModel)
             }
 
 
@@ -286,7 +286,7 @@ fun AppNavHost(
                 arguments = listOf(navArgument("query") {
                     type = NavType.StringType
                     nullable = true
-                    defaultValue = null // Allows navigation using the base route "search_screen"
+                    defaultValue = null
                 })
             ) { backStackEntry ->
                 val voiceQuery = backStackEntry.arguments?.getString("query")
@@ -312,7 +312,6 @@ fun AppNavHost(
 
 
                 MovieContentScreen(
-                    // لو عندك بيانات جاهزة
                     movieId = movieId,
                     viewModel = viewModel,
                     fontSizeViewModel = fontSizeViewModel,

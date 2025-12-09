@@ -20,17 +20,19 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.fontSizeViewModel.FontSizeViewModel
 
 @Composable
-fun inviteFriendRow(scale: Float) {
-    val context = LocalContext.current  // مهم: تعريف الـ context هنا
+fun inviteFriendRow(fontSizeViewModel: FontSizeViewModel) {
+    val context = LocalContext.current
+    val scale = fontSizeViewModel.fontScale.value
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp * scale, vertical = 16.dp * scale)
             .clickable {
-                // إنشاء Intent للمشاركة
+
                 val shareIntent = Intent().apply {
                     action = Intent.ACTION_SEND
                     putExtra(
@@ -39,8 +41,6 @@ fun inviteFriendRow(scale: Float) {
                     )
                     type = "text/plain"
                 }
-
-                // فتح نافذة المشاركة لأي تطبيق
                 context.startActivity(
                     Intent.createChooser(shareIntent, "Share via")
                 )
@@ -57,7 +57,7 @@ fun inviteFriendRow(scale: Float) {
         Spacer(modifier = Modifier.weight(1f))
 
         Icon(
-            painter = painterResource(id = R.drawable.right), // سهم صغير على اليمين
+            painter = painterResource(id = R.drawable.right),
             contentDescription = null,
             tint = Color.Black,
             modifier = Modifier.size(30.dp * scale)

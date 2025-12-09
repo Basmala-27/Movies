@@ -42,7 +42,7 @@ fun CustomOutlinedTextField(
         label = { Text(labelText, fontSize = 20.sp, fontWeight = FontWeight.SemiBold) },
         modifier = modifier
             .width(width)
-            .heightIn(min = minHeight), // هنا استخدمنا heightIn
+            .heightIn(min = minHeight),
         shape = RoundedCornerShape(13.dp),
         textStyle = TextStyle(color = Color.White),
         singleLine = true,

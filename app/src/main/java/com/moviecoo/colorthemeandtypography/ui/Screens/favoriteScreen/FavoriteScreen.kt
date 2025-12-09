@@ -25,7 +25,6 @@ fun FavoriteScreen(
 ) {
     val context = LocalContext.current
     var favorites by remember { mutableStateOf(FavoriteStorage.getMovies(context)) }
-
     Scaffold(
         topBar = {
             TopAppBar(

@@ -16,11 +16,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.moviecoo.colorthemeandtypography.R
 import com.moviecoo.colorthemeandtypography.common_components.TopAppBar
+import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.fontSizeViewModel.FontSizeViewModel
 import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 import com.moviecoo.colorthemeandtypography.ui.theme.Surface
 
 @Composable
-fun TermsScreenWithCard(scale: Float) {
+fun TermsScreenWithCard(fontSizeViewModel: FontSizeViewModel) {
+    val scale = fontSizeViewModel.fontScale.value
     Scaffold(
         topBar = {
             TopAppBar(
@@ -38,15 +40,15 @@ fun TermsScreenWithCard(scale: Float) {
         ) {
             Card(
                 modifier = Modifier
-                    .fillMaxSize(), // الكارد ياخد الصفحة كلها
+                    .fillMaxSize(),
                 colors = CardDefaults.cardColors(containerColor = Primary),
-                elevation = CardDefaults.cardElevation(4.dp)
+                elevation = CardDefaults.cardElevation(4.dp*scale)
             ) {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(16.dp * scale)
-                        .verticalScroll(rememberScrollState()), // لو النص طويل يبقى Scrollable
+                        .verticalScroll(rememberScrollState()),
                     horizontalAlignment = Alignment.Start,
                     verticalArrangement = Arrangement.Top
                 ) {

@@ -14,15 +14,21 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -39,16 +45,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import com.moviecoo.colorthemeandtypography.common_components.TopAppBar
 import com.moviecoo.colorthemeandtypography.domain.model.ChatMessage
 import com.moviecoo.colorthemeandtypography.ui.screens.generalChat.viewModel.ChatViewModel
+import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.fontSizeViewModel.FontSizeViewModel
 import com.moviecoo.colorthemeandtypography.ui.theme.GradientBackground
 import com.moviecoo.colorthemeandtypography.ui.theme.OnPrimary
 import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 import com.moviecoo.colorthemeandtypography.ui.theme.Surface
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ChatScreen(
-    viewModel: ChatViewModel = hiltViewModel()
+               navController: NavController,
+               viewModel: ChatViewModel = hiltViewModel()
 ) {
 
     val messages by viewModel.messages.collectAsState()
@@ -65,6 +76,27 @@ fun ChatScreen(
     Scaffold(
         containerColor = Color.Transparent,
         modifier = Modifier.background(GradientBackground),
+
+
+        topBar = {
+         TopAppBar(
+                title = { Text("General Chat", color = OnPrimary) },
+                navigationIcon = {
+                    androidx.compose.material3.IconButton(
+                        onClick = { navController.popBackStack() }
+                    ) {
+                        androidx.compose.material3.Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "Back",
+                            tint = OnPrimary
+                        )
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color.Transparent
+                )
+            )
+        },
 
         bottomBar = {
             MessageInput(
@@ -104,6 +136,7 @@ fun MessageInput(
     onValueChange: (String) -> Unit,
     onSendClick: () -> Unit
 ) {
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -186,12 +219,3 @@ fun MessageBubble(message: ChatMessage, currentUserId: String) {
 }
 
 
-@Preview(
-    showBackground = true,
-    showSystemUi = true)
-
-@Composable
-private fun PreviewChatScreen () {
-    ChatScreen()
-
-}

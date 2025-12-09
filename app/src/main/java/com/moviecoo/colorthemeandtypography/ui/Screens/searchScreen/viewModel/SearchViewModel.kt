@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val searchRepository: SearchRepository,
-    private val fetchMoviesUseCase: FetchMoviesUseCase // <--- Inject default fetcher
+    private val fetchMoviesUseCase: FetchMoviesUseCase
 ) : ViewModel() {
 
     private val _searchQuery = MutableStateFlow("")
@@ -25,7 +25,6 @@ class SearchViewModel @Inject constructor(
     private val _searchedMovies = MutableStateFlow<List<MovieUiModel>>(emptyList())
     val searchedMovies: StateFlow<List<MovieUiModel>> = _searchedMovies
     init {
-        // Automatically load default movies when the ViewModel is initialized
         searchMovies("")
     }
     fun setQueryAndSearch(query: String) {
@@ -36,16 +35,14 @@ class SearchViewModel @Inject constructor(
     private fun searchMovies(query: String) {
         viewModelScope.launch {
             val results: List<MovieUiModel> = if (query.isBlank()) {
-                // --- NEW LOGIC: Load Default/Popular Movies ---
                 try {
-                    // Assuming FetchMoviesUseCase returns List<MoviesDomainModel>
                     fetchMoviesUseCase().toMovieUiList()
                 } catch (e: Exception) {
                     emptyList()
                 }
-                // ---------------------------------------------
+
             } else {
-                // Existing search logic using the repository
+
                 searchRepository.searchMoviesByTitle(query)
             }
             _searchedMovies.value = results
