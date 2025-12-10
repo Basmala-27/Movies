@@ -37,6 +37,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.moviecoo.colorthemeandtypography.R
@@ -65,9 +66,10 @@ fun MovieDetailsUiScreen(
     fontSizeViewModel: FontSizeViewModel,
     navController: NavController
 ) {
-    val scale = fontSizeViewModel.fontScale.value
+   val scale = fontSizeViewModel.fontScale.value
+
     // ViewModel instance is retrieved (using the standard Compose lifecycle aware viewModel() helper).
-    val detailsViewModel: MovieDetailsViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+    val detailsViewModel: MovieDetailsViewModel = viewModel()
     val cast by detailsViewModel.cast.collectAsState()
     val context = LocalContext.current
 

@@ -1,72 +1,48 @@
 package com.moviecoo.colorthemeandtypography.ui.screens.generalChat
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material.icons.filled.Send
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.moviecoo.colorthemeandtypography.common_components.TopAppBar
 import com.moviecoo.colorthemeandtypography.domain.model.ChatMessage
 import com.moviecoo.colorthemeandtypography.ui.screens.generalChat.viewModel.ChatViewModel
-import com.moviecoo.colorthemeandtypography.ui.screens.signInScreen.fontSizeViewModel.FontSizeViewModel
+
 import com.moviecoo.colorthemeandtypography.ui.theme.GradientBackground
 import com.moviecoo.colorthemeandtypography.ui.theme.OnPrimary
 import com.moviecoo.colorthemeandtypography.ui.theme.Primary
 import com.moviecoo.colorthemeandtypography.ui.theme.Surface
 
+/**
+ * Main composable function for the General Chat Screen.
+ * Uses custom colors (Primary, OnPrimary, Surface) for the theme.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ChatScreen(
-               navController: NavController,
-               viewModel: ChatViewModel = hiltViewModel()
+    navController: NavController,
+    viewModel: ChatViewModel = hiltViewModel()
 ) {
-
     val messages by viewModel.messages.collectAsState()
     val listState = rememberLazyListState()
     var messageInput by remember { mutableStateOf("") }
 
-
+    // Side effect to automatically scroll to the latest message
     LaunchedEffect(messages.size) {
         if (messages.isNotEmpty()) {
             listState.animateScrollToItem(messages.lastIndex)
@@ -74,116 +50,158 @@ fun ChatScreen(
     }
 
     Scaffold(
-        containerColor = Color.Transparent,
-        modifier = Modifier.background(GradientBackground),
-
+        modifier = Modifier
+            .fillMaxSize()
+            .background(GradientBackground), // تطبيق الخلفية المتدرجة
+        containerColor = Color.Transparent, // لجعل الخلفية المتدرجة مرئية
 
         topBar = {
-         TopAppBar(
-                title = { Text("General Chat", color = OnPrimary) },
-                navigationIcon = {
-                    androidx.compose.material3.IconButton(
-                        onClick = { navController.popBackStack() }
-                    ) {
-                        androidx.compose.material3.Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Back",
-                            tint = OnPrimary
-                        )
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color.Transparent
-                )
-            )
+            GeneralChatTopBar(navController = navController)
         },
 
         bottomBar = {
-            MessageInput(
+            MessageInputBar(
                 value = messageInput,
                 onValueChange = { messageInput = it },
                 onSendClick = {
-                    val currentUserId = "user123"
-                    val currentUserName = "User A"
-                    viewModel.sendMessage(messageInput, currentUserName, currentUserId)
-                    messageInput = ""
+                    if (messageInput.isNotBlank()) {
+                        val currentUserId = "user_001"
+                        val currentUserName = "User A"
+                        viewModel.sendMessage(messageInput, currentUserName, currentUserId)
+                        messageInput = ""
+                    }
                 }
             )
         }
     ) { paddingValues ->
-
+        // Message list area
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues),
             state = listState,
-            contentPadding = PaddingValues(top = 8.dp)
+            contentPadding = PaddingValues(top = 8.dp, bottom = 8.dp),
+            verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             items(messages) { message ->
-                MessageBubble(message = message, currentUserId = "user123")
+                MessageBubble(
+                    message = message,
+                    currentUserId = "user_001"
+                )
             }
         }
     }
 }
 
 
-
-
-
+/**
+ * Top App Bar using custom colors.
+ */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MessageInput(
+private fun GeneralChatTopBar(navController: NavController) {
+    TopAppBar(
+        title = {
+            Text(
+                "General Chat",
+                color = OnPrimary,
+                style = MaterialTheme.typography.titleLarge
+            )
+        },
+        navigationIcon = {
+            IconButton(onClick = { navController.popBackStack() }) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = "Back",
+                    tint = OnPrimary
+                )
+            }
+        },
+      
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = Color.Transparent
+        )
+    )
+}
+
+/**
+ * Input bar using custom Surface and Primary colors.
+ */
+@Composable
+private fun MessageInputBar(
     value: String,
     onValueChange: (String) -> Unit,
     onSendClick: () -> Unit
 ) {
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(Surface)
-            .padding(8.dp),
-        verticalAlignment = Alignment.CenterVertically
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        color = Surface // خلفية الشريط الكلية
     ) {
-        OutlinedTextField(
-            value = value,
-            onValueChange = onValueChange,
-            label = {
-                Text(
-                    "Write Your Message...",
-                    color = Color(0x99FFFFFF)
-                )
-            },
-
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = Color.Transparent,
-                unfocusedContainerColor = Color.Transparent,
-                cursorColor = OnPrimary,
-                focusedBorderColor = Primary,
-                unfocusedBorderColor = Color(0xAAFFFFFF)
-            ),
-            textStyle = TextStyle(color = OnPrimary),
-            modifier = Modifier.weight(1f)
-        )
-        Spacer(Modifier.width(8.dp))
-        Button(
-            onClick = onSendClick,
-            enabled = value.isNotBlank(),
-
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Primary,
-                contentColor = OnPrimary
-            )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Text("Send")
+            TextField(
+                value = value,
+                onValueChange = onValueChange,
+                placeholder = {
+                    Text(
+                        "Write your message...",
+                        color = OnPrimary.copy(alpha = 0.6f)
+                    )
+                },
+                singleLine = false,
+                shape = RoundedCornerShape(24.dp),
+                colors = TextFieldDefaults.colors(
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                    // جعل لون خلفية حقل النص مختلفاً قليلاً عن خلفية الشريط
+                    focusedContainerColor = Surface.copy(alpha = 0.9f),
+                    unfocusedContainerColor = Surface.copy(alpha = 0.9f),
+                    cursorColor = Primary,
+                    focusedTextColor = OnPrimary,
+                    unfocusedTextColor = OnPrimary,
+                ),
+                modifier = Modifier.weight(1f)
+            )
+
+            Spacer(Modifier.width(8.dp))
+
+
+            IconButton(
+                onClick = onSendClick,
+                enabled = value.isNotBlank(),
+                modifier = Modifier
+                    .size(48.dp)
+                    .clip(CircleShape)
+                    .background(if (value.isNotBlank()) Primary else Color.Gray.copy(alpha = 0.5f))
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Send,
+                    contentDescription = "Send Message",
+                    tint = OnPrimary
+                )
+            }
         }
     }
 }
 
-
-
+/**
+ * Message bubble using custom Primary and Surface colors.
+ */
 @Composable
-fun MessageBubble(message: ChatMessage, currentUserId: String) {
+private fun MessageBubble(message: ChatMessage, currentUserId: String) {
     val isUserMessage = message.senderId == currentUserId
+
+
+    val bubbleColor = if (isUserMessage) {
+        Primary
+    } else {
+        Surface.copy(alpha = 0.8f)
+    }
+    val contentColor = OnPrimary
 
     Row(
         modifier = Modifier
@@ -192,30 +210,31 @@ fun MessageBubble(message: ChatMessage, currentUserId: String) {
         horizontalArrangement = if (isUserMessage) Arrangement.End else Arrangement.Start
     ) {
         Card(
-
-            colors = CardDefaults.cardColors(
-
-                containerColor = if (isUserMessage) Primary else Surface
-            ),
-
-            shape = if (isUserMessage) RoundedCornerShape(topStart = 16.dp, bottomStart = 16.dp, bottomEnd = 4.dp)
-            else RoundedCornerShape(topEnd = 16.dp, bottomEnd = 16.dp, bottomStart = 4.dp)
+            colors = CardDefaults.cardColors(containerColor = bubbleColor, contentColor = contentColor),
+            shape = if (isUserMessage) {
+                RoundedCornerShape(topStart = 16.dp, bottomStart = 16.dp, bottomEnd = 4.dp)
+            } else {
+                RoundedCornerShape(topEnd = 16.dp, bottomEnd = 16.dp, bottomStart = 4.dp)
+            },
+            elevation = CardDefaults.cardElevation(1.dp)
         ) {
-            Column(modifier = Modifier.padding(8.dp)) {
+            Column(modifier = Modifier.padding(10.dp)) {
                 if (!isUserMessage) {
                     Text(
                         text = message.senderName,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 12.sp,
-                        color = MaterialTheme.colorScheme.primary
+                        style = MaterialTheme.typography.labelMedium,
+                        color = Primary
                     )
+                    Spacer(modifier = Modifier.height(2.dp))
                 }
 
-                Text(text = message.text, color = OnPrimary)
-
+                Text(
+                    text = message.text,
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = contentColor
+                )
             }
         }
     }
 }
-
-

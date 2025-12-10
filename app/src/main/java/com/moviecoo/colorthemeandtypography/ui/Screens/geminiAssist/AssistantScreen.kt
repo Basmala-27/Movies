@@ -230,6 +230,9 @@ fun InputBar(
     isLoading: Boolean,
     modifier: Modifier = Modifier
 ) {
+
+
+
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -246,7 +249,11 @@ fun InputBar(
                 unfocusedContainerColor = Color.Transparent,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
-                cursorColor = OrangeAccent
+                cursorColor = OrangeAccent,
+
+                focusedTextColor = Color.White,
+                unfocusedTextColor = Color.White
+
             ),
             singleLine = true,
             modifier = Modifier.weight(1f).padding(start = 16.dp, end = 8.dp),

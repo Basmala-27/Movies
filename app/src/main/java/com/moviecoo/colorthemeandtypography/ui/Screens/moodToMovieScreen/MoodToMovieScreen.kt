@@ -37,9 +37,9 @@ fun MoodToMovieScreen(
     fontSizeViewModel: FontSizeViewModel ,
     navController: NavController
 ) {
-    val scale = LocalFontScale.current
     val movies = remember { mutableStateOf<List<MovieUiModel>>(emptyList()) }
     val selectedMovie = remember { mutableStateOf<MovieUiModel?>(null) }
+    val scale = fontSizeViewModel.fontScale.value
 
     LaunchedEffect(genreId) {
         kotlinx.coroutines.delay(1500)
