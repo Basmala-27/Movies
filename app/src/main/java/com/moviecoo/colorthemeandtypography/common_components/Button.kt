@@ -80,4 +80,42 @@ fun AuthButton(
                 }
             }
         },
-        enabled = isEnabled, // Controls
+        enabled = isEnabled, // Controls visual and functional enabled state.
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Color(0xFF0E3E62),
+            // Semi-transparent color when disabled, including when isLoading is true.
+            disabledContainerColor = Color(0xFF0E3E62).copy(alpha = 0.5f)
+        ),
+        shape = RoundedCornerShape(13.dp),
+        modifier = Modifier
+            .width(width)
+            .height(height)
+    ) {
+        // 3. Content Logic (Text vs. Spinner)
+        if (isLoading) {
+            // Show the loading spinner when the asynchronous action is running.
+            CircularProgressIndicator(
+                color = Color.White,
+                strokeWidth = 3.dp,
+                modifier = Modifier.height(24.dp) // Defined size for the spinner
+            )
+        } else {
+            // Show the button text when ready for interaction.
+            Text(
+                text = buttonText,
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Medium,
+                fontFamily = FontFamily(Font(R.font.inter_medium)),
+                style = TextStyle(
+                    // Adds a subtle glow/shadow effect to the text.
+                    shadow = Shadow(
+                        color = Color.White,
+                        offset = Offset(0f, 0f),
+                        blurRadius = 6f
+                    )
+                )
+            )
+        }
+    }
+}

@@ -9,17 +9,27 @@ class MoodToMovieRepository (private val api: MovieApi){
 
         suspend fun getMoviesByMood(genreIds: String): List<MovieUiModel> {
             val response = api.getMoviesByGenre(genreIds = genreIds)
+
             if (response.isSuccessful) {
                 return response.body()?.results?.map { movie ->
+
+                    val releaseDate = movie.release_date
+
+                    val safeYear = if (releaseDate.length >= 4) {
+                        releaseDate.substring(0, 4)
+                    } else {
+                        "Unknown Year"
+                    }
                     MovieUiModel(
                         id = movie.id,
                         title = movie.title,
-                        year = movie.release_date.substring(0, 4),
+                        year = safeYear,
                        description = movie.overview,
                         genre = movie.genre_ids.toString(),
                         rating = movie.vote_average,
                         image = IMAGE_ENDPOINT + "${movie.poster_path}"
                     )
+
                 } ?: emptyList()
             } else {
                 throw Exception("API Error: ${response.code()}")
